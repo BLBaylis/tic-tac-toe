@@ -13,6 +13,9 @@ class Game extends React.Component {
     handleClick = (gridNo) => {
         const gameLog = this.state.gameLog.slice();
         const currentTurn = gameLog[gameLog.length - 1].slice();
+        if (this.winCheck(currentTurn) || currentTurn[gridNo]){
+            return;
+        }
         currentTurn[gridNo] = this.state.userTurn ? "user" : "ai";
         this.setState({
             gameLog : gameLog.concat([currentTurn]),
@@ -20,6 +23,17 @@ class Game extends React.Component {
             userTurn : !(this.state.userTurn)
         });
     };
+
+    winCheck = (gameBoard) => {
+        const lines = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 5, 7]];
+        for (let i = 0; i < lines.length; i++) {
+            const [a, b, c] = lines[i];
+            if (gameBoard[a] && gameBoard[a] === gameBoard[b] && gameBoard[a] === gameBoard[c]) {
+                return lines[i];
+            }
+        }
+        return false;
+    }
 
     render() {
         return (
