@@ -1,4 +1,5 @@
 import React from "react";
+import styles from './Grid.module.scss';
 import GameSquare from "../gameSquare/GameSquare";
 
 class Grid extends React.Component {
@@ -8,22 +9,16 @@ class Grid extends React.Component {
 
   render() {
     return (
-      <div className="grid">
-        <div className="row">
+      <div className={styles.grid}>
           {this.renderSquare()}
           {this.renderSquare()}
           {this.renderSquare()}
-        </div>
-        <div className="row">
           {this.renderSquare()}
           {this.renderSquare()}
           {this.renderSquare()}
-        </div>
-        <div className="row">
           {this.renderSquare()}
           {this.renderSquare()}
           {this.renderSquare()}
-        </div>
       </div>
     );
   }

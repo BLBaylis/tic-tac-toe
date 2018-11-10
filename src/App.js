@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import Grid from "./components/grid/Grid";
-import "./App.css";
+import styles from "./App.module.scss";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
+      <div className={styles.app}>
+        <header className={styles.appHeader}>
           <h1>Brad's Tic Tac Toe</h1>
-          <Grid />
         </header>
+        <Grid/>
       </div>
     );
   }

@@ -1,8 +1,8 @@
 import React from "react";
+import styles from "./GameSquare.module.scss";
 
 const GameSquare = props => (
-  //change class to styles.gameSquare
-  <div className={"gameSquare"} />
+  <div className={styles.gameSquare} />
 );
 
 export default GameSquare;
