@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Grid from "./components/grid/Grid";
+import Game from "./components/game/Game";
 import styles from "./App.module.scss";
 
 class App extends Component {
@@ -9,7 +9,7 @@ class App extends Component {
         <header className={styles.appHeader}>
           <h1>Brad's Tic Tac Toe</h1>
         </header>
-        <Grid/>
+        <Game/>
       </div>
     );
   }
