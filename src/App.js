@@ -9,7 +9,7 @@ class App extends Component {
         <header className={styles.appHeader}>
           <h1>Brad's Tic Tac Toe</h1>
         </header>
-        <Game/>
+        <Game />
       </div>
     );
   }
