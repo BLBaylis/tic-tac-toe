@@ -15,14 +15,13 @@ class Game extends React.Component {
     if (this.winCheck(currentTurn) || currentTurn[gridNo]) {
       return;
     }
-    currentTurn[gridNo] = this.state.userTurn ? "user" : "ai";
+    currentTurn[gridNo] = this.state.userTurn ? "user" : "comp";
     this.setState(
       prevState => ({
         gameLog: prevState.gameLog.concat([currentTurn]),
         turnNo: prevState.turnNo + 1,
         userTurn: !prevState.userTurn
-      }),
-      () => console.log(this.state)
+      })
     );
   };
 
@@ -35,7 +34,7 @@ class Game extends React.Component {
       [1, 4, 7],
       [2, 5, 8],
       [0, 4, 8],
-      [2, 5, 7]
+      [2, 4, 7]
     ];
     for (let i = 0; i < lines.length; i++) {
       const [a, b, c] = lines[i];
@@ -64,24 +63,24 @@ class Game extends React.Component {
         gameLog: prevState.gameLog.slice(0, prevState.gameLog.length - 1),
         turnNo: prevState.turnNo - 1,
         userTurn: !prevState.userTurn
-      }),
-      () => console.log(this.state)
+      })
     );
   };
 
   render() {
+    const currentTurn = this.state.gameLog[this.state.gameLog.length - 1];
     return (
       <div className={styles.game}>
         <div className={styles.grid}>
-          <GameSquare onClick={() => this.handleClick(0)} />
-          <GameSquare onClick={() => this.handleClick(1)} />
-          <GameSquare onClick={() => this.handleClick(2)} />
-          <GameSquare onClick={() => this.handleClick(3)} />
-          <GameSquare onClick={() => this.handleClick(4)} />
-          <GameSquare onClick={() => this.handleClick(5)} />
-          <GameSquare onClick={() => this.handleClick(6)} />
-          <GameSquare onClick={() => this.handleClick(7)} />
-          <GameSquare onClick={() => this.handleClick(8)} />
+          <GameSquare value = {currentTurn[0]} onClick={() => this.handleClick(0)} />
+          <GameSquare value = {currentTurn[1]} onClick={() => this.handleClick(1)} />
+          <GameSquare value = {currentTurn[2]} onClick={() => this.handleClick(2)} />
+          <GameSquare value = {currentTurn[3]} onClick={() => this.handleClick(3)} />
+          <GameSquare value = {currentTurn[4]} onClick={() => this.handleClick(4)} />
+          <GameSquare value = {currentTurn[5]} onClick={() => this.handleClick(5)} />
+          <GameSquare value = {currentTurn[6]} onClick={() => this.handleClick(6)} />
+          <GameSquare value = {currentTurn[7]} onClick={() => this.handleClick(7)} />
+          <GameSquare value = {currentTurn[8]} onClick={() => this.handleClick(8)} />
         </div>
         <button onClick={this.restart}>restart</button>
         <button onClick={this.undoTurn}>undo</button>
