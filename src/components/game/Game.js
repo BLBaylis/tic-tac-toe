@@ -12,9 +12,11 @@ class Game extends React.Component {
 
   handleClick = (squareNo, board) => {   
     //FIX USER NOT BEING ABLE TO WIN / MOVE 9 NOT WORKING
-    if (this.winCheck(board) || board[squareNo]) {
+    console.log(board[squareNo]);
+    if (board[squareNo] || this.winCheck(squareNo, board)) {
       return;
     }
+    console.log("passed");
     this.setState(prevState => {
       const boardClone = prevState.board.slice();
       if (prevState.gameLog[prevState.turnNo + 1]){
@@ -30,28 +32,42 @@ class Game extends React.Component {
     });
   };
 
-  winCheck = gameBoard => {
-    const lines = [
-      [0, 1, 2],
-      [3, 4, 5],
-      [6, 7, 8],
-      [0, 3, 6],
-      [1, 4, 7],
-      [2, 5, 8],
-      [0, 4, 8],
-      [2, 4, 7]
-    ];
-    for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
-      if (
-        gameBoard[a] &&
-        gameBoard[a] === gameBoard[b] &&
-        gameBoard[a] === gameBoard[c]
-      ) {
-        return lines[i];
-      }
+  winCheck = (squareNumber, gameBoard, lineLength = 3) => {
+
+    const horizontalLineChecker = (squareNumber, gameBoard, lineLength = 3) => {
+      const rowNum = Math.floor(squareNumber / lineLength);
+      const arr = Array(lineLength).fill().map((x, index) => index * rowNum);
+      return arr.every(x => gameBoard[x] === gameBoard[rowNum]);
+    };
+
+    const verticalLineChecker = (squareNumber, gameBoard, lineLength = 3) => {
+      const colNum = squareNumber % lineLength;
+      const arr = Array(lineLength).fill().map((x, index) => (index * lineLength) + colNum);
+      return arr.every(x => gameBoard[x] === gameBoard[colNum]);
+    };
+
+    const diagonalLineChecker = (gameBoard, lineLength = 3) => {
+      const diag1 = Array(lineLength).fill().map((x, index) => (index * lineLength) + index);
+      const diag2 = Array(lineLength).fill().map((x, index) => (index * lineLength) - index);
+      return [diag1, diag2].some(x => x.every(x => gameBoard[x] === gameBoard[4]));
+    };
+
+    if (lineLength % 2 === 0 || lineLength < 3) {
+        throw new Error("LineLength needs to be an odd number bigger than 3");
+    }
+    const n = ((lineLength - 1) / 2);
+    const center = (lineLength * n) - n;
+    if (horizontalLineChecker(center, gameBoard, lineLength) || verticalLineChecker(center, gameBoard, lineLength) || diagonalLineChecker(center, gameBoard, lineLength)) {
+        return true;
+    }
+    if (horizontalLineChecker(0, gameBoard, lineLength) || verticalLineChecker(0, gameBoard, lineLength)) {
+        return true;
+    }
+    if (horizontalLineChecker(gameBoard.length - 1, gameBoard, lineLength) || verticalLineChecker(gameBoard.length - 1, gameBoard, lineLength)) {
+        return true;
     }
     return false;
+
   };
 
   restart = () => {
