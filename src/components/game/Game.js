@@ -4,25 +4,29 @@ import GameSquare from "../gameSquare/GameSquare";
 
 class Game extends React.Component {
   state = {
-    gameLog: [Array(9).fill(null)],
+    board: Array(9).fill(null),
+    gameLog: [{board: Array(9).fill(null), turnNo : 0, userTurn: true}],
     turnNo: 0,
     userTurn: true
   };
 
-  handleClick = gridNo => {
-    const gameLog = this.state.gameLog.slice();
-    const currentTurn = gameLog[gameLog.length - 1].slice();
-    if (this.winCheck(currentTurn) || currentTurn[gridNo]) {
+  handleClick = (squareNo, board) => {   
+    if (this.winCheck(board) || board[squareNo]) {
       return;
     }
-    currentTurn[gridNo] = this.state.userTurn ? "user" : "comp";
-    this.setState(
-      prevState => ({
-        gameLog: prevState.gameLog.concat([currentTurn]),
-        turnNo: prevState.turnNo + 1,
-        userTurn: !prevState.userTurn
-      })
-    );
+    this.setState(prevState => {
+      const boardClone = prevState.board.slice();
+      if (prevState.gameLog[prevState.turnNo + 1]){
+        prevState.gameLog = prevState.gameLog.slice(0, prevState.turnNo + 1);
+      }
+      const nonGameLogStateChanges = {
+        board : boardClone,
+        turnNo : prevState.turnNo + 1,
+        userTurn : !(prevState.userTurn)
+      };
+      nonGameLogStateChanges.board[squareNo] = prevState.userTurn ? "user" : "comp";
+      return {gameLog : prevState.gameLog.concat(nonGameLogStateChanges), ...nonGameLogStateChanges};
+    });
   };
 
   winCheck = gameBoard => {
@@ -51,39 +55,86 @@ class Game extends React.Component {
 
   restart = () => {
     this.setState({
-      gameLog: [Array(9).fill(null)],
+      board: [Array(9).fill(null)],
       turnNo: 0,
-      userTurn: true
+      userTurn: true,
+      gameLog: [{board: Array(9).fill(null), turnNo : 0, userTurn: true}]
     });
   };
 
   undoTurn = () => {
-    this.setState(
-      prevState => ({
-        gameLog: prevState.gameLog.slice(0, prevState.gameLog.length - 1),
-        turnNo: prevState.turnNo - 1,
-        userTurn: !prevState.userTurn
-      })
-    );
+    this.setState(prevState => {
+      const lastTurnState = prevState.gameLog[prevState.turnNo - 1];
+      if (!lastTurnState) {
+        return;
+    }
+      return {
+        board: lastTurnState.board,
+        turnNo: lastTurnState.turnNo,
+        userTurn: lastTurnState.userTurn
+      }
+    });
+  };
+
+  redoTurn = () => {
+    this.setState(prevState => {
+      const nextTurnState = prevState.gameLog[prevState.turnNo + 1];
+      if (!nextTurnState) {
+        return;
+    }
+      return {
+        board: nextTurnState.board,
+        turnNo: nextTurnState.turnNo,
+        userTurn: nextTurnState.userTurn
+      }
+    });
   };
 
   render() {
-    const currentTurn = this.state.gameLog[this.state.gameLog.length - 1];
+    const board = this.state.board;
     return (
       <div className={styles.game}>
         <div className={styles.grid}>
-          <GameSquare value = {currentTurn[0]} onClick={() => this.handleClick(0)} />
-          <GameSquare value = {currentTurn[1]} onClick={() => this.handleClick(1)} />
-          <GameSquare value = {currentTurn[2]} onClick={() => this.handleClick(2)} />
-          <GameSquare value = {currentTurn[3]} onClick={() => this.handleClick(3)} />
-          <GameSquare value = {currentTurn[4]} onClick={() => this.handleClick(4)} />
-          <GameSquare value = {currentTurn[5]} onClick={() => this.handleClick(5)} />
-          <GameSquare value = {currentTurn[6]} onClick={() => this.handleClick(6)} />
-          <GameSquare value = {currentTurn[7]} onClick={() => this.handleClick(7)} />
-          <GameSquare value = {currentTurn[8]} onClick={() => this.handleClick(8)} />
+          <GameSquare
+            value={board[0]}
+            onClick={() => this.handleClick(0, board)}
+          />
+          <GameSquare
+            value={board[1]}
+            onClick={() => this.handleClick(1, board)}
+          />
+          <GameSquare
+            value={board[2]}
+            onClick={() => this.handleClick(2, board)}
+          />
+          <GameSquare
+            value={board[3]}
+            onClick={() => this.handleClick(3, board)}
+          />
+          <GameSquare
+            value={board[4]}
+            onClick={() => this.handleClick(4, board)}
+          />
+          <GameSquare
+            value={board[5]}
+            onClick={() => this.handleClick(5, board)}
+          />
+          <GameSquare
+            value={board[6]}
+            onClick={() => this.handleClick(6, board)}
+          />
+          <GameSquare
+            value={board[7]}
+            onClick={() => this.handleClick(7, board)}
+          />
+          <GameSquare
+            value={board[8]}
+            onClick={() => this.handleClick(8, board)}
+          />
         </div>
         <button onClick={this.restart}>restart</button>
         <button onClick={this.undoTurn}>undo</button>
+        <button onClick={this.redoTurn}>redo</button>
       </div>
     );
   }
