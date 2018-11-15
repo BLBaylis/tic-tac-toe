@@ -1,7 +1,13 @@
 .grid {
-  height: 500px;
-  width: 500px;
-  margin: 20px auto;
+  height: calc(100% - 50px);
+  width: calc(100% - 50px);
+  margin : 0 auto;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+}
+
+.btn {
+    min-height : 40px;
+    min-width : 40px;
+    margin : 5px;
 }

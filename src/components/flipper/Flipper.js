@@ -6,10 +6,10 @@ const Flipper = (props) => {
     return (
       <div className={styles.flipperContainer}>
         <div className={`${styles.flipper} ${flipped}`}>
-          <div className={`${styles.front} ${styles.panel}`}>
+          <div className={styles.front}>
             {props.front}
           </div>
-          <div className={`${styles.back} ${styles.panel}`}>
+          <div className={styles.back}>
             {props.back}
           </div>
         </div>

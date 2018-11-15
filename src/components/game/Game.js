@@ -86,12 +86,12 @@ class Game extends React.Component {
 
   render() {
     return (
-      <div className={styles.game}>
+      <React.Fragment>
         <div className={styles.grid}>{this.generateSquares(9)}</div>
-        <button onClick={this.restart}>restart</button>
-        <button onClick={this.undoTurn}>undo</button>
-        <button onClick={this.redoTurn}>redo</button>
-      </div>
+        <button className = {styles.btn} onClick={this.restart}>restart</button>
+        <button className = {styles.btn} onClick={this.undoTurn}>undo</button>
+        <button className = {styles.btn} onClick={this.redoTurn}>redo</button>
+      </React.Fragment>
     );
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Game from "./components/game/Game";
 import Flipper from "./components/flipper/Flipper";
+import Settings from './components/settings/Settings';
 import styles from "./App.module.scss";
 
 class App extends Component {
@@ -19,7 +20,7 @@ class App extends Component {
         <header className={styles.appHeader}>
           <h1>Brad's Tic Tac Toe</h1>
         </header>
-        <Flipper flipped = {this.state.gameFlipped} front={<Game />} back={<div />} />
+        <Flipper flipped = {this.state.gameFlipped} front={<Game />} back={<Settings />} />
         <button onClick = {this.gameFlip}>SETTINGS</button>
       </div>
     );
