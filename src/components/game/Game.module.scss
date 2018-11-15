@@ -1,9 +1,15 @@
+@for $i from 1 through 3 {
+  $value: 2*$i + 1;
+  .grid-#{$value} {
+    @extend .grid;
+    grid-template-columns : repeat(#{$value}, 1fr)}
+}
+
 .grid {
   height: calc(100% - 50px);
   width: calc(100% - 50px);
   margin : 0 auto;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
 }
 
 .btn {

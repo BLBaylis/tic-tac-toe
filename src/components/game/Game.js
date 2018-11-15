@@ -85,9 +85,10 @@ class Game extends React.Component {
   };
 
   render() {
+    const gridClassname = styles[`grid-${this.props.gridSize}`];
     return (
       <React.Fragment>
-        <div className={styles.grid}>{this.generateSquares(9)}</div>
+        <div className={gridClassname}>{this.generateSquares(this.props.gridSize**2)}</div>
         <button className = {styles.btn} onClick={this.restart}>restart</button>
         <button className = {styles.btn} onClick={this.undoTurn}>undo</button>
         <button className = {styles.btn} onClick={this.redoTurn}>redo</button>
