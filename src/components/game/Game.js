@@ -18,6 +18,12 @@ class Game extends React.Component {
   };
 
   handleClick = (squareNo, board) => {
+    this.makeMove(squareNo, board);
+    //calculateCompMove()
+    // call makeMove again using results of calculateCompMove()
+  };
+
+  makeMove = (squareNo, board) => {
     if (board[squareNo] || winCheck(squareNo, board, this.props.gridSize)) {
       return;
     }
@@ -45,7 +51,7 @@ class Game extends React.Component {
     this.setState({
       board: Array(this.props.gridSize ** 2).fill(null),
       turnNo: 0,
-      userTurn: true,
+      userTurn: this.props.firstMove === "user" ? true : false,
       gameLog: [{ board: Array(9).fill(null), turnNo: 0, userTurn: true }]
     });
   };
