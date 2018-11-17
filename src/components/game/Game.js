@@ -1,18 +1,24 @@
 import React from "react";
 import styles from "./Game.module.scss";
 import GameSquare from "../gameSquare/GameSquare";
-import winCheck from "../../gameLogic";
+import winCheck from "../../gameLogic/winCheck";
 
 class Game extends React.Component {
   state = {
-    board: Array(9).fill(null),
-    gameLog: [{ board: Array(9).fill(null), turnNo: 0, userTurn: true }],
+    board: Array(this.props.gridSize ** 2).fill(null),
+    gameLog: [
+      {
+        board: Array(this.props.gridSize ** 2).fill(null),
+        turnNo: 0,
+        userTurn: this.props.firstMove === "user" ? true : false
+      }
+    ],
     turnNo: 0,
-    userTurn: true
+    userTurn: this.props.firstMove === "user" ? true : false
   };
 
   handleClick = (squareNo, board) => {
-    if (board[squareNo] || winCheck(squareNo, board)) {
+    if (board[squareNo] || winCheck(squareNo, board, this.props.gridSize)) {
       return;
     }
     this.setState(prevState => {
@@ -37,7 +43,7 @@ class Game extends React.Component {
 
   restart = () => {
     this.setState({
-      board: Array(9).fill(null),
+      board: Array(this.props.gridSize ** 2).fill(null),
       turnNo: 0,
       userTurn: true,
       gameLog: [{ board: Array(9).fill(null), turnNo: 0, userTurn: true }]
@@ -88,10 +94,18 @@ class Game extends React.Component {
     const gridClassname = styles[`grid-${this.props.gridSize}`];
     return (
       <React.Fragment>
-        <div className={gridClassname}>{this.generateSquares(this.props.gridSize**2)}</div>
-        <button className = {styles.btn} onClick={this.restart}>restart</button>
-        <button className = {styles.btn} onClick={this.undoTurn}>undo</button>
-        <button className = {styles.btn} onClick={this.redoTurn}>redo</button>
+        <div className={gridClassname}>
+          {this.generateSquares(this.props.gridSize ** 2)}
+        </div>
+        <button className={styles.btn} onClick={this.restart}>
+          restart
+        </button>
+        <button className={styles.btn} onClick={this.undoTurn}>
+          undo
+        </button>
+        <button className={styles.btn} onClick={this.redoTurn}>
+          redo
+        </button>
       </React.Fragment>
     );
   }

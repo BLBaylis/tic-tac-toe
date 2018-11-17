@@ -1,26 +1,25 @@
 import React, { Component } from "react";
 import Game from "./components/game/Game";
 import Flipper from "./components/flipper/Flipper";
-import Settings from './components/settings/Settings';
+import Settings from "./components/settings/Settings";
 import styles from "./App.module.scss";
 
 class App extends Component {
-
   state = {
-    gameFlipped : false,
-    gridSize : 3,
-    firstMove : "user"
-  }
+    gameFlipped: false,
+    gridSize: 3,
+    firstMove: "user"
+  };
 
   gameFlip = () => {
-    this.setState((prevState) => ({gameFlipped : !(prevState.gameFlipped)}))
-  }
+    this.setState(prevState => ({ gameFlipped: !prevState.gameFlipped }));
+  };
 
   changeSetting = (settingType, newSetting) => {
     const obj = {};
     obj[settingType] = newSetting;
-    this.setState(obj)
-  }
+    this.setState(obj);
+  };
 
   render() {
     return (
@@ -28,8 +27,17 @@ class App extends Component {
         <header className={styles.appHeader}>
           <h1>Brad's Tic Tac Toe</h1>
         </header>
-        <Flipper flipped = {this.state.gameFlipped} front={<Game gridSize = {this.state.gridSize} firstMove = {this.state.firstMove}/>} back={<Settings onClick = {this.changeSetting}/>} />
-        <button onClick = {this.gameFlip}>SETTINGS</button>
+        <Flipper
+          flipped={this.state.gameFlipped}
+          front={
+            <Game
+              gridSize={this.state.gridSize}
+              firstMove={this.state.firstMove}
+            />
+          }
+          back={<Settings onClick={this.changeSetting} />}
+        />
+        <button onClick={this.gameFlip}>SETTINGS</button>
       </div>
     );
   }
