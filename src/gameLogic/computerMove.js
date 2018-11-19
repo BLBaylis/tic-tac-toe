@@ -1,16 +1,14 @@
-import compHasCenter from './compHasCenter';
+import compHasCenter from "./compHasCenter";
 
-const calculateCompMove = (centerSquareNo) => {
-    let result;
-    if (centerSquareNo === "empty") {
-        //computer takes center
-    }
-    if (centerSquareNo === "comp") {
-        compHasCenter();
-    } else if (centerSquareNo === "user") {
-        userHasCenter();
-    }
-    return result; //should be a squareNo
-}
+const calculateCompMove = centerSquareNo => {
+  if (!centerSquareNo) {
+    //computer takes center
+  }
+  if (centerSquareNo === "comp") {
+    return compHasCenter();
+  } /*else if (centerSquareNo === "user") {
+    return userHasCenter();
+  }*/
+};
 
 export default calculateCompMove;
