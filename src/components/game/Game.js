@@ -32,8 +32,8 @@ class Game extends React.Component {
   handleClick = (squareNo, board) => {
     this.makeMove(squareNo, board, () =>
       this.makeMove(
-        computerMove(board, this.state.lines, this.state.center),
-        board,
+        computerMove(this.state.board, this.state.lines, this.state.center),
+        this.state.board,
         () => console.log(this.state)
       )
     );

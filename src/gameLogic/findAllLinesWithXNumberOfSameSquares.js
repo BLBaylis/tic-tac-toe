@@ -4,9 +4,10 @@ const findAllLinesWithXNumberOfSquareType = (
   squareType,
   lines
 ) => {
-  return lines.filter(x =>
-    checkLineForXNumberOfSquareType(quantity, x, squareType)
+  lines = lines.filter(x =>
+    checkLineForXNumberOfSquareType(quantity, x, squareType, board)
   );
+  return lines;
 };
 
 export const isOtherSpaceEmpty = (line, board) => {
@@ -32,7 +33,11 @@ export const checkLineForXNumberOfSquareType = (
   squareType,
   board
 ) => {
-  return line.filter(x => board[x] === squareType).length === quantity;
+  const matchingSquares = line.filter(x => board[x] === squareType);
+  if (matchingSquares.length === quantity){
+    return true
+  };
+  return false;
 };
 
 export default findAllLinesWithXNumberOfSquareType;

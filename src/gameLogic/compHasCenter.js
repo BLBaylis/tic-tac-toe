@@ -1,31 +1,40 @@
-//import generateAllLines from "./generateAllLines";
 import findAllLinesWithXNumberOfSquareType, {
   isOtherSpaceEmpty
 } from "./findAllLinesWithXNumberOfSameSquares";
 import processUserLinesLength1 from "./processUserLinesLength1";
 
 const compHasCenter = (board, lines) => {
+  let emptySpace, line;
   const userLinesLength1 = findAllLinesWithXNumberOfSquareType(
-    board,
     1,
-    "user"
+    board,
+    "user",
+    lines.allWinningLines
   );
   const compLinesLength2 = findAllLinesWithXNumberOfSquareType(
-    board,
     2,
-    "comp"
+    board,
+    "comp",
+    lines.allWinningLines
   );
   const userLinesLength2 = findAllLinesWithXNumberOfSquareType(
-    board,
     2,
-    "user"
+    board,
+    "user",
+    lines.allWinningLines
   );
   if (compLinesLength2.length) {
-    compLinesLength2.filter(x => isOtherSpaceEmpty(x));
-    return chooseRandomSquareIndex(compLinesLength2);
+    if (compLinesLength2.filter(x => isOtherSpaceEmpty(x, board))){
+      line = chooseRandomSquareIndex(compLinesLength2);
+      emptySpace = line.filter(x => board[x] === null);
+      return chooseRandomSquareIndex(emptySpace);
+    }
   } else if (userLinesLength2.length) {
-    userLinesLength2.filter(x => isOtherSpaceEmpty(x));
-    return chooseRandomSquareIndex(lines.middleEdges);
+    if (userLinesLength2.filter(x => isOtherSpaceEmpty(x, board))){
+      line = chooseRandomSquareIndex(userLinesLength2);
+      emptySpace = line.filter(x => board[x] === null);
+      return chooseRandomSquareIndex(emptySpace);
+    }
   } else if (userLinesLength1.length > 1) {
     const userLinesLength1And0CompSquares = userLinesLength1
       .slice()
@@ -42,7 +51,7 @@ const compHasCenter = (board, lines) => {
 };
 
 export const chooseRandomSquareIndex = arr => {
-  return Math.floor(Math.random() * arr.length);
+  return arr[Math.floor(Math.random() * arr.length)];
 };
 
 export default compHasCenter;

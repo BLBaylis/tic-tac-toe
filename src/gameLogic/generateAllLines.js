@@ -10,10 +10,15 @@ import {
 
 const generateAllLines = lineLength => {
   return {
+    allWinningLines: [].concat(
+      generateColumns(lineLength),
+      generateRows(lineLength),
+      generateDiagonals(lineLength)
+    ),
     columns: generateColumns(lineLength),
     rows: generateRows(lineLength),
-    diagonals: generateDiagonals(lineLength),
-    middleEdges: generateMiddleEdgeSquares(lineLength)
+    diagonals: generateDiagonals,
+    middleEdgeSquares: generateMiddleEdgeSquares(lineLength)
   };
 };
 
