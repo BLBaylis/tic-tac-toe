@@ -3,11 +3,17 @@ import {
   generateColumnFromColNum
 } from "./generateLinesFromLineNum";
 
+import {
+  generateRowFromSquareIndex,
+  generateColumnFromSquareIndex
+} from "./generateLinesFromSquareIndex";
+
 const generateAllLines = lineLength => {
   return {
     columns: generateColumns(lineLength),
     rows: generateRows(lineLength),
-    diagonals: generateDiagonals(lineLength)
+    diagonals: generateDiagonals(lineLength),
+    middleEdges: generateMiddleEdgeSquares(lineLength)
   };
 };
 
@@ -25,11 +31,6 @@ const generateColumns = lineLength => {
   return colNo.map(x => generateColumnFromColNum(x, lineLength));
 };
 
-//const baseColumn = colNo.map((x, index) => index * lineLength);
-/*return Array(lineLength)
-    .fill(baseColumn)
-    .map((x, index) => x.map(x => x + index));*/
-
 const generateDiagonals = lineLength => {
   const diag1 = Array(lineLength)
     .fill()
@@ -40,6 +41,17 @@ const generateDiagonals = lineLength => {
   return [diag1, diag2];
 };
 
-const generateMiddleEdgeSquares = lineLength => {};
+export const generateMiddleEdgeSquares = lineLength => {
+  const firstAndLastSquare = [0, lineLength ** 2 - 1];
+  let edges = firstAndLastSquare.map(x =>
+    generateRowFromSquareIndex(x, lineLength)
+  );
+  edges = edges.concat(
+    firstAndLastSquare.map(x => generateColumnFromSquareIndex(x, lineLength))
+  );
+  return edges
+    .map(x => x.slice(1, x.length - 1))
+    .reduce((total, curr) => total.concat(curr), []);
+};
 
 export default generateAllLines;

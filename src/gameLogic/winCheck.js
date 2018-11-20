@@ -2,6 +2,7 @@ import {
   generateRowFromRowNum,
   generateColumnFromColNum
 } from "./generateLinesFromLineNum";
+import getCenterSquareIndex from "./getCenterSquareIndex";
 
 const rowChecker = (squareIndex, gameBoard, lineLength = 3) => {
   const rowNum = Math.floor(squareIndex / lineLength);
@@ -33,8 +34,7 @@ const winCheck = (squareNumber, gameBoard, lineLength = 3) => {
   if (lineLength % 2 === 0 || lineLength < 3) {
     throw new Error("LineLength needs to be an odd number bigger than 3");
   }
-  const n = (lineLength - 1) / 2;
-  const center = lineLength * n + n;
+  const center = getCenterSquareIndex(lineLength);
   const columns = Array(lineLength)
     .fill()
     .map((x, index) => index);

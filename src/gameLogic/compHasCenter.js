@@ -1,7 +1,7 @@
 //import generateAllLines from "./generateAllLines";
 import findAllLinesWithXNumberOfSquareType, {
   isOtherSpaceEmpty
-} from "./findAllLinesWithXNumberOfSquareType";
+} from "./findAllLinesWithXNumberOfSameSquares";
 import processUserLinesLength1 from "./processUserLinesLength1";
 
 const compHasCenter = (board, lines) => {
@@ -25,11 +25,11 @@ const compHasCenter = (board, lines) => {
     return chooseRandomSquareIndex(compLinesLength2);
   } else if (userLinesLength2.length) {
     userLinesLength2.filter(x => isOtherSpaceEmpty(x));
-    return chooseRandomSquareIndex(middleEdges);
+    return chooseRandomSquareIndex(lines.middleEdges);
   } else if (userLinesLength1.length > 1) {
     const userLinesLength1And0CompSquares = userLinesLength1
       .slice()
-      .filter(x => x.includes("comp"));
+      .filter(x => !x.includes("comp"));
     let adjacentLinesOfLength1 = processUserLinesLength1(
       userLinesLength1And0CompSquares,
       board,

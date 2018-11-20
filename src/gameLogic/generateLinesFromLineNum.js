@@ -1,7 +1,7 @@
 export const generateRowFromRowNum = (rowNum, lineLength) => {
   return Array(lineLength)
     .fill()
-    .map((x, index) => index + rowNum * lineLength);
+    .map((x, index) => rowNum * lineLength + index);
 };
 
 export const generateColumnFromColNum = (colNum, lineLength) => {

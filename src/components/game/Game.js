@@ -4,6 +4,7 @@ import GameSquare from "../gameSquare/GameSquare";
 import winCheck from "../../gameLogic/winCheck";
 import computerMove from "../../gameLogic/computerMove";
 import generateAllLines from "../../gameLogic/generateAllLines";
+import getCenterSquareIndex from "../../gameLogic/getCenterSquareIndex";
 
 class Game extends React.Component {
   state = {
@@ -12,20 +13,33 @@ class Game extends React.Component {
       {
         board: Array(this.props.gridSize ** 2).fill(null),
         turnNo: 0,
-        userTurn: this.props.firstMove === "user" ? true : false
+        userTurn: this.props.firstMove === "user" ? true : false,
+        center: {
+          index: getCenterSquareIndex(this.props.gridSize),
+          value: null
+        }
       }
     ],
     turnNo: 0,
     userTurn: this.props.firstMove === "user" ? true : false,
-    lines: generateAllLines(this.props.gridSize)
+    lines: generateAllLines(this.props.gridSize),
+    center: {
+      index: getCenterSquareIndex(this.props.gridSize),
+      value: null
+    }
   };
 
   handleClick = (squareNo, board) => {
-    this.makeMove(squareNo, board);
-    this.makeMove(computerMove(board, this.state.lines), board);
+    this.makeMove(squareNo, board, () =>
+      this.makeMove(
+        computerMove(board, this.state.lines, this.state.center),
+        board,
+        () => console.log(this.state)
+      )
+    );
   };
 
-  makeMove = (squareNo, board) => {
+  makeMove = (squareNo, board, callback) => {
     if (board[squareNo] || winCheck(squareNo, board, this.props.gridSize)) {
       return;
     }
@@ -37,16 +51,21 @@ class Game extends React.Component {
       const nonGameLogStateChanges = {
         board: boardClone,
         turnNo: prevState.turnNo + 1,
-        userTurn: !prevState.userTurn
+        userTurn: !prevState.userTurn,
+        center: prevState.center
       };
       nonGameLogStateChanges.board[squareNo] = prevState.userTurn
         ? "user"
         : "comp";
+      if (squareNo === nonGameLogStateChanges.center.index) {
+        nonGameLogStateChanges.center.value =
+          nonGameLogStateChanges.board[squareNo];
+      }
       return {
         gameLog: prevState.gameLog.concat(nonGameLogStateChanges),
         ...nonGameLogStateChanges
       };
-    });
+    }, callback);
   };
 
   restart = () => {
@@ -54,7 +73,21 @@ class Game extends React.Component {
       board: Array(this.props.gridSize ** 2).fill(null),
       turnNo: 0,
       userTurn: this.props.firstMove === "user" ? true : false,
-      gameLog: [{ board: Array(9).fill(null), turnNo: 0, userTurn: true }]
+      center: {
+        index: getCenterSquareIndex(this.props.gridSize),
+        value: null
+      },
+      gameLog: [
+        {
+          board: Array(9).fill(null),
+          turnNo: 0,
+          userTurn: true,
+          center: {
+            index: getCenterSquareIndex(this.props.gridSize),
+            value: null
+          }
+        }
+      ]
     });
   };
 
@@ -67,7 +100,8 @@ class Game extends React.Component {
       return {
         board: lastTurnState.board,
         turnNo: lastTurnState.turnNo,
-        userTurn: lastTurnState.userTurn
+        userTurn: lastTurnState.userTurn,
+        center: lastTurnState.center
       };
     });
   };
@@ -81,7 +115,8 @@ class Game extends React.Component {
       return {
         board: nextTurnState.board,
         turnNo: nextTurnState.turnNo,
-        userTurn: nextTurnState.userTurn
+        userTurn: nextTurnState.userTurn,
+        center: nextTurnState.center
       };
     });
   };

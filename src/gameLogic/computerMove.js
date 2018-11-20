@@ -1,10 +1,12 @@
 import compHasCenter from "./compHasCenter";
 
-const calculateCompMove = centerSquareNo => {
-  if (!centerSquareNo) {
-    //computer takes center
+const calculateCompMove = (board, line, centerSquareObj) => {
+  const centerIndex = centerSquareObj.index;
+  const centerValue = board[centerIndex];
+  if (!centerValue) {
+    return centerIndex;
   }
-  if (centerSquareNo === "comp") {
+  if (centerValue === "comp") {
     return compHasCenter();
   } /*else if (centerSquareNo === "user") {
     return userHasCenter();
