@@ -1,4 +1,4 @@
-import generateAllLines from "./generateAllLines";
+//import generateAllLines from "./generateAllLines";
 import findAllLinesWithXNumberOfSquareType, {
   isOtherSpaceEmpty
 } from "./findAllLinesWithXNumberOfSquareType";

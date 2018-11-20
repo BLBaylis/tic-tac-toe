@@ -1,22 +1,23 @@
-const horizontalLineChecker = (squareNumber, gameBoard, lineLength = 3) => {
-  const rowNum = Math.floor(squareNumber / lineLength);
-  const arr = Array(lineLength)
-    .fill()
-    .map((x, index) => index + rowNum * lineLength);
+import {
+  generateRowFromRowNum,
+  generateColumnFromColNum
+} from "./generateLinesFromLineNum";
+
+const rowChecker = (squareIndex, gameBoard, lineLength = 3) => {
+  const rowNum = Math.floor(squareIndex / lineLength);
+  const arr = generateRowFromRowNum(rowNum, lineLength);
   return arr.every(
     x => gameBoard[x] === gameBoard[rowNum * lineLength] && gameBoard[x]
   );
 };
 
-const verticalLineChecker = (squareNumber, gameBoard, lineLength = 3) => {
-  const colNum = squareNumber % lineLength;
-  const arr = Array(lineLength)
-    .fill()
-    .map((x, index) => index * lineLength + colNum);
+const columnChecker = (squareIndex, gameBoard, lineLength = 3) => {
+  const colNum = squareIndex % lineLength;
+  const arr = generateColumnFromColNum(colNum, lineLength);
   return arr.every(x => gameBoard[x] === gameBoard[colNum] && gameBoard[x]);
 };
 
-const diagonalLineChecker = (center, gameBoard, lineLength = 3) => {
+const diagonalChecker = (center, gameBoard, lineLength = 3) => {
   const diag1 = Array(lineLength)
     .fill()
     .map((x, index) => index * lineLength + index);
@@ -41,16 +42,16 @@ const winCheck = (squareNumber, gameBoard, lineLength = 3) => {
     .fill()
     .map((x, index) => index * lineLength);
   if (
-    horizontalLineChecker(center, gameBoard, lineLength) ||
-    verticalLineChecker(center, gameBoard, lineLength) ||
-    diagonalLineChecker(center, gameBoard, lineLength)
+    rowChecker(center, gameBoard, lineLength) ||
+    columnChecker(center, gameBoard, lineLength) ||
+    diagonalChecker(center, gameBoard, lineLength)
   ) {
     return true;
   }
-  if (columns.some(x => verticalLineChecker(x, gameBoard, lineLength))) {
+  if (columns.some(x => columnChecker(x, gameBoard, lineLength))) {
     return true;
   }
-  if (rows.some(x => horizontalLineChecker(x, gameBoard, lineLength))) {
+  if (rows.some(x => rowChecker(x, gameBoard, lineLength))) {
     return true;
   }
   return false;

@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./Game.module.scss";
 import GameSquare from "../gameSquare/GameSquare";
 import winCheck from "../../gameLogic/winCheck";
+import computerMove from "../../gameLogic/computerMove";
+import generateAllLines from "../../gameLogic/generateAllLines";
 
 class Game extends React.Component {
   state = {
@@ -14,13 +16,13 @@ class Game extends React.Component {
       }
     ],
     turnNo: 0,
-    userTurn: this.props.firstMove === "user" ? true : false
+    userTurn: this.props.firstMove === "user" ? true : false,
+    lines: generateAllLines(this.props.gridSize)
   };
 
   handleClick = (squareNo, board) => {
     this.makeMove(squareNo, board);
-    //calculateCompMove()
-    // call makeMove again using results of calculateCompMove()
+    this.makeMove(computerMove(board, this.state.lines), board);
   };
 
   makeMove = (squareNo, board) => {
