@@ -17,7 +17,8 @@ const generateAllLines = lineLength => {
     ),
     columns: generateColumns(lineLength),
     rows: generateRows(lineLength),
-    diagonals: generateDiagonals,
+    diagonals: generateDiagonals(lineLength),
+    edges : generateEdges(lineLength),
     middleEdgeSquares: generateMiddleEdgeSquares(lineLength)
   };
 };
@@ -46,15 +47,18 @@ const generateDiagonals = lineLength => {
   return [diag1, diag2];
 };
 
-export const generateMiddleEdgeSquares = lineLength => {
+const generateEdges = lineLength => {
   const firstAndLastSquare = [0, lineLength ** 2 - 1];
   let edges = firstAndLastSquare.map(x =>
     generateRowFromSquareIndex(x, lineLength)
   );
-  edges = edges.concat(
+  return edges = edges.concat(
     firstAndLastSquare.map(x => generateColumnFromSquareIndex(x, lineLength))
   );
-  return edges
+}
+
+export const generateMiddleEdgeSquares = lineLength => { 
+  return generateEdges(lineLength)
     .map(x => x.slice(1, x.length - 1))
     .reduce((total, curr) => total.concat(curr), []);
 };

@@ -93,7 +93,7 @@ class Game extends React.Component {
 
   undoTurn = () => {
     this.setState(prevState => {
-      const lastTurnState = prevState.gameLog[prevState.turnNo - 1];
+      const lastTurnState = prevState.gameLog[prevState.turnNo - 2];
       if (!lastTurnState) {
         return;
       }
@@ -108,7 +108,7 @@ class Game extends React.Component {
 
   redoTurn = () => {
     this.setState(prevState => {
-      const nextTurnState = prevState.gameLog[prevState.turnNo + 1];
+      const nextTurnState = prevState.gameLog[prevState.turnNo + 2];
       if (!nextTurnState) {
         return;
       }
