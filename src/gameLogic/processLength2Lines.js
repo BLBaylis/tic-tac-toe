@@ -3,9 +3,14 @@ import {chooseRandomNumber, chooseRandomSquareIndex} from './randomiserFunctions
 
 const processLength2Lines = (lines, board) => {
   let line, emptySpace;
-  if (lines.filter(x => isOtherSpaceEmpty(x, board)).length){
+  lines = lines.filter(x => isOtherSpaceEmpty(x, board));
+  if (lines.length){
+    console.log(lines);
+    console.log(lines.filter(x => isOtherSpaceEmpty(x, board)));
     line = lines[chooseRandomNumber(lines.length)];
+    console.log(line);
     emptySpace = line.filter(x => board[x] === null);
+    console.log(emptySpace);
     return chooseRandomSquareIndex(emptySpace, board);
   }
   return false;

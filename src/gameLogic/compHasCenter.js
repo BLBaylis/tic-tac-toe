@@ -3,8 +3,10 @@ import processLength2Lines from './processLength2Lines';
 import processUserEdgeLinesLength1 from './processUserEdgeLinesLength1'
 import {chooseRandomSquareIndex} from './randomiserFunctions';
 
-const compHasCenter = (board, lines) => {
+const compHasCenter = (board, lines, turnNo) => {
   let result;
+  const allBoardIndex = Array(lines.columns[0].length ** 2).fill().map((x, index) => index);
+  console.log(allBoardIndex);
   const userEdgeLinesLength1 = findAllLinesWithXNumberOfSquareType(
     1,
     board,
@@ -31,21 +33,20 @@ const compHasCenter = (board, lines) => {
   }
   if (userLinesLength2.length) {
     result = processLength2Lines(userLinesLength2, board);
-    console.log(result);
     if (typeof result === "number"){
       return result;
     } 
+    if (turnNo === 3) {return chooseRandomSquareIndex(lines.middleEdgeSquares, board)}
   } 
   if (userEdgeLinesLength1.length > 1) {
     result = processUserEdgeLinesLength1(userEdgeLinesLength1, board);
-    console.log(result);
     if (typeof result === "number"){
       return result;
     } else {
       return chooseRandomSquareIndex(lines.middleEdgeSquares, board);
     }
   } else {
-    return chooseRandomSquareIndex(board, board);
+    return chooseRandomSquareIndex(allBoardIndex, board);
   }
 };
 
