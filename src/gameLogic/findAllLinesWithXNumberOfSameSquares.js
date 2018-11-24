@@ -34,9 +34,9 @@ export const checkLineForXNumberOfSquareType = (
   board
 ) => {
   const matchingSquares = line.filter(x => board[x] === squareType);
-  if (matchingSquares.length === quantity){
-    return true
-  };
+  if (matchingSquares.length === quantity) {
+    return true;
+  }
   return false;
 };
 

@@ -1,23 +1,29 @@
-import {chooseRandomNumber, chooseRandomSquareIndex} from './randomiserFunctions';
+import {
+  chooseRandomNumber,
+  chooseRandomSquareIndex
+} from "./randomiserFunctions";
 
 const processUserEdgeLinesLength1 = (lines, board) => {
-    let line;
-    const userLinesLength1And0CompSquares = lines
-      .slice()
-      .filter(x => !x.map(x => board[x]).includes("comp"));
-    let adjacentLinePairsOfLength1 = processAdjacentLines(
-      userLinesLength1And0CompSquares,
-      board
-    );
-    
-    if (adjacentLinePairsOfLength1.length){
-      const pairOfAdjacentLines = adjacentLinePairsOfLength1[chooseRandomNumber(adjacentLinePairsOfLength1.length)];
-      line = pairOfAdjacentLines[chooseRandomNumber(pairOfAdjacentLines.length)];
-      return chooseRandomSquareIndex(line, board);
-    } else {
-      return false;
-    }
-}
+  let line;
+  const userLinesLength1And0CompSquares = lines
+    .slice()
+    .filter(x => !x.map(x => board[x]).includes("comp"));
+  let adjacentLinePairsOfLength1 = processAdjacentLines(
+    userLinesLength1And0CompSquares,
+    board
+  );
+
+  if (adjacentLinePairsOfLength1.length) {
+    const pairOfAdjacentLines =
+      adjacentLinePairsOfLength1[
+        chooseRandomNumber(adjacentLinePairsOfLength1.length)
+      ];
+    line = pairOfAdjacentLines[chooseRandomNumber(pairOfAdjacentLines.length)];
+    return chooseRandomSquareIndex(line, board);
+  } else {
+    return false;
+  }
+};
 
 const processAdjacentLines = (lines, board) => {
   const length1Lines = lines.slice();
@@ -34,15 +40,20 @@ const processAdjacentLines = (lines, board) => {
 const getArrOfAllPossiblePairs = arr => {
   const arrCopy = arr.slice();
   return arrCopy.reduce((total, curr, index, arrCopy) => {
-    total = total.concat(getArrOfAllPossiblePairsWithElement(curr, arrCopy.slice(index + 1, arrCopy.length)));
+    total = total.concat(
+      getArrOfAllPossiblePairsWithElement(
+        curr,
+        arrCopy.slice(index + 1, arrCopy.length)
+      )
+    );
     return total;
   }, []);
-}
+};
 
 const getArrOfAllPossiblePairsWithElement = (element, restOfArr) => {
-  const restOfArrClone = restOfArr.slice()
+  const restOfArrClone = restOfArr.slice();
   return restOfArrClone.map(x => [x, element]);
-}
+};
 
 const getSharedSquareIndex = (line1, line2) => {
   let square;

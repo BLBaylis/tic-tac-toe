@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Game.module.scss";
 import GameSquare from "../gameSquare/GameSquare";
-import winCheck from "../../gameLogic/winCheck";
+import winCheck, { drawCheck } from "../../gameLogic/gameEndingConditions";
 import computerMove from "../../gameLogic/computerMove";
 import generateAllLines from "../../gameLogic/generateAllLines";
 import getCenterSquareIndex from "../../gameLogic/getCenterSquareIndex";
@@ -26,46 +26,74 @@ class Game extends React.Component {
     center: {
       index: getCenterSquareIndex(this.props.gridSize),
       value: null
-    }
+    },
+    winner: undefined
   };
 
   handleClick = (squareNo, board) => {
-    this.makeMove(squareNo, board, () =>
+    this.makeMove(squareNo, board, this.state.turnNo, () =>
       this.makeMove(
-        computerMove(this.state.board, this.state.lines, this.state.center, this.state.turnNo),
+        computerMove(
+          this.state.board,
+          this.state.lines,
+          this.state.center,
+          this.state.turnNo
+        ),
         this.state.board,
-        () => console.log(this.state)
+        this.state.turnNo
       )
     );
   };
 
-  makeMove = (squareNo, board, callback) => {
+  makeMove = (squareNo, board, turnNo, callback) => {
     if (board[squareNo] || winCheck(squareNo, board, this.props.gridSize)) {
       return;
     }
-    this.setState(prevState => {
-      const boardClone = prevState.board.slice();
-      if (prevState.gameLog[prevState.turnNo + 1]) {
-        prevState.gameLog = prevState.gameLog.slice(0, prevState.turnNo + 1);
+    this.setState(
+      prevState => {
+        const boardClone = prevState.board.slice();
+        if (prevState.gameLog[prevState.turnNo + 1]) {
+          prevState.gameLog = prevState.gameLog.slice(0, prevState.turnNo + 1);
+        }
+        const nonGameLogStateChanges = {
+          board: boardClone,
+          turnNo: prevState.turnNo + 1,
+          userTurn: !prevState.userTurn,
+          center: prevState.center,
+          winner: prevState.winner
+        };
+        nonGameLogStateChanges.board[squareNo] = prevState.userTurn
+          ? "user"
+          : "comp";
+        if (squareNo === nonGameLogStateChanges.center.index) {
+          nonGameLogStateChanges.center.value =
+            nonGameLogStateChanges.board[squareNo];
+        }
+        return {
+          gameLog: prevState.gameLog.concat(nonGameLogStateChanges),
+          ...nonGameLogStateChanges
+        };
+      },
+      () => {
+        this.postMoveEndConditionCheck(squareNo, this.state.board, this.state.turnNo);
+        if (callback) {
+          callback();
+        }
       }
-      const nonGameLogStateChanges = {
-        board: boardClone,
-        turnNo: prevState.turnNo + 1,
-        userTurn: !prevState.userTurn,
-        center: prevState.center
-      };
-      nonGameLogStateChanges.board[squareNo] = prevState.userTurn
-        ? "user"
-        : "comp";
-      if (squareNo === nonGameLogStateChanges.center.index) {
-        nonGameLogStateChanges.center.value =
-          nonGameLogStateChanges.board[squareNo];
-      }
-      return {
-        gameLog: prevState.gameLog.concat(nonGameLogStateChanges),
-        ...nonGameLogStateChanges
-      };
-    }, callback);
+    );
+  };
+
+  postMoveEndConditionCheck = (squareNo, board, turnNo) => {
+    let winChecked;
+    if (drawCheck(turnNo, this.props.gridSize)) {
+      this.setState({ winner: "draw" });
+      return;
+    }
+    winChecked = winCheck(squareNo, board, this.props.gridSize);
+    if (winChecked) {
+      this.setState({ winner: winChecked });
+      return;
+    }
   };
 
   restart = () => {
@@ -87,7 +115,8 @@ class Game extends React.Component {
             value: null
           }
         }
-      ]
+      ],
+      winner: undefined
     });
   };
 
@@ -149,6 +178,10 @@ class Game extends React.Component {
         <button className={styles.btn} onClick={this.redoTurn}>
           redo
         </button>
+        <button className={styles.btn} onClick={this.debug}>
+          debug
+        </button>
+        <h2>Winner: {this.state.winner}!</h2>
       </React.Fragment>
     );
   }

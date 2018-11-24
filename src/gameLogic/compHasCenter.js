@@ -1,12 +1,13 @@
 import findAllLinesWithXNumberOfSquareType from "./findAllLinesWithXNumberOfSameSquares";
-import processLength2Lines from './processLength2Lines';
-import processUserEdgeLinesLength1 from './processUserEdgeLinesLength1'
-import {chooseRandomSquareIndex} from './randomiserFunctions';
+import processLength2Lines from "./processLength2Lines";
+import processUserEdgeLinesLength1 from "./processUserEdgeLinesLength1";
+import { chooseRandomSquareIndex } from "./randomiserFunctions";
 
 const compHasCenter = (board, lines, turnNo) => {
   let result;
-  const allBoardIndex = Array(lines.columns[0].length ** 2).fill().map((x, index) => index);
-  console.log(allBoardIndex);
+  const allBoardIndex = Array(lines.columns[0].length ** 2)
+    .fill()
+    .map((x, index) => index);
   const userEdgeLinesLength1 = findAllLinesWithXNumberOfSquareType(
     1,
     board,
@@ -27,20 +28,22 @@ const compHasCenter = (board, lines, turnNo) => {
   );
   if (compLinesLength2.length) {
     result = processLength2Lines(compLinesLength2, board);
-    if (typeof result === "number"){
+    if (typeof result === "number") {
       return result;
-    } 
+    }
   }
   if (userLinesLength2.length) {
     result = processLength2Lines(userLinesLength2, board);
-    if (typeof result === "number"){
+    if (typeof result === "number") {
       return result;
-    } 
-    if (turnNo === 3) {return chooseRandomSquareIndex(lines.middleEdgeSquares, board)}
-  } 
+    }
+    if (turnNo === 3) {
+      return chooseRandomSquareIndex(lines.middleEdgeSquares, board);
+    }
+  }
   if (userEdgeLinesLength1.length > 1) {
     result = processUserEdgeLinesLength1(userEdgeLinesLength1, board);
-    if (typeof result === "number"){
+    if (typeof result === "number") {
       return result;
     } else {
       return chooseRandomSquareIndex(lines.middleEdgeSquares, board);
