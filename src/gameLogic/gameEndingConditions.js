@@ -58,23 +58,20 @@ const winCheck = (squareNumber, gameBoard, lineLength = 3) => {
   centerChecked = rowChecker(center, gameBoard, lineLength);
   if (!centerChecked) {
     centerChecked = columnChecker(center, gameBoard, lineLength);
-    console.log(centerChecked);
   }
   if (!centerChecked) {
     centerChecked = diagonalChecker(center, gameBoard, lineLength);
-    console.log(centerChecked);
   }
   if (centerChecked) {
-    console.log(centerChecked);
     return centerChecked;
   }
   columnsChecked = columns.filter(x => columnChecker(x, gameBoard, lineLength));
   if (columnsChecked.length) {
-    return columnsChecked[0];
+    return gameBoard[columnsChecked[0]];
   }
   rowsChecked = rows.filter(x => rowChecker(x, gameBoard, lineLength));
-  if (rowsChecked) {
-    return rowsChecked[0];
+  if (rowsChecked.length) {
+    return gameBoard[rowsChecked[0]];
   }
   return false;
 };

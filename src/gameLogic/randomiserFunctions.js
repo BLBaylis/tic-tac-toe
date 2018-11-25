@@ -1,21 +1,27 @@
-export const chooseRandomNumber = lineLength =>
-  Math.floor(Math.random() * lineLength);
+export const chooseRandomNumber = oldLineLength =>
+  Math.floor(Math.random() * oldLineLength);
 
 export const chooseRandomSquareIndex = (line, board) => {
-  let randomIndex = chooseRandomNumber(line.length);
+  let oldLine = line.slice();
+  let oldOldLine = oldLine.slice();
+  let randomIndex = chooseRandomNumber(oldLine.length);
   while (
-    (board[line[randomIndex]] === "user" ||
-      board[line[randomIndex]] === "comp") &&
-    line.length > 0
+    (board[oldLine[randomIndex]] === "user" ||
+      board[oldLine[randomIndex]] === "comp") &&
+    oldLine.length > 0
   ) {
-    line.splice(randomIndex, 1);
-    randomIndex = chooseRandomNumber(line.length);
+    oldLine.splice(randomIndex, 1);
+    randomIndex = chooseRandomNumber(oldLine.length);
   }
   if (
-    board[line[randomIndex]] === "user" ||
-    board[line[randomIndex]] === "comp"
+    board[oldLine[randomIndex]] === "user" ||
+    board[oldLine[randomIndex]] === "comp"
   ) {
     throw new Error("no empty spaces");
   }
-  return line[randomIndex];
+  if (oldLine[randomIndex] === undefined){
+    console.log(oldLine, randomIndex);
+    console.log(oldOldLine);
+  }
+  return oldLine[randomIndex];
 };

@@ -9,6 +9,7 @@ import {
 } from "./generateLinesFromSquareIndex";
 
 const generateAllLines = lineLength => {
+  console.log(generateEdges(lineLength), generateMiddleEdgeSquares(lineLength));
   return {
     allWinningLines: [].concat(
       generateColumns(lineLength),

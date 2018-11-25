@@ -31,7 +31,11 @@ class Game extends React.Component {
   };
 
   handleClick = (squareNo, board) => {
-    this.makeMove(squareNo, board, this.state.turnNo, () =>
+    let promise = new Promise((resolve, reject) => {
+      this.makeMove(squareNo, board, this.state.turnNo);
+      resolve();
+    });
+    promise.then(() => {
       this.makeMove(
         computerMove(
           this.state.board,
@@ -41,8 +45,8 @@ class Game extends React.Component {
         ),
         this.state.board,
         this.state.turnNo
-      )
-    );
+      );
+    });
   };
 
   makeMove = (squareNo, board, turnNo, callback) => {
@@ -60,7 +64,7 @@ class Game extends React.Component {
           turnNo: prevState.turnNo + 1,
           userTurn: !prevState.userTurn,
           center: prevState.center,
-          winner: prevState.winner
+          outcome: prevState.outcome
         };
         nonGameLogStateChanges.board[squareNo] = prevState.userTurn
           ? "user"
@@ -75,7 +79,11 @@ class Game extends React.Component {
         };
       },
       () => {
-        this.postMoveEndConditionCheck(squareNo, this.state.board, this.state.turnNo);
+        this.postMoveEndConditionCheck(
+          squareNo,
+          this.state.board,
+          this.state.turnNo
+        );
         if (callback) {
           callback();
         }
@@ -86,13 +94,15 @@ class Game extends React.Component {
   postMoveEndConditionCheck = (squareNo, board, turnNo) => {
     let winChecked;
     if (drawCheck(turnNo, this.props.gridSize)) {
-      this.setState({ winner: "draw" });
-      return;
+      this.setState({ outcome: "draw" }, () => {
+        return;
+      });
     }
     winChecked = winCheck(squareNo, board, this.props.gridSize);
     if (winChecked) {
-      this.setState({ winner: winChecked });
-      return;
+      this.setState({ outcome: winChecked }, () => {
+        return;
+      });
     }
   };
 
@@ -113,10 +123,11 @@ class Game extends React.Component {
           center: {
             index: getCenterSquareIndex(this.props.gridSize),
             value: null
-          }
+          },
+          outcome: undefined
         }
       ],
-      winner: undefined
+      outcome: undefined
     });
   };
 
@@ -162,6 +173,57 @@ class Game extends React.Component {
     ));
   };
 
+  randomMove = () => {
+    const possibleSquares = Array(this.props.gridSize ** 2)
+      .fill(null)
+      .map((x, index) => index)
+      .filter((x, index) => this.state.board[x] === null);
+      if (!possibleSquares.length) {
+        return;
+      }
+    let random = Math.floor(Math.random() * possibleSquares.length);
+    return possibleSquares[random];
+  };
+
+  debug = async (amount) => {
+    let randomMoves = () => {
+        this.handleClick(this.randomMove(), this.state.board);
+        if (this.state.outcome !== undefined) {
+          return this.state.outcome;
+        }
+    };
+    let userCounter = 0; 
+    let compCounter = 0; 
+    let drawCounter = 0; 
+    for (let i = 0; i < amount; i++) {
+      let promise = new Promise((resolve, reject) => {
+        this.handleClick(0, this.state.board);
+        resolve();
+      });
+      let outcome = promise
+        .then(randomMoves)
+        .then(randomMoves)
+        .then(randomMoves)
+        .then(randomMoves);
+      await outcome.then(result => {
+        if (result === "user"){
+          userCounter++;
+          console.log(this.state.gameLog);
+        } else if (result === "comp") {
+          compCounter++;
+        } else if (result === "draw"){
+          drawCounter++;
+        } else {
+          console.log("no outcome")
+          console.log(this.state.gameLog);
+        }
+        this.restart();
+        console.log(`user : ${userCounter}`, `draw : ${drawCounter}`, `comp : ${compCounter}`);
+      });
+    }  
+  };
+    
+
   render() {
     const gridClassname = styles[`grid-${this.props.gridSize}`];
     return (
@@ -178,10 +240,10 @@ class Game extends React.Component {
         <button className={styles.btn} onClick={this.redoTurn}>
           redo
         </button>
-        <button className={styles.btn} onClick={this.debug}>
+        <button className={styles.btn} onClick={() => this.debug(1000)}>
           debug
         </button>
-        <h2>Winner: {this.state.winner}!</h2>
+        <h2>outcome: {this.state.outcome}!</h2>
       </React.Fragment>
     );
   }
