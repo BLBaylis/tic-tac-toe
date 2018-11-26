@@ -19,7 +19,7 @@ export const chooseRandomSquareIndex = (line, board) => {
   ) {
     throw new Error("no empty spaces");
   }
-  if (oldLine[randomIndex] === undefined){
+  if (oldLine[randomIndex] === undefined) {
     console.log(oldLine, randomIndex);
     console.log(oldOldLine);
   }

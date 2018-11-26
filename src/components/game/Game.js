@@ -178,26 +178,26 @@ class Game extends React.Component {
       .fill(null)
       .map((x, index) => index)
       .filter((x, index) => this.state.board[x] === null);
-      if (!possibleSquares.length) {
-        return;
-      }
+    if (!possibleSquares.length) {
+      return;
+    }
     let random = Math.floor(Math.random() * possibleSquares.length);
     return possibleSquares[random];
   };
 
-  debug = async (amount) => {
+  debug = async amount => {
     let randomMoves = () => {
-        this.handleClick(this.randomMove(), this.state.board);
-        if (this.state.outcome !== undefined) {
-          return this.state.outcome;
-        }
+      this.handleClick(this.randomMove(), this.state.board);
+      if (this.state.outcome !== undefined) {
+        return this.state.outcome;
+      }
     };
-    let userCounter = 0; 
-    let compCounter = 0; 
-    let drawCounter = 0; 
+    let userCounter = 0;
+    let compCounter = 0;
+    let drawCounter = 0;
     for (let i = 0; i < amount; i++) {
       let promise = new Promise((resolve, reject) => {
-        this.handleClick(0, this.state.board);
+        this.handleClick(1, this.state.board);
         resolve();
       });
       let outcome = promise
@@ -206,23 +206,26 @@ class Game extends React.Component {
         .then(randomMoves)
         .then(randomMoves);
       await outcome.then(result => {
-        if (result === "user"){
+        if (result === "user") {
           userCounter++;
           console.log(this.state.gameLog);
         } else if (result === "comp") {
           compCounter++;
-        } else if (result === "draw"){
+        } else if (result === "draw") {
           drawCounter++;
         } else {
-          console.log("no outcome")
+          console.log("no outcome");
           console.log(this.state.gameLog);
         }
         this.restart();
-        console.log(`user : ${userCounter}`, `draw : ${drawCounter}`, `comp : ${compCounter}`);
+        console.log(
+          `user : ${userCounter}`,
+          `draw : ${drawCounter}`,
+          `comp : ${compCounter}`
+        );
       });
-    }  
+    }
   };
-    
 
   render() {
     const gridClassname = styles[`grid-${this.props.gridSize}`];
