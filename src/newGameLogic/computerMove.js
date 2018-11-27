@@ -16,10 +16,7 @@ const computerMove = () => {
     return;
   } else if (startALine() === true) {
     //IF YOU GET THIS FAR DOWN THE LIST IT BOILS DOWN TO MAKEING A MOVE ANYWHERE
-    return;
-  } else {
-    //THERE ARE NO POSSIBLE MOVES SO THE GAME IS ALREADY OVER
-    return;
+    return chooseRandom(board);
   }
 };
 
@@ -44,20 +41,72 @@ const blockUserLineLength2 = () => {
 };
 
 const makeWinnableCompLineLength2WhileBlockingAsManyWinnableUserLinesAsPossible = () => {
-  const winnableCompLinesLength1 = findAllCompLinesLength1();
-  const setOfMostDisruptiveMovesAgainstUser = findSetOfMostDisruptiveMovesAgainstUser9(
-    winnableCompLinesLength1
-  );
-  if (setOfMostDisruptiveMovesAgainstUser.length) {
-    return chooseRandom(setOfMostDisruptiveMovesAgainstUser);
-  }
+  const winnableCompLinesLength1 = findAllWinnableCompLinesLength1();
+  const viableSquares = findAllUntakenSquares(winnableCompLinesLength1);
+  const winnableUserLinesOfLength1DisruptedByASharedSquareBeingTaken = getWinnableUserLiensLength1SortedBySharedSquareUntakenSquare();
+  const setOfMostDisruptiveMovesAgainstUser = findSetOfMostDisruptiveMovesAgainstUser(winnableUserLinesOfLength1DisruptedByASharedSquareBeingTaken, viableSquares);
+  return chooseRandom(setOfMostDisruptiveMovesAgainstUser);
 };
 
-const findMostDisruptiveMoveAgainstUser = () => {
+const getWinnableUserLiensLength1SortedBySharedSquareUntakenSquare = () => {
   const winnableUserLinesLength1 = findAllWinnableUserLinesLength1();
   const untakenSquaresThatHaveWinnableUserLinesOfLength1 = findAllUntakenSquares(
     winnableUserLinesLength1
   );
+  return groupLinesBySharedSquare(untakenSquaresThatHaveWinnableUserLinesOfLength1);
+  //THIS SHOULD RETURN AN ARRAY WITH ELEMENTS OF THE FORM OF THE FORM {squareIndex : n, lines : []};
+}
+
+const findSetOfMostDisruptiveMovesAgainstUser = (arr, compSquares) => {
+  const arrClone = arr.slice();
+  const compSquareObjs = arrClone.filter(x => compSquares.contains(x.squareIndex));
+  if (!compSquareObjs.length) {
+    return false;
+  }
+  return getObjectsWithHighestNoOfLines(compSquareObjs, 3).map(x => x.squareIndex);
+}
+
+const getObjectsWithHighestNoOfLines = (arr, length) => {
+  let result = [];
+  const arrClone = arr.slice();
+  while (length > 0 && result.length < 1) {
+    result = filterByNoOfLines(arrClone, length);
+    length--;
+  }
+  if (result.length > 1){
+    return result;
+  } else {
+    return false;
+  }
+}
+
+const filterByNoOfLines = (arr, length) => {
+  const arrClone = arr.slice();
+  return arrClone.filter(x => x.lines.length === length);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const findSetOfMostDisruptiveMoveAgainstUser = () => {
   const allWinnableUserLinesLength1ThatShareAnUntakenSquare = findAllWinnableLinesThatShareASquare(
     winnableUserLinesLength1
   );
