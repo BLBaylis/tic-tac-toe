@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Game.module.scss";
 import GameSquare from "../gameSquare/GameSquare";
 import winCheck, { drawCheck } from "../../gameLogic/gameEndingConditions";
-import computerMove from "../../gameLogic/computerMove";
+import calculateCompMove from "../../newGameLogic/calculateCompMove";
 import generateAllLines from "../../gameLogic/generateAllLines";
 import getCenterSquareIndex from "../../gameLogic/getCenterSquareIndex";
 
@@ -37,11 +37,11 @@ class Game extends React.Component {
     });
     promise.then(() => {
       this.makeMove(
-        computerMove(
+        calculateCompMove(
           this.state.board,
-          this.state.lines,
-          this.state.center,
-          this.state.turnNo
+          this.state.center.index,
+          this.state.lines.allLines,
+          this.props.gridSize
         ),
         this.state.board,
         this.state.turnNo
