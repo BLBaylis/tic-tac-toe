@@ -1,8 +1,8 @@
 import {
   generateRowFromRowNum,
   generateColumnFromColNum
-} from "./generateLinesFromLineNum";
-import getCenterSquareIndex from "./getCenterSquareIndex";
+} from "./lineGeneratorFunctions/generateLinesFromLineNum";
+import getCenterSquareIndex from "./lineGeneratorFunctions/getCenterSquareIndex";
 
 const rowChecker = (squareIndex, gameBoard, lineLength = 3) => {
   const rowNum = Math.floor(squareIndex / lineLength);

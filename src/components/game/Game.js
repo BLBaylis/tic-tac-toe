@@ -2,9 +2,9 @@ import React from "react";
 import styles from "./Game.module.scss";
 import GameSquare from "../gameSquare/GameSquare";
 import winCheck, { drawCheck } from "../../gameLogic/gameEndingConditions";
-import calculateCompMove from "../../newGameLogic/calculateCompMove";
-import generateAllLines from "../../gameLogic/generateAllLines";
-import getCenterSquareIndex from "../../gameLogic/getCenterSquareIndex";
+import calculateCompMove from "../../gameLogic/compMoveLogic/calculateCompMove";
+import generateAllLines from "../../gameLogic/lineGeneratorFunctions/generateAllLines";
+import getCenterSquareIndex from "../../gameLogic/lineGeneratorFunctions/getCenterSquareIndex";
 
 class Game extends React.Component {
   state = {

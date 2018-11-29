@@ -1,4 +1,4 @@
-import { chooseRandom } from "./helperFunctions";
+import { chooseRandom } from "../helperFunctions";
 
 const chooseFromMoveChoicesBasedOnOppositionLines = (
   moveChoices,

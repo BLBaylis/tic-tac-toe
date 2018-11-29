@@ -1,4 +1,4 @@
-import { findAllUntakenSquares } from "./helperFunctions";
+import { findAllUntakenSquares } from "../helperFunctions";
 import chooseFromMoveChoicesBasedOnOppositionLines from "./chooseFromMoveChoicesBasedOnOppositionLines";
 import processLines from "./processLines";
 

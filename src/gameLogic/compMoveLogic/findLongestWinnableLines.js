@@ -1,5 +1,5 @@
-import findAllLinesWithXNumberOfSquareType from "../gameLogic/findAllLinesWithXNumberOfSquareType";
-import { doesLineContainOppositionSquare } from "./helperFunctions";
+import findAllLinesWithXNumberOfSquareType from "./findAllLinesWithXNumberOfSquareType";
+import { doesLineContainOppositionSquare } from "../helperFunctions";
 
 const findLongestWinnableLines = (lineType, board, gridSize, winnableLines) => {
   let longestWinnableLines = [];

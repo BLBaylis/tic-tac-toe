@@ -1,4 +1,12 @@
-export const getFlattenedArrOfAllUntakenSpacesDupesIncluded = (arr, board) => {
+const processLines = (playerWithoutTempoLines, gridSize, board) => {
+  const processedplayerWithoutTempoLines = getFlattenedArrOfAllUntakenSpacesDupesIncluded(
+    playerWithoutTempoLines,
+    board
+  );
+  return countLinesBySquareIndex(processedplayerWithoutTempoLines, gridSize);
+};
+
+const getFlattenedArrOfAllUntakenSpacesDupesIncluded = (arr, board) => {
   const arrClone = arr.slice();
   const associateEachUntakenSquareIndexWithTheLineItIsIn = arrClone.map(x =>
     x.filter(y => board[y] === null)
@@ -9,7 +17,7 @@ export const getFlattenedArrOfAllUntakenSpacesDupesIncluded = (arr, board) => {
   );
 };
 
-export const countLinesBySquareIndex = (arr, gridSize) => {
+const countLinesBySquareIndex = (arr, gridSize) => {
   const arrClone = arr.slice();
   return arrClone.reduce((total, curr) => {
     if (total[curr] === undefined) {
@@ -20,3 +28,6 @@ export const countLinesBySquareIndex = (arr, gridSize) => {
     return total;
   }, Array(gridSize ** 2).fill());
 };
+
+
+export default processLines;
