@@ -29,5 +29,4 @@ const countLinesBySquareIndex = (arr, gridSize) => {
   }, Array(gridSize ** 2).fill());
 };
 
-
 export default processLines;

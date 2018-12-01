@@ -15,7 +15,7 @@ const calculateCompMove = (board, centerIndex, allLines, gridSize) => {
     lines: longestPossibleWinnableUserLines
   } = { ...findLongestWinnableLines("user", board, gridSize, allLines) };
   if (
-    longestPossibleWinnableCompLinesLength >
+    longestPossibleWinnableCompLinesLength >=
     longestPossibleWinnableUserLinesLength
   ) {
     return getBestMove(

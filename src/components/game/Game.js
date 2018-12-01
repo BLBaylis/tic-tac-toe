@@ -17,7 +17,8 @@ class Game extends React.Component {
         center: {
           index: getCenterSquareIndex(this.props.gridSize),
           value: null
-        }
+        },
+        outcome: undefined
       }
     ],
     turnNo: 0,
@@ -27,10 +28,11 @@ class Game extends React.Component {
       index: getCenterSquareIndex(this.props.gridSize),
       value: null
     },
-    winner: undefined
+    outcome: undefined
   };
 
   handleClick = (squareNo, board) => {
+    console.log(this.props.gridSize, this.state.center.index, this.state.lines, this.state.board);
     let promise = new Promise((resolve, reject) => {
       this.makeMove(squareNo, board, this.state.turnNo);
       resolve();
@@ -64,7 +66,7 @@ class Game extends React.Component {
           turnNo: prevState.turnNo + 1,
           userTurn: !prevState.userTurn,
           center: prevState.center,
-          outcome: prevState.outcome
+          outcome: prevState.outcome,
         };
         nonGameLogStateChanges.board[squareNo] = prevState.userTurn
           ? "user"
@@ -117,7 +119,7 @@ class Game extends React.Component {
       },
       gameLog: [
         {
-          board: Array(9).fill(null),
+          board: Array(this.props.gridSize ** 2).fill(null),
           turnNo: 0,
           userTurn: true,
           center: {
@@ -141,7 +143,8 @@ class Game extends React.Component {
         board: lastTurnState.board,
         turnNo: lastTurnState.turnNo,
         userTurn: lastTurnState.userTurn,
-        center: lastTurnState.center
+        center: lastTurnState.center,
+        outcome: lastTurnState.outcome
       };
     });
   };
@@ -156,7 +159,8 @@ class Game extends React.Component {
         board: nextTurnState.board,
         turnNo: nextTurnState.turnNo,
         userTurn: nextTurnState.userTurn,
-        center: nextTurnState.center
+        center: nextTurnState.center,
+        outcome: nextTurnState.outcome
       };
     });
   };
@@ -243,10 +247,10 @@ class Game extends React.Component {
         <button className={styles.btn} onClick={this.redoTurn}>
           redo
         </button>
-        <button className={styles.btn} onClick={() => this.debug(1000)}>
+        <button className={styles.btn} onClick={() => this.debug(1)}>
           debug
         </button>
-        <h2>outcome: {this.state.outcome}!</h2>
+        <h2 className={styles.winner}>outcome: {this.state.outcome}!</h2>
       </React.Fragment>
     );
   }

@@ -30,7 +30,7 @@ const chooseFromMoveChoicesBasedOnOppositionLines = (
     },
     [{ amountOfLinesSquareIndexIsIn: [] }]
   );
-  if (!bestMoveObjs[0]["amountOfLinesSquareIndexIsIn"].length) {
+  if (bestMoveObjs[0]["amountOfLinesSquareIndexIsIn"] < 1) {
     return chooseRandom(moveChoices, board);
   }
   const bestMove = bestMoveObjs.map(x => x.squareIndex);
