@@ -5,6 +5,10 @@ import winCheck, { drawCheck } from "../../gameLogic/gameEndingConditions";
 import calculateCompMove from "../../gameLogic/compMoveLogic/calculateCompMove";
 import generateAllLines from "../../gameLogic/lineGeneratorFunctions/generateAllLines";
 import getCenterSquareIndex from "../../gameLogic/lineGeneratorFunctions/getCenterSquareIndex";
+import {
+  simulateGame,
+  recordGameResults
+} from "../../gameLogic/debuggingFunctions/debug";
 
 class Game extends React.Component {
   state = {
@@ -14,26 +18,19 @@ class Game extends React.Component {
         board: Array(this.props.gridSize ** 2).fill(null),
         turnNo: 0,
         userTurn: this.props.firstMove === "user" ? true : false,
-        center: {
-          index: getCenterSquareIndex(this.props.gridSize),
-          value: null
-        },
+        centerIndex: getCenterSquareIndex(this.props.gridSize),
         outcome: undefined
       }
     ],
     turnNo: 0,
     userTurn: this.props.firstMove === "user" ? true : false,
     lines: generateAllLines(this.props.gridSize),
-    center: {
-      index: getCenterSquareIndex(this.props.gridSize),
-      value: null
-    },
+    centerIndex: getCenterSquareIndex(this.props.gridSize),
     outcome: undefined
   };
 
   handleClick = (squareNo, board) => {
-    console.log(this.props.gridSize, this.state.center.index, this.state.lines, this.state.board);
-    let promise = new Promise((resolve, reject) => {
+    let promise = new Promise(resolve => {
       this.makeMove(squareNo, board, this.state.turnNo);
       resolve();
     });
@@ -52,7 +49,7 @@ class Game extends React.Component {
   };
 
   makeMove = (squareNo, board, turnNo, callback) => {
-    if (board[squareNo] || winCheck(squareNo, board, this.props.gridSize)) {
+    if (board[squareNo] || this.state.outcome !== undefined) {
       return;
     }
     this.setState(
@@ -65,8 +62,8 @@ class Game extends React.Component {
           board: boardClone,
           turnNo: prevState.turnNo + 1,
           userTurn: !prevState.userTurn,
-          center: prevState.center,
-          outcome: prevState.outcome,
+          centerIndex: prevState.centerIndex,
+          outcome: prevState.outcome
         };
         nonGameLogStateChanges.board[squareNo] = prevState.userTurn
           ? "user"
@@ -81,11 +78,7 @@ class Game extends React.Component {
         };
       },
       () => {
-        this.postMoveEndConditionCheck(
-          squareNo,
-          this.state.board,
-          this.state.turnNo
-        );
+        this.gameEndConditionCheck(this.state.board, this.state.turnNo);
         if (callback) {
           callback();
         }
@@ -93,14 +86,14 @@ class Game extends React.Component {
     );
   };
 
-  postMoveEndConditionCheck = (squareNo, board, turnNo) => {
+  gameEndConditionCheck = (board, turnNo) => {
     let winChecked;
     if (drawCheck(turnNo, this.props.gridSize)) {
       this.setState({ outcome: "draw" }, () => {
         return;
       });
     }
-    winChecked = winCheck(squareNo, board, this.props.gridSize);
+    winChecked = winCheck(board, this.props.gridSize);
     if (winChecked) {
       this.setState({ outcome: winChecked }, () => {
         return;
@@ -113,20 +106,14 @@ class Game extends React.Component {
       board: Array(this.props.gridSize ** 2).fill(null),
       turnNo: 0,
       userTurn: this.props.firstMove === "user" ? true : false,
-      center: {
-        index: getCenterSquareIndex(this.props.gridSize),
-        value: null
-      },
+      centerIndex: getCenterSquareIndex(this.props.gridSize),
       gameLog: [
         {
           board: Array(this.props.gridSize ** 2).fill(null),
           turnNo: 0,
           userTurn: true,
-          center: {
-            index: getCenterSquareIndex(this.props.gridSize),
-            value: null
-          },
-          outcome: undefined
+          centerIndex: getCenterSquareIndex(this.props.gridSize),
+          value: null
         }
       ],
       outcome: undefined
@@ -143,7 +130,7 @@ class Game extends React.Component {
         board: lastTurnState.board,
         turnNo: lastTurnState.turnNo,
         userTurn: lastTurnState.userTurn,
-        center: lastTurnState.center,
+        centerIndex: lastTurnState.centerIndex,
         outcome: lastTurnState.outcome
       };
     });
@@ -159,7 +146,7 @@ class Game extends React.Component {
         board: nextTurnState.board,
         turnNo: nextTurnState.turnNo,
         userTurn: nextTurnState.userTurn,
-        center: nextTurnState.center,
+        centerIndex: nextTurnState.centerIndex,
         outcome: nextTurnState.outcome
       };
     });
@@ -177,58 +164,30 @@ class Game extends React.Component {
     ));
   };
 
-  randomMove = () => {
-    const possibleSquares = Array(this.props.gridSize ** 2)
-      .fill(null)
-      .map((x, index) => index)
-      .filter((x, index) => this.state.board[x] === null);
-    if (!possibleSquares.length) {
-      return;
-    }
-    let random = Math.floor(Math.random() * possibleSquares.length);
-    return possibleSquares[random];
-  };
-
-  debug = async amount => {
-    let randomMoves = () => {
-      this.handleClick(this.randomMove(), this.state.board);
-      if (this.state.outcome !== undefined) {
-        return this.state.outcome;
-      }
+  simulateManyGamesAndRecordResults = (
+    amountOfGames,
+    gridSize,
+    firstMove,
+    lines,
+    centerIndex
+  ) => {
+    let result;
+    let counters = {
+      userCounter: 0,
+      compCounter: 0,
+      drawCounter: 0,
+      noOutcome: 0,
+      userWinsLog: [],
+      noOutcomeLog: [],
+      randomGamesLog: []
     };
-    let userCounter = 0;
-    let compCounter = 0;
-    let drawCounter = 0;
-    for (let i = 0; i < amount; i++) {
-      let promise = new Promise((resolve, reject) => {
-        this.handleClick(1, this.state.board);
-        resolve();
-      });
-      let outcome = promise
-        .then(randomMoves)
-        .then(randomMoves)
-        .then(randomMoves)
-        .then(randomMoves);
-      await outcome.then(result => {
-        if (result === "user") {
-          userCounter++;
-          console.log(this.state.gameLog);
-        } else if (result === "comp") {
-          compCounter++;
-        } else if (result === "draw") {
-          drawCounter++;
-        } else {
-          console.log("no outcome");
-          console.log(this.state.gameLog);
-        }
-        this.restart();
-        console.log(
-          `user : ${userCounter}`,
-          `draw : ${drawCounter}`,
-          `comp : ${compCounter}`
-        );
-      });
+    for (let gamesPlayed = 0; gamesPlayed < amountOfGames; gamesPlayed++) {
+      result = simulateGame(gridSize, firstMove, lines, centerIndex);
+      console.log(`game ${gamesPlayed} finished`);
+      counters = recordGameResults(result, counters);
+      this.restart();
     }
+    console.log(counters);
   };
 
   render() {
@@ -247,7 +206,18 @@ class Game extends React.Component {
         <button className={styles.btn} onClick={this.redoTurn}>
           redo
         </button>
-        <button className={styles.btn} onClick={() => this.debug(1)}>
+        <button
+          className={styles.btn}
+          onClick={() =>
+            this.simulateManyGamesAndRecordResults(
+              10000,
+              this.props.gridSize,
+              this.props.firstMove,
+              this.state.lines,
+              this.state.centerIndex
+            )
+          }
+        >
           debug
         </button>
         <h2 className={styles.winner}>outcome: {this.state.outcome}!</h2>

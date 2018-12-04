@@ -43,7 +43,7 @@ const diagonalChecker = (center, gameBoard, lineLength = 3) => {
   return false;
 };
 
-const winCheck = (squareNumber, gameBoard, lineLength = 3) => {
+const winCheck = (gameBoard, lineLength = 3) => {
   let centerChecked, columnsChecked, rowsChecked;
   if (lineLength % 2 === 0 || lineLength < 3) {
     throw new Error("LineLength needs to be an odd number bigger than 3");
@@ -77,7 +77,7 @@ const winCheck = (squareNumber, gameBoard, lineLength = 3) => {
 };
 
 export const drawCheck = (turnNo, gridSize) => {
-  if (turnNo === gridSize ** 2) {
+  if (turnNo >= gridSize ** 2) {
     return true;
   }
   return false;

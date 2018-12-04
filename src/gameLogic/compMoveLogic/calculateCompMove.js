@@ -1,5 +1,6 @@
 import findLongestWinnableLines from "./findLongestWinnableLines";
 import getBestMove from "./getBestMove";
+import { chooseRandom } from "../helperFunctions";
 
 const calculateCompMove = (board, centerIndex, allLines, gridSize) => {
   const centerValue = board[centerIndex];
@@ -18,6 +19,18 @@ const calculateCompMove = (board, centerIndex, allLines, gridSize) => {
     longestPossibleWinnableCompLinesLength >=
     longestPossibleWinnableUserLinesLength
   ) {
+    if (longestPossibleWinnableCompLinesLength === 0) {
+      const remainingBoard = board
+        .slice()
+        .map((x, index) => {
+          if (x !== null) {
+            return null;
+          }
+          return index;
+        })
+        .filter(x => x !== null);
+      return chooseRandom(remainingBoard, board);
+    }
     return getBestMove(
       longestPossibleWinnableCompLines,
       longestPossibleWinnableUserLines,
