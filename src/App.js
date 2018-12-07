@@ -7,8 +7,8 @@ import styles from "./App.module.scss";
 class App extends Component {
   state = {
     gameFlipped: false,
-    gridSize: 3,
-    firstMove: "user"
+    gridSize: 7,
+    firstMove: "comp"
   };
 
   gameFlip = () => {

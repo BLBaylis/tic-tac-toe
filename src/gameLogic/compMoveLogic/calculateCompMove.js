@@ -2,10 +2,15 @@ import findLongestWinnableLines from "./findLongestWinnableLines";
 import getBestMove from "./getBestMove";
 import { chooseRandom } from "../helperFunctions";
 
-const calculateCompMove = (board, centerIndex, allLines, gridSize) => {
+const calculateCompMove = (board, centerIndex, allLines, gridSize, turnNo) => {
   const centerValue = board[centerIndex];
   if (!centerValue) {
     return centerIndex;
+  }
+  if (gridSize === 3 && turnNo === 3) {
+    if ([0, 8].filter(x => board[x] === "user").length  === 2|| [2, 6].filter(x => board[x] === "user").length === 2){
+      return chooseRandom([1, 3, 5, 7], board);
+    }
   }
   const {
     lineLength: longestPossibleWinnableCompLinesLength,

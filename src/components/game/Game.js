@@ -38,9 +38,10 @@ class Game extends React.Component {
       this.makeMove(
         calculateCompMove(
           this.state.board,
-          this.state.center.index,
+          this.state.centerIndex,
           this.state.lines.allLines,
-          this.props.gridSize
+          this.props.gridSize,
+          this.state.turnNo
         ),
         this.state.board,
         this.state.turnNo
@@ -68,10 +69,6 @@ class Game extends React.Component {
         nonGameLogStateChanges.board[squareNo] = prevState.userTurn
           ? "user"
           : "comp";
-        if (squareNo === nonGameLogStateChanges.center.index) {
-          nonGameLogStateChanges.center.value =
-            nonGameLogStateChanges.board[squareNo];
-        }
         return {
           gameLog: prevState.gameLog.concat(nonGameLogStateChanges),
           ...nonGameLogStateChanges
