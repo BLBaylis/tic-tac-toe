@@ -8,7 +8,10 @@ const calculateCompMove = (board, centerIndex, allLines, gridSize, turnNo) => {
     return centerIndex;
   }
   if (gridSize === 3 && turnNo === 3) {
-    if ([0, 8].filter(x => board[x] === "user").length  === 2|| [2, 6].filter(x => board[x] === "user").length === 2){
+    if (
+      [0, 8].filter(x => board[x] === "user").length === 2 ||
+      [2, 6].filter(x => board[x] === "user").length === 2
+    ) {
       return chooseRandom([1, 3, 5, 7], board);
     }
   }

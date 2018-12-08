@@ -3,7 +3,7 @@ import calculateCompMove from "../../gameLogic/compMoveLogic/calculateCompMove";
 
 export const recordGameResults = (result, counters) => {
   let gameLog;
-  if ((Math.random() * 10000) > 9990){
+  if (Math.random() * 10000 > 9990) {
     gameLog = makeGameLogEasierToUse(result.gameLog);
     counters.randomGamesLog.push(gameLog);
   }
@@ -58,25 +58,45 @@ export const simulateGame = (gridSize, firstMove, lines, centerIndex) => {
   for (let movesTaken = 0; movesTaken < maxMoves; movesTaken = movesTaken + 2) {
     remainingSquares = getRemainingSquares(gridSize, state.board);
     randomIndex = Math.floor(Math.random() * remainingSquares.length);
-      if (firstMove === "user"){
-          state = makeMoveSimulation(remainingSquares[randomIndex], state, gridSize);
-          remainingSquares = getRemainingSquares(gridSize, state.board);
-          randomIndex = Math.floor(Math.random() * remainingSquares.length);
-          state = makeMoveSimulation(
-            calculateCompMove(state.board, centerIndex, lines.allLines, gridSize, state.turnNo),
-            state,
-            gridSize
-          )
-        } else {
-          state = makeMoveSimulation(
-            calculateCompMove(state.board, centerIndex, lines.allLines, gridSize, state.turnNo),
-            state,
-            gridSize
-          );
-          remainingSquares = getRemainingSquares(gridSize, state.board);
-          randomIndex = Math.floor(Math.random() * remainingSquares.length);
-          state = makeMoveSimulation(remainingSquares[randomIndex], state, gridSize);
-        }
+    if (firstMove === "user") {
+      state = makeMoveSimulation(
+        remainingSquares[randomIndex],
+        state,
+        gridSize
+      );
+      remainingSquares = getRemainingSquares(gridSize, state.board);
+      randomIndex = Math.floor(Math.random() * remainingSquares.length);
+      state = makeMoveSimulation(
+        calculateCompMove(
+          state.board,
+          centerIndex,
+          lines.allLines,
+          gridSize,
+          state.turnNo
+        ),
+        state,
+        gridSize
+      );
+    } else {
+      state = makeMoveSimulation(
+        calculateCompMove(
+          state.board,
+          centerIndex,
+          lines.allLines,
+          gridSize,
+          state.turnNo
+        ),
+        state,
+        gridSize
+      );
+      remainingSquares = getRemainingSquares(gridSize, state.board);
+      randomIndex = Math.floor(Math.random() * remainingSquares.length);
+      state = makeMoveSimulation(
+        remainingSquares[randomIndex],
+        state,
+        gridSize
+      );
+    }
     if (state.outcome !== undefined) {
       return state;
     }
@@ -86,13 +106,16 @@ export const simulateGame = (gridSize, firstMove, lines, centerIndex) => {
 
 const getRemainingSquares = (gridSize, board) => {
   return Array(gridSize ** 2)
-      .fill(null)
-      .map((x, index) => index)
-      .filter((x, index) => board[x] === null);
-}
+    .fill(null)
+    .map((x, index) => index)
+    .filter((x, index) => board[x] === null);
+};
 
 const makeMoveSimulation = (squareNo, prevState, gridSize) => {
-  if (prevState.board[squareNo] !== null && prevState.turnNo !== gridSize ** 2) {
+  if (
+    prevState.board[squareNo] !== null &&
+    prevState.turnNo !== gridSize ** 2
+  ) {
     throw new Error("Invalid squareNo passed to makeMoveSimulate");
   }
   if (prevState.outcome !== undefined) {

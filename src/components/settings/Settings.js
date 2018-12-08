@@ -6,10 +6,8 @@ const Settings = props => {
     <div className={styles.settings}>
       <h2>SETTINGS</h2>
       <p>Who goes first?</p>
-      <button onClick={() => props.onClick("firstMove", "user")}>
-        ME
-      </button>
-      <button onClick={() => props.onClick("firstMove", "computer")}>
+      <button onClick={() => props.onClick("firstMove", "user")}>ME</button>
+      <button onClick={() => props.onClick("firstMove", "comp")}>
         COMPUTER
       </button>
       <p>Grid Size</p>

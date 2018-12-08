@@ -1,6 +1,9 @@
 import React from "react";
 import styles from "./Game.module.scss";
 import GameSquare from "../gameSquare/GameSquare";
+import Flipper from "../flipper/Flipper";
+import Settings from "../settings/Settings";
+import Grid from "../grid/Grid";
 import winCheck, { drawCheck } from "../../gameLogic/gameEndingConditions";
 import calculateCompMove from "../../gameLogic/compMoveLogic/calculateCompMove";
 import generateAllLines from "../../gameLogic/lineGeneratorFunctions/generateAllLines";
@@ -12,35 +15,45 @@ import {
 
 class Game extends React.Component {
   state = {
-    board: Array(this.props.gridSize ** 2).fill(null),
+    board: Array(3 ** 2).fill(null),
     gameLog: [
       {
-        board: Array(this.props.gridSize ** 2).fill(null),
+        board: Array(3 ** 2).fill(null),
         turnNo: 0,
-        userTurn: this.props.firstMove === "user" ? true : false,
-        centerIndex: getCenterSquareIndex(this.props.gridSize),
+        userTurn: true,
         outcome: undefined
       }
     ],
     turnNo: 0,
-    userTurn: this.props.firstMove === "user" ? true : false,
-    lines: generateAllLines(this.props.gridSize),
-    centerIndex: getCenterSquareIndex(this.props.gridSize),
-    outcome: undefined
+    userTurn: true,
+    outcome: undefined,
+    gridSize: 3,
+    firstMove: "user",
+    gameFlipped: false
   };
 
-  handleClick = (squareNo, board) => {
+  flip = () => {
+    this.setState(prevState => ({ gameFlipped: !prevState.gameFlipped }));
+  };
+
+  changeSetting = (settingType, newSetting) => {
+    const obj = {};
+    obj[settingType] = newSetting;
+    this.setState(obj, this.restart);
+  };
+
+  handleClick = (squareNo, centerIndex, lines) => {
     let promise = new Promise(resolve => {
-      this.makeMove(squareNo, board, this.state.turnNo);
+      this.makeMove(squareNo, this.state.board, this.state.turnNo);
       resolve();
     });
     promise.then(() => {
       this.makeMove(
         calculateCompMove(
           this.state.board,
-          this.state.centerIndex,
-          this.state.lines.allLines,
-          this.props.gridSize,
+          centerIndex,
+          lines.allLines,
+          this.state.gridSize,
           this.state.turnNo
         ),
         this.state.board,
@@ -63,7 +76,6 @@ class Game extends React.Component {
           board: boardClone,
           turnNo: prevState.turnNo + 1,
           userTurn: !prevState.userTurn,
-          centerIndex: prevState.centerIndex,
           outcome: prevState.outcome
         };
         nonGameLogStateChanges.board[squareNo] = prevState.userTurn
@@ -85,12 +97,12 @@ class Game extends React.Component {
 
   gameEndConditionCheck = (board, turnNo) => {
     let winChecked;
-    if (drawCheck(turnNo, this.props.gridSize)) {
+    if (drawCheck(turnNo, this.state.gridSize)) {
       this.setState({ outcome: "draw" }, () => {
         return;
       });
     }
-    winChecked = winCheck(board, this.props.gridSize);
+    winChecked = winCheck(board, this.state.gridSize);
     if (winChecked) {
       this.setState({ outcome: winChecked }, () => {
         return;
@@ -99,22 +111,38 @@ class Game extends React.Component {
   };
 
   restart = () => {
-    this.setState({
-      board: Array(this.props.gridSize ** 2).fill(null),
-      turnNo: 0,
-      userTurn: this.props.firstMove === "user" ? true : false,
-      centerIndex: getCenterSquareIndex(this.props.gridSize),
-      gameLog: [
-        {
-          board: Array(this.props.gridSize ** 2).fill(null),
-          turnNo: 0,
-          userTurn: true,
-          centerIndex: getCenterSquareIndex(this.props.gridSize),
-          value: null
+    const centerIndex = getCenterSquareIndex(this.state.gridSize);
+    const lines = generateAllLines(this.state.gridSize);
+    this.setState(
+      {
+        board: Array(this.state.gridSize ** 2).fill(null),
+        turnNo: 0,
+        userTurn: this.state.firstMove === "user" ? true : false,
+        gameLog: [
+          {
+            board: Array(this.state.gridSize ** 2).fill(null),
+            turnNo: 0,
+            userTurn: this.state.firstMove === "user" ? true : false
+          }
+        ],
+        outcome: undefined
+      },
+      () => {
+        if (this.state.firstMove === "comp") {
+          this.makeMove(
+            calculateCompMove(
+              this.state.board,
+              centerIndex,
+              lines.allLines,
+              this.state.gridSize,
+              this.state.turnNo
+            ),
+            this.state.board,
+            this.state.turnNo
+          );
         }
-      ],
-      outcome: undefined
-    });
+      }
+    );
   };
 
   undoTurn = () => {
@@ -127,7 +155,6 @@ class Game extends React.Component {
         board: lastTurnState.board,
         turnNo: lastTurnState.turnNo,
         userTurn: lastTurnState.userTurn,
-        centerIndex: lastTurnState.centerIndex,
         outcome: lastTurnState.outcome
       };
     });
@@ -143,22 +170,24 @@ class Game extends React.Component {
         board: nextTurnState.board,
         turnNo: nextTurnState.turnNo,
         userTurn: nextTurnState.userTurn,
-        centerIndex: nextTurnState.centerIndex,
         outcome: nextTurnState.outcome
       };
     });
   };
 
   generateSquares = quantity => {
-    const arr = Array(quantity).fill();
     const board = this.state.board;
-    return arr.map((x, index) => (
-      <GameSquare
-        key={index}
-        value={board[index]}
-        onClick={() => this.handleClick(index, board)}
-      />
-    ));
+    const centerIndex = getCenterSquareIndex(this.state.gridSize);
+    const lines = generateAllLines(this.state.gridSize);
+    return Array(quantity)
+      .fill()
+      .map((x, index) => (
+        <GameSquare
+          key={index}
+          value={board[index]}
+          onClick={() => this.handleClick(index, centerIndex, lines)}
+        />
+      ));
   };
 
   simulateManyGamesAndRecordResults = (
@@ -188,12 +217,21 @@ class Game extends React.Component {
   };
 
   render() {
-    const gridClassname = styles[`grid-${this.props.gridSize}`];
+    const centerIndex = getCenterSquareIndex(this.state.gridSize);
+    const lines = generateAllLines(this.state.gridSize);
     return (
       <React.Fragment>
-        <div className={gridClassname}>
-          {this.generateSquares(this.props.gridSize ** 2)}
-        </div>
+        <Flipper
+          flip={this.flip}
+          gameFlipped={this.state.gameFlipped}
+          front={
+            <Grid
+              gridSize={this.state.gridSize}
+              generateSquares={this.generateSquares}
+            />
+          }
+          back={<Settings onClick={this.changeSetting} />}
+        />
         <button className={styles.btn} onClick={this.restart}>
           restart
         </button>
@@ -208,14 +246,17 @@ class Game extends React.Component {
           onClick={() =>
             this.simulateManyGamesAndRecordResults(
               10000,
-              this.props.gridSize,
-              this.props.firstMove,
-              this.state.lines,
-              this.state.centerIndex
+              this.state.gridSize,
+              this.state.firstMove,
+              lines,
+              centerIndex
             )
           }
         >
           debug
+        </button>
+        <button className={styles.btn} onClick={this.flip}>
+          settings
         </button>
         <h2 className={styles.winner}>outcome: {this.state.outcome}!</h2>
       </React.Fragment>
