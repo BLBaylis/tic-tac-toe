@@ -7,8 +7,8 @@ import styles from "./App.module.scss";
 class App extends Component {
   state = {
     gameFlipped: false,
-    gridSize: 7,
-    firstMove: "comp"
+    gridSize: 3,
+    firstMove: "user"
   };
 
   gameFlip = () => {
@@ -37,7 +37,7 @@ class App extends Component {
           }
           back={<Settings onClick={this.changeSetting} />}
         />
-        <button onClick={this.gameFlip}>SETTINGS</button>
+        <button className={styles.settingsBtn} onClick={this.gameFlip}>SETTINGS</button>
       </div>
     );
   }
