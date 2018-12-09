@@ -2,12 +2,11 @@ import winCheck, { drawCheck } from "../gameEndingConditions";
 
 const transformStateObj = (squareNo, prevState) => {
   const { board, userTurn, gridSize } = prevState;
-  let { gameLog, turnNo } = prevState;
-  let outcome;
+  let { gameLog, turnNo, outcome } = prevState;
   let gameLogClone = gameLog.slice();
   const boardClone = board.slice();
-  if (board[squareNo]) {
-    return;
+  if (board[squareNo] || outcome !== undefined) {
+    return prevState;
   }
   if (gameLog[turnNo + 1]) {
     gameLogClone = gameLog.slice(0, turnNo + 1);

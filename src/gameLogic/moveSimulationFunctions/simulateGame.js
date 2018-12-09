@@ -27,9 +27,11 @@ export const simulateGame = argsFromState => {
   if (argsFromState.firstMove === "comp") {
     state = simulateCompMove(initialState);
     movesTaken = 1;
+  } else {
+    state = initialState;
   }
   for (movesTaken; movesTaken < maxMoves; movesTaken = movesTaken + 2) {
-    state = simulateRandomMove(initialState);
+    state = simulateRandomMove(state);
     if (state.outcome !== undefined) {
       return state;
     }
@@ -38,11 +40,12 @@ export const simulateGame = argsFromState => {
       return state;
     }
   }
+
   return state;
 };
 
 const simulateRandomMove = prevState => {
-  let indicesArr = Array(prevState.gridSize)
+  let indicesArr = Array(prevState.gridSize ** 2)
     .fill()
     .map((x, index) => index);
   let remainingSquares = findAllUntakenSquares(indicesArr, prevState.board);
