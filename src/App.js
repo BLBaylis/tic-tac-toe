@@ -7,7 +7,7 @@ class App extends Component {
     return (
       <div className={styles.app}>
         <header className={styles.appHeader}>
-          <h1>Brad's Tic Tac Toe</h1>
+          <h1 className = {styles.heading}>Brad's Tic Tac Toe</h1>
         </header>
         <Game />
       </div>
