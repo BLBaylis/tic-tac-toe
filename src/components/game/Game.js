@@ -31,6 +31,9 @@ class Game extends React.Component {
   };
 
   handleClick = (squareNo, argsFromState) => {
+    if (argsFromState.board[squareNo] !== null) {
+      return;
+    }
     let updatedState = transformStateObj(squareNo, argsFromState);
     if (updatedState.outcome === undefined) {
       updatedState = simulateCompMove(updatedState);
