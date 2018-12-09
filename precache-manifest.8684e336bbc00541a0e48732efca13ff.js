@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/tic-tac-toe-v2/static/js/runtime~main.c0657ea4.js"
   },
   {
-    "revision": "c2ee73535f0467be86d0",
-    "url": "/tic-tac-toe-v2/static/js/main.c2ee7353.chunk.js"
+    "revision": "93fec8ea3b59ed6ebc5a",
+    "url": "/tic-tac-toe-v2/static/js/main.93fec8ea.chunk.js"
   },
   {
     "revision": "be1109d6b91a079e1a7a",
     "url": "/tic-tac-toe-v2/static/js/1.be1109d6.chunk.js"
   },
   {
-    "revision": "c2ee73535f0467be86d0",
+    "revision": "93fec8ea3b59ed6ebc5a",
     "url": "/tic-tac-toe-v2/static/css/main.417c2cca.chunk.css"
   },
   {
-    "revision": "5dca82b93f1835e8c465c39f235b4abe",
+    "revision": "e50653e866d2164006333ec19e6fe7ff",
     "url": "/tic-tac-toe-v2/index.html"
   }
 ];
