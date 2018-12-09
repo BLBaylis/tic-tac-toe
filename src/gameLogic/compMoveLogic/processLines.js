@@ -1,4 +1,6 @@
-const processLines = (playerWithoutTempoLines, gridSize, board) => {
+/*process lines takes the lines */
+
+const processLines = (playerWithoutTempoLines, board, gridSize) => {
   const processedplayerWithoutTempoLines = getFlattenedArrOfAllUntakenSpacesDupesIncluded(
     playerWithoutTempoLines,
     board

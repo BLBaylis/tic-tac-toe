@@ -1,24 +1,22 @@
 import React from "react";
 import styles from "./Game.module.scss";
-import GameSquare from "../gameSquare/GameSquare";
 import Flipper from "../flipper/Flipper";
 import Settings from "../settings/Settings";
 import Grid from "../grid/Grid";
-import winCheck, { drawCheck } from "../../gameLogic/gameEndingConditions";
-import calculateCompMove from "../../gameLogic/compMoveLogic/calculateCompMove";
-import generateAllLines from "../../gameLogic/lineGeneratorFunctions/generateAllLines";
-import getCenterSquareIndex from "../../gameLogic/lineGeneratorFunctions/getCenterSquareIndex";
+import GameSquare from "../gameSquare/GameSquare";
+import transformStateObj from "../../gameLogic/moveSimulationFunctions/transformStateObj";
 import {
   simulateGame,
-  recordGameResults
-} from "../../gameLogic/debuggingFunctions/debug";
+  simulateCompMove
+} from "../../gameLogic/moveSimulationFunctions/simulateGame";
+import recordGameResults from "../../gameLogic/moveSimulationFunctions/recordGameResults";
 
 class Game extends React.Component {
   state = {
-    board: Array(3 ** 2).fill(null),
+    board: Array(9).fill(null),
     gameLog: [
       {
-        board: Array(3 ** 2).fill(null),
+        board: Array(9).fill(null),
         turnNo: 0,
         userTurn: true,
         outcome: undefined
@@ -32,124 +30,47 @@ class Game extends React.Component {
     gameFlipped: false
   };
 
-  flip = () => {
-    this.setState(prevState => ({ gameFlipped: !prevState.gameFlipped }));
-  };
-
-  changeSetting = (settingType, newSetting) => {
-    const obj = {};
-    obj[settingType] = newSetting;
-    this.setState(obj, this.restart);
-  };
-
-  handleClick = (squareNo, centerIndex, lines) => {
-    let promise = new Promise(resolve => {
-      this.makeMove(squareNo, this.state.board, this.state.turnNo);
-      resolve();
-    });
-    promise.then(() => {
-      this.makeMove(
-        calculateCompMove(
-          this.state.board,
-          centerIndex,
-          lines.allLines,
-          this.state.gridSize,
-          this.state.turnNo
-        ),
-        this.state.board,
-        this.state.turnNo
-      );
-    });
-  };
-
-  makeMove = (squareNo, board, turnNo, callback) => {
-    if (board[squareNo] || this.state.outcome !== undefined) {
-      return;
+  handleClick = (squareNo, argsFromState) => {
+    let updatedState = transformStateObj(squareNo, argsFromState);
+    if (updatedState.outcome === undefined) {
+      updatedState = simulateCompMove(updatedState);
     }
-    this.setState(
-      prevState => {
-        const boardClone = prevState.board.slice();
-        if (prevState.gameLog[prevState.turnNo + 1]) {
-          prevState.gameLog = prevState.gameLog.slice(0, prevState.turnNo + 1);
-        }
-        const nonGameLogStateChanges = {
-          board: boardClone,
-          turnNo: prevState.turnNo + 1,
-          userTurn: !prevState.userTurn,
-          outcome: prevState.outcome
-        };
-        nonGameLogStateChanges.board[squareNo] = prevState.userTurn
-          ? "user"
-          : "comp";
-        return {
-          gameLog: prevState.gameLog.concat(nonGameLogStateChanges),
-          ...nonGameLogStateChanges
-        };
-      },
-      () => {
-        this.gameEndConditionCheck(this.state.board, this.state.turnNo);
-        if (callback) {
-          callback();
-        }
-      }
-    );
+    this.setState(updatedState);
   };
 
-  gameEndConditionCheck = (board, turnNo) => {
-    let winChecked;
-    if (drawCheck(turnNo, this.state.gridSize)) {
-      this.setState({ outcome: "draw" }, () => {
-        return;
-      });
-    }
-    winChecked = winCheck(board, this.state.gridSize);
-    if (winChecked) {
-      this.setState({ outcome: winChecked }, () => {
-        return;
-      });
-    }
-  };
-
-  restart = () => {
-    const centerIndex = getCenterSquareIndex(this.state.gridSize);
-    const lines = generateAllLines(this.state.gridSize);
-    this.setState(
-      {
-        board: Array(this.state.gridSize ** 2).fill(null),
-        turnNo: 0,
-        userTurn: this.state.firstMove === "user" ? true : false,
-        gameLog: [
-          {
-            board: Array(this.state.gridSize ** 2).fill(null),
-            turnNo: 0,
-            userTurn: this.state.firstMove === "user" ? true : false
-          }
-        ],
-        outcome: undefined
-      },
-      () => {
-        if (this.state.firstMove === "comp") {
-          this.makeMove(
-            calculateCompMove(
-              this.state.board,
-              centerIndex,
-              lines.allLines,
-              this.state.gridSize,
-              this.state.turnNo
-            ),
-            this.state.board,
-            this.state.turnNo
-          );
+  restart = (firstMove, gridSize) => {
+    let updatedState;
+    let initialState = {
+      board: Array(gridSize ** 2).fill(null),
+      turnNo: 0,
+      userTurn: firstMove === "user" ? true : false,
+      gameLog: [
+        {
+          board: Array(gridSize ** 2).fill(null),
+          turnNo: 0,
+          userTurn: firstMove === "user" ? true : false,
+          outcome: undefined
         }
-      }
-    );
+      ],
+      outcome: undefined,
+      gridSize: gridSize
+    };
+    if (firstMove === "comp") {
+      updatedState = simulateCompMove(initialState);
+      this.setState(updatedState);
+    } else {
+      this.setState(initialState);
+    }
   };
 
   undoTurn = () => {
     this.setState(prevState => {
-      const lastTurnState = prevState.gameLog[prevState.turnNo - 2];
+      let lastTurnState = prevState.gameLog[prevState.turnNo - 2];
       if (!lastTurnState) {
         return;
+      }
+      if (lastTurnState.userTurn === false) {
+        lastTurnState = prevState.gameLog[prevState.turnNo - 1];
       }
       return {
         board: lastTurnState.board,
@@ -175,28 +96,36 @@ class Game extends React.Component {
     });
   };
 
-  generateSquares = quantity => {
-    const board = this.state.board;
-    const centerIndex = getCenterSquareIndex(this.state.gridSize);
-    const lines = generateAllLines(this.state.gridSize);
-    return Array(quantity)
+  changeSetting = (settingType, newSetting, argsFromState) => {
+    const obj = {};
+    obj[settingType] = newSetting;
+    this.setState(obj, () => {
+      if (settingType === "firstMove") {
+        this.restart(newSetting, argsFromState.gridSize);
+      } else {
+        this.restart(argsFromState.firstMove, newSetting);
+      }
+    });
+  };
+
+  flip = () => {
+    this.setState(prevState => ({ gameFlipped: !prevState.gameFlipped }));
+  };
+
+  generateSquares = argsFromState => {
+    const boardClone = argsFromState.board.slice();
+    return Array(argsFromState.gridSize ** 2)
       .fill()
       .map((x, index) => (
         <GameSquare
           key={index}
-          value={board[index]}
-          onClick={() => this.handleClick(index, centerIndex, lines)}
+          value={boardClone[index]}
+          onClick={() => this.handleClick(index, argsFromState)}
         />
       ));
   };
 
-  simulateManyGamesAndRecordResults = (
-    amountOfGames,
-    gridSize,
-    firstMove,
-    lines,
-    centerIndex
-  ) => {
+  simulateManyGamesAndRecordResults = (amountOfGames, argsFromState) => {
     let result;
     let counters = {
       userCounter: 0,
@@ -207,32 +136,51 @@ class Game extends React.Component {
       noOutcomeLog: [],
       randomGamesLog: []
     };
+    const { gridSize, firstMove } = argsFromState;
     for (let gamesPlayed = 0; gamesPlayed < amountOfGames; gamesPlayed++) {
-      result = simulateGame(gridSize, firstMove, lines, centerIndex);
+      result = simulateGame(argsFromState);
       console.log(`game ${gamesPlayed} finished`);
       counters = recordGameResults(result, counters);
-      this.restart();
+      this.restart(firstMove, gridSize);
     }
     console.log(counters);
   };
 
   render() {
-    const centerIndex = getCenterSquareIndex(this.state.gridSize);
-    const lines = generateAllLines(this.state.gridSize);
+    const state = { ...this.state };
+    const argsFromState = {
+      board: state.board,
+      gridSize: state.gridSize,
+      turnNo: state.turnNo,
+      outcome: state.outcome,
+      gameLog: state.gameLog,
+      userTurn: state.userTurn
+    };
     return (
       <React.Fragment>
         <Flipper
           flip={this.flip}
-          gameFlipped={this.state.gameFlipped}
+          gameFlipped={state.gameFlipped}
           front={
             <Grid
-              gridSize={this.state.gridSize}
+              argsFromState={argsFromState}
               generateSquares={this.generateSquares}
             />
           }
-          back={<Settings onClick={this.changeSetting} />}
+          back={
+            <Settings
+              argsFromState={{
+                gridSize: state.gridSize,
+                firstMove: state.firstMove
+              }}
+              onClick={this.changeSetting}
+            />
+          }
         />
-        <button className={styles.btn} onClick={this.restart}>
+        <button
+          className={styles.btn}
+          onClick={() => this.restart(state.firstMove, state.gridSize)}
+        >
           restart
         </button>
         <button className={styles.btn} onClick={this.undoTurn}>
@@ -244,13 +192,10 @@ class Game extends React.Component {
         <button
           className={styles.btn}
           onClick={() =>
-            this.simulateManyGamesAndRecordResults(
-              10000,
-              this.state.gridSize,
-              this.state.firstMove,
-              lines,
-              centerIndex
-            )
+            this.simulateManyGamesAndRecordResults(10000, {
+              firstMove: state.firstMove,
+              gridSize: state.gridSize
+            })
           }
         >
           debug
@@ -258,7 +203,7 @@ class Game extends React.Component {
         <button className={styles.btn} onClick={this.flip}>
           settings
         </button>
-        <h2 className={styles.winner}>outcome: {this.state.outcome}!</h2>
+        <h2 className={styles.winner}>outcome: {state.outcome}!</h2>
       </React.Fragment>
     );
   }

@@ -2,33 +2,47 @@ import findLongestWinnableLines from "./findLongestWinnableLines";
 import getBestMove from "./getBestMove";
 import { chooseRandom } from "../helperFunctions";
 
-const calculateCompMove = (board, centerIndex, allLines, gridSize, turnNo) => {
-  const centerValue = board[centerIndex];
+const calculateCompMove = (centerIndex, allLines, argsFromState) => {
+  const centerValue = argsFromState.board[centerIndex];
   if (!centerValue) {
     return centerIndex;
   }
-  if (gridSize === 3 && turnNo === 3) {
+  if (argsFromState.gridSize === 3 && argsFromState.turnNo === 3) {
     if (
-      [0, 8].filter(x => board[x] === "user").length === 2 ||
-      [2, 6].filter(x => board[x] === "user").length === 2
+      [0, 8].filter(x => argsFromState.board[x] === "user").length === 2 ||
+      [2, 6].filter(x => argsFromState.board[x] === "user").length === 2
     ) {
-      return chooseRandom([1, 3, 5, 7], board);
+      return chooseRandom([1, 3, 5, 7], argsFromState.board);
     }
   }
   const {
     lineLength: longestPossibleWinnableCompLinesLength,
     lines: longestPossibleWinnableCompLines
-  } = { ...findLongestWinnableLines("comp", board, gridSize, allLines) };
+  } = {
+    ...findLongestWinnableLines(
+      "comp",
+      argsFromState.board,
+      argsFromState.gridSize,
+      allLines
+    )
+  };
   const {
     lineLength: longestPossibleWinnableUserLinesLength,
     lines: longestPossibleWinnableUserLines
-  } = { ...findLongestWinnableLines("user", board, gridSize, allLines) };
+  } = {
+    ...findLongestWinnableLines(
+      "user",
+      argsFromState.board,
+      argsFromState.gridSize,
+      allLines
+    )
+  };
   if (
     longestPossibleWinnableCompLinesLength >=
     longestPossibleWinnableUserLinesLength
   ) {
     if (longestPossibleWinnableCompLinesLength === 0) {
-      const remainingBoard = board
+      const remainingBoard = argsFromState.board
         .slice()
         .map((x, index) => {
           if (x !== null) {
@@ -37,20 +51,20 @@ const calculateCompMove = (board, centerIndex, allLines, gridSize, turnNo) => {
           return index;
         })
         .filter(x => x !== null);
-      return chooseRandom(remainingBoard, board);
+      return chooseRandom(remainingBoard, argsFromState.board);
     }
     return getBestMove(
       longestPossibleWinnableCompLines,
       longestPossibleWinnableUserLines,
-      board,
-      gridSize
+      argsFromState.board,
+      argsFromState.gridSize
     );
   } else {
     return getBestMove(
       longestPossibleWinnableUserLines,
       longestPossibleWinnableCompLines,
-      board,
-      gridSize
+      argsFromState.board,
+      argsFromState.gridSize
     );
   }
 };

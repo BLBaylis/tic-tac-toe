@@ -13,8 +13,8 @@ const getBestMove = (
   }, []);
   const processedUserLines = processLines(
     playerWithoutTempoLines,
-    gridSize,
-    board
+    board,
+    gridSize
   );
   return chooseFromMoveChoicesBasedOnOppositionLines(
     possibleMoves,

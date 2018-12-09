@@ -1,6 +1,11 @@
 import findAllLinesWithXNumberOfSquareType from "./findAllLinesWithXNumberOfSquareType";
 import { doesLineContainOppositionSquare } from "../helperFunctions";
 
+//findLongestWinaableLines
+
+/*Arguments : 
+  lineType can be null or "comp" or "user", the 3 states a gridSquare can be in.
+*/
 const findLongestWinnableLines = (lineType, board, gridSize, winnableLines) => {
   let longestWinnableLines = [];
   let length = gridSize + 1;

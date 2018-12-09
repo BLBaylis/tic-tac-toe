@@ -6,17 +6,27 @@ const Settings = props => {
     <div className={styles.settings}>
       <h2>SETTINGS</h2>
       <p>Who goes first?</p>
-      <button onClick={() => props.onClick("firstMove", "user")}>ME</button>
-      <button onClick={() => props.onClick("firstMove", "comp")}>
+      <button
+        onClick={() => props.onClick("firstMove", "user", props.argsFromState)}
+      >
+        ME
+      </button>
+      <button
+        onClick={() => props.onClick("firstMove", "comp", props.argsFromState)}
+      >
         COMPUTER
       </button>
       <p>Grid Size</p>
-      <button onClick={() => props.onClick("gridSize", 3)}>
+      <button onClick={() => props.onClick("gridSize", 3, props.argsFromState)}>
         3 x 3<br />
         (recommended)
       </button>
-      <button onClick={() => props.onClick("gridSize", 5)}>5 x 5</button>
-      <button onClick={() => props.onClick("gridSize", 7)}>7 x 7</button>
+      <button onClick={() => props.onClick("gridSize", 5, props.argsFromState)}>
+        5 x 5
+      </button>
+      <button onClick={() => props.onClick("gridSize", 7, props.argsFromState)}>
+        7 x 7
+      </button>
     </div>
   );
 };
