@@ -5,21 +5,20 @@ import processLines from "./processLines";
 const getBestMove = (
   playerWithTempoLines,
   playerWithoutTempoLines,
-  board,
-  gridSize
+  argsFromState
 ) => {
   const possibleMoves = playerWithTempoLines.reduce((total, curr) => {
-    return total.concat(findAllUntakenSquares(curr, board));
+    return total.concat(findAllUntakenSquares(curr, argsFromState.board));
   }, []);
   const processedUserLines = processLines(
     playerWithoutTempoLines,
-    board,
-    gridSize
+    argsFromState.board,
+    argsFromState.gridSize
   );
   return chooseFromMoveChoicesBasedOnOppositionLines(
     possibleMoves,
     processedUserLines,
-    board
+    argsFromState.board
   );
 };
 export default getBestMove;

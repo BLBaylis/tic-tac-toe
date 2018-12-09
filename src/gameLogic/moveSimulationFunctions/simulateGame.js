@@ -40,7 +40,6 @@ export const simulateGame = argsFromState => {
       return state;
     }
   }
-
   return state;
 };
 

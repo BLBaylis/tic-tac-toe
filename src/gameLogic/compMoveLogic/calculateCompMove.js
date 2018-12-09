@@ -42,29 +42,22 @@ const calculateCompMove = (centerIndex, allLines, argsFromState) => {
     longestPossibleWinnableUserLinesLength
   ) {
     if (longestPossibleWinnableCompLinesLength === 0) {
-      const remainingBoard = argsFromState.board
-        .slice()
-        .map((x, index) => {
-          if (x !== null) {
-            return null;
-          }
-          return index;
-        })
-        .filter(x => x !== null);
-      return chooseRandom(remainingBoard, argsFromState.board);
+      const remainingBoardIndices = Array(argsFromState.gridSize ** 2)
+        .fill()
+        .map((x, index) => index)
+        .filter(x => argsFromState.board[x] === null);
+      return chooseRandom(remainingBoardIndices, argsFromState.board);
     }
     return getBestMove(
       longestPossibleWinnableCompLines,
       longestPossibleWinnableUserLines,
-      argsFromState.board,
-      argsFromState.gridSize
+      argsFromState
     );
   } else {
     return getBestMove(
       longestPossibleWinnableUserLines,
       longestPossibleWinnableCompLines,
-      argsFromState.board,
-      argsFromState.gridSize
+      argsFromState
     );
   }
 };

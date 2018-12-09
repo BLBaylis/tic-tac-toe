@@ -3,10 +3,6 @@ export const findAllUntakenSquares = (arr, board) => {
   return arrClone.filter(x => board[x] === null);
 };
 
-export const doesLineContainOppositionSquare = (line, lineType, board) => {
-  return line.every(x => board[x] === null || board[x] === lineType);
-};
-
 export const chooseRandom = (arr, board) => {
   const arrClone = arr.slice();
   let randomIndex = Math.floor(Math.random() * arrClone.length);

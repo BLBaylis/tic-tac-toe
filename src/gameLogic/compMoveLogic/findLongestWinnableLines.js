@@ -1,11 +1,3 @@
-import findAllLinesWithXNumberOfSquareType from "./findAllLinesWithXNumberOfSquareType";
-import { doesLineContainOppositionSquare } from "../helperFunctions";
-
-//findLongestWinaableLines
-
-/*Arguments : 
-  lineType can be null or "comp" or "user", the 3 states a gridSquare can be in.
-*/
 const findLongestWinnableLines = (lineType, board, gridSize, winnableLines) => {
   let longestWinnableLines = [];
   let length = gridSize + 1;
@@ -27,6 +19,35 @@ const findLongestWinnableLines = (lineType, board, gridSize, winnableLines) => {
     return { lineLength: length, lines: [] };
   }
   return { lineLength: length, lines: longestWinnableLines };
+};
+
+const findAllLinesWithXNumberOfSquareType = (
+  quantity,
+  board,
+  squareType,
+  lines
+) => {
+  lines = lines.filter(x =>
+    checkLineForXNumberOfSquareType(quantity, x, squareType, board)
+  );
+  return lines;
+};
+
+const checkLineForXNumberOfSquareType = (
+  quantity,
+  line,
+  squareType,
+  board
+) => {
+  const matchingSquares = line.filter(x => board[x] === squareType);
+  if (matchingSquares.length === quantity) {
+    return true;
+  }
+  return false;
+};
+
+const doesLineContainOppositionSquare = (line, lineType, board) => {
+  return line.every(x => board[x] === null || board[x] === lineType);
 };
 
 export default findLongestWinnableLines;
