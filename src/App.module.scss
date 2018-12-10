@@ -1,32 +1,50 @@
 .app {
   text-align: center;
   height: 100%;
+  position: relative;
 }
 
 .appHeader {
   background-color: #282c34;
   font-size: calc(10px + 2vmin);
   color: white;
+  height: 10%;
 }
 
 .heading {
   margin: 0;
 }
 
+.notHeader {
+  position: relative;
+  display: inline-block;
+  height: 90%;
+  width: 100%;
+}
+
+.iconSelectFlipperWrapper {
+  position: absolute;
+  z-index: 1;
+  height: calc(100% - 20px);
+  width: calc(100% - 20px);
+  left: 10px;
+  top: 10px;
+}
+
 .iconPreviewWrapper {
-    display : flex;
-    width: calc(100vw - 90px);
-    margin : 20px auto;
-    justify-content : space-between;
+  display: flex;
+  width: calc(100vw - 90px);
+  margin: 20px auto;
+  justify-content: space-between;
 }
 
 .icon {
-    height : 40px;
-    width : 40px;
-    min-height: 40px;
-    min-width: 40px;
-    border: none;
-    background-color: #fff;
-    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.16), 0 0 0 1px rgba(0,0,0,0.08);
-    cursor: pointer;
+  height: 40px;
+  width: 40px;
+  min-height: 40px;
+  min-width: 40px;
+  border: none;
+  background-color: #fff;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
 }

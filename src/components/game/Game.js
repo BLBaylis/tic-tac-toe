@@ -162,24 +162,26 @@ class Game extends React.Component {
     };
     return (
       <React.Fragment>
-        <Flipper
-          front={
-            <GamePanel
-              argsFromState={argsFromState}
-              generateSquares={this.generateSquares}
-              onClickObj={clickHandlersObj}
-            />
-          }
-          back={
-            <Settings
-              argsFromState={{
-                gridSize: state.gridSize,
-                firstMove: state.firstMove
-              }}
-              onClick={this.changeSetting}
-            />
-          }
-        />
+        <div className={styles.gameFlipperWrapper}>
+          <Flipper
+            front={
+              <GamePanel
+                argsFromState={argsFromState}
+                generateSquares={this.generateSquares}
+                onClickObj={clickHandlersObj}
+              />
+            }
+            back={
+              <Settings
+                argsFromState={{
+                  gridSize: state.gridSize,
+                  firstMove: state.firstMove
+                }}
+                onClick={this.changeSetting}
+              />
+            }
+          />
+        </div>
         <h2 className={styles.winner}>outcome: {state.outcome}!</h2>
       </React.Fragment>
     );

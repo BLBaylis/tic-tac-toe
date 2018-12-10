@@ -1,0 +1,21 @@
+.iconEditor {
+  height: 40%;
+  width: 90%;
+  margin: 10px auto;
+  background-color: #fff;
+}
+
+.canvas {
+    float:left;
+    height : 100%;
+    width : 75%;
+    display : flex;
+    justify-content : center;
+    align-items : center;
+}
+
+.canvasInner {
+    height : 150px;
+    width : 150px;
+}
+
