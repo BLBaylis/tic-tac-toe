@@ -5,7 +5,6 @@
 }
 
 .flipper {
-  height: 400px;
   width: 100%;
   transition: 0.6s;
   transform-style: preserve-3d;
@@ -17,8 +16,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 400px;
   width: 100%;
+  height: calc(100vw - 90px)
 }
 
 .front {

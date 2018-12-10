@@ -33,12 +33,7 @@ const findAllLinesWithXNumberOfSquareType = (
   return lines;
 };
 
-const checkLineForXNumberOfSquareType = (
-  quantity,
-  line,
-  squareType,
-  board
-) => {
+const checkLineForXNumberOfSquareType = (quantity, line, squareType, board) => {
   const matchingSquares = line.filter(x => board[x] === squareType);
   if (matchingSquares.length === quantity) {
     return true;

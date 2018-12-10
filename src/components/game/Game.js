@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Game.module.scss";
 import Flipper from "../flipper/Flipper";
 import Settings from "../settings/Settings";
-import Grid from "../grid/Grid";
+import GamePanel from "../gamePanel/GamePanel";
 import GameSquare from "../gameSquare/GameSquare";
 import transformStateObj from "../../gameLogic/moveSimulationFunctions/transformStateObj";
 import {
@@ -26,8 +26,7 @@ class Game extends React.Component {
     userTurn: true,
     outcome: undefined,
     gridSize: 3,
-    firstMove: "user",
-    gameFlipped: false
+    firstMove: "user"
   };
 
   handleClick = (squareNo, argsFromState) => {
@@ -111,10 +110,6 @@ class Game extends React.Component {
     });
   };
 
-  flip = () => {
-    this.setState(prevState => ({ gameFlipped: !prevState.gameFlipped }));
-  };
-
   generateSquares = argsFromState => {
     const boardClone = argsFromState.board.slice();
     return Array(argsFromState.gridSize ** 2)
@@ -159,15 +154,20 @@ class Game extends React.Component {
       gameLog: state.gameLog,
       userTurn: state.userTurn
     };
+    const clickHandlersObj = {
+      restart: this.restart,
+      undo: this.undoTurn,
+      redo: this.redoTurn,
+      test: this.simulateManyGamesAndRecordResults
+    };
     return (
       <React.Fragment>
         <Flipper
-          flip={this.flip}
-          gameFlipped={state.gameFlipped}
           front={
-            <Grid
+            <GamePanel
               argsFromState={argsFromState}
               generateSquares={this.generateSquares}
+              onClickObj={clickHandlersObj}
             />
           }
           back={
@@ -180,32 +180,6 @@ class Game extends React.Component {
             />
           }
         />
-        <button
-          className={styles.btn}
-          onClick={() => this.restart(state.firstMove, state.gridSize)}
-        >
-          restart
-        </button>
-        <button className={styles.btn} onClick={this.undoTurn}>
-          undo
-        </button>
-        <button className={styles.btn} onClick={this.redoTurn}>
-          redo
-        </button>
-        <button
-          className={styles.btn}
-          onClick={() =>
-            this.simulateManyGamesAndRecordResults(10000, {
-              firstMove: state.firstMove,
-              gridSize: state.gridSize
-            })
-          }
-        >
-          debug
-        </button>
-        <button className={styles.btn} onClick={this.flip}>
-          settings
-        </button>
         <h2 className={styles.winner}>outcome: {state.outcome}!</h2>
       </React.Fragment>
     );

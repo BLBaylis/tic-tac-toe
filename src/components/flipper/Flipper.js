@@ -1,18 +1,32 @@
 import React from "react";
 import styles from "./Flipper.module.scss";
 
-const Flipper = props => {
-  const flipped = props.gameFlipped ? styles.flipped : null;
-  const FrontComponent = React.cloneElement(props.front, { flip: props.flip });
-  const BackComponent = React.cloneElement(props.back, { flip: props.flip });
-  return (
-    <div className={styles.flipperContainer}>
-      <div className={`${styles.flipper} ${flipped}`}>
-        <div className={styles.front}>{FrontComponent}</div>
-        <div className={styles.back}>{BackComponent}</div>
+class Flipper extends React.Component {
+  state = {
+    flipped: false
+  };
+
+  flip = () => {
+    this.setState(prevState => ({ flipped: !prevState.flipped }));
+  };
+
+  render() {
+    const flipped = this.state.flipped ? styles.flipped : null;
+    const FrontComponent = React.cloneElement(this.props.front, {
+      flip: this.flip
+    });
+    const BackComponent = React.cloneElement(this.props.back, {
+      flip: this.flip
+    });
+    return (
+      <div className={styles.flipperContainer}>
+        <div className={`${styles.flipper} ${flipped}`}>
+          <div className={styles.front}>{FrontComponent}</div>
+          <div className={styles.back}>{BackComponent}</div>
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Flipper;

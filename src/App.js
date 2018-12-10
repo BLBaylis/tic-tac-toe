@@ -9,6 +9,11 @@ class App extends Component {
         <header className={styles.appHeader}>
           <h1 className={styles.heading}>Brad's Tic Tac Toe</h1>
         </header>
+        <div className = {styles.iconPreviewWrapper}>
+          <div className = {styles.icon}></div>
+          <span>VS</span>
+          <div className = {styles.icon}></div>
+        </div>
         <Game />
       </div>
     );

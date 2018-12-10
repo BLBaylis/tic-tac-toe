@@ -26,7 +26,8 @@ const Settings = props => {
       </button>
       <button onClick={() => props.onClick("gridSize", 7, props.argsFromState)}>
         7 x 7
-      </button>
+      </button><br/>
+      <button onClick={props.flip}>Back</button>
     </div>
   );
 };
