@@ -1,9 +1,9 @@
 import React from "react";
-import styles from './Palette.module.scss'
+import styles from "./Palette.module.scss";
 
 const Palette = props => {
   return (
-    <div className = {styles.palette}>
+    <div className={styles.palette}>
       <div className={`${styles.colour} ${styles.black}`} />
       <div className={`${styles.colour} ${styles.grey}`} />
       <div className={`${styles.colour} ${styles.darkRed}`} />
@@ -28,4 +28,4 @@ const Palette = props => {
   );
 };
 
-export default Palette
+export default Palette;
