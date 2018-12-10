@@ -2,13 +2,14 @@ import React from "react";
 import styles from "./Button.module.scss";
 
 const Button = props => {
-  const sideMargins = props.noRightMargin
+  const rightMargin = props.noRightMargin
     ? styles.noRightMargin
-    : styles.noLeftMargin;
-  const className =
-    props.noLeftMargin || props.noRightMargin
-      ? `${styles.button} ${sideMargins}`
-      : styles.button;
+    : "";
+  const leftMargin = props.noLeftMargin
+    ? styles.noLeftMargin
+    : "";
+  const hidden = props.hidden ? styles.hidden : "";
+  const className = `${styles.button} ${rightMargin} ${leftMargin} ${hidden}`
   return (
     <button className={className} onClick={props.onClick}>
       {props.children}

@@ -1,3 +1,5 @@
+@import '../../colours';
+
 .palette {
   height: 100%;
   width: 25%;
@@ -23,81 +25,81 @@
 }
 
 .black {
-  background-color: #000000;
+  background-color: $black;
 }
 
 .grey {
-  background-color: #7f7f7f;
+  background-color: $grey;
 }
 
 .darkRed {
-  background-color: #880015;
+  background-color: $darkRed;
 }
 
 .lightRed {
-  background-color: #ed261a;
+  background-color: $lightRed;
 }
 
 .orange {
-  background-color: #ff7f27;
+  background-color: $orange;
 }
 
 .yellow {
-  background-color: #fff200;
+  background-color: $yellow;
 }
 
 .darkGreen {
-  background-color: #22b14c;
+  background-color: $darkGreen;
 }
 
 .lightBlue2 {
-  background-color: #99d9ea;
+  background-color: $lightBlue2;
 }
 
 .darkBlue2 {
-  background-color: #7092be;
+  background-color: $darkBlue2;
 }
 
 .lightPurple {
-  background-color: #c8bfe7;
+  background-color: $lightPurple;
 }
 
 .white {
-  background-color: #fff;
+  background-color: $white;
 }
 
 .silver {
-  background-color: #c3c3c3;
+  background-color: $silver;
 }
 
 .brown {
-  background-color: #b97a57;
+  background-color: $brown;
 }
 
 .pink {
-  background-color: #ffaec9;
+  background-color: $pink;
 }
 
 .gold {
-  background-color: #ffc90e;
+  background-color: $gold;
 }
 
 .almond {
-  background-color: #efe4b0;
+  background-color: $almond;
 }
 
 .lightGreen {
-  background-color: #b5e61d;
+  background-color: $lightGreen;
 }
 
 .lightBlue1 {
-  background-color: #00a2e8;
+  background-color: $lightBlue1;
 }
 
 .darkBlue1 {
-  background-color: #3f48cc;
+  background-color: $darkBlue1;
 }
 
 .purple {
-  background-color: #a349a4;
+  background-color: $purple;
 }

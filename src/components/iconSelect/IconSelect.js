@@ -7,7 +7,7 @@ const IconSelect = props => {
     <div className={styles.iconSelect}>
       <h2
         className={styles.heading}
-      >{`SELECT ${props.player.toUpperCase()} ICON`}</h2>
+      >{"SELECT "}<span className = {styles.highlight}>{props.player.toUpperCase()}</span>{" ICON"}</h2>
       <IconEditor />
       <div className={styles.iconShowcase}>
         <button className={styles.icon}>

@@ -31,10 +31,10 @@ class App extends Component {
           </div>
           <div className={styles.iconPreviewWrapper}>
             <button onClick = {this.toggleIconSelect} className={styles.icon}></button>
-            <span>VS</span>
+            <span className = {styles.vertAlign}>VS</span>
             <button onClick = {this.toggleIconSelect} className={styles.icon}></button>
           </div>
-          {/*<Game/> */}
+          <Game/>
         </div>
       </div>
     );
