@@ -7,11 +7,26 @@
   background-color: #fff;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
   cursor: pointer;
+  padding: 0;
 }
 
-.highlight {    
-    font-weight: 800;
-    color: #fff;
-    font-size : 30px;
-    color : #889b7c;
+.highlight {
+  font-weight: 800;
+  color: #fff;
+  font-size: 30px;
+  color: #889b7c;
+}
+
+@media (orientation: portrait) and (min-height: 480px) {
+  .icon {
+    height: calc(55px + (20 * (100vh - 480px) / 288));
+    width: calc(55px + (20 * (100vh - 480px) / 288));
+  }
+}
+
+@media (orientation: portrait) and (min-height: 768x) {
+  .icon {
+    height: 75px;
+    width: 75px;
+  }
 }

@@ -2,12 +2,14 @@
   "name": "tic-tac-toe-v2",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://blbaylis.github.io/tic-tac-toe-v2",
+  "homepage": "/",
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "node-sass": "^4.10.0",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
-    "react-scripts": "2.1.1"
+    "react-scripts": "2.1.1",
+    "serve": "^10.1.1"
   },
   "scripts": {
     "start": "react-scripts start",

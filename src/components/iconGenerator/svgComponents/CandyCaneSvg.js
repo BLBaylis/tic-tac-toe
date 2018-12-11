@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./svgComponents.module.scss";
 
 const CandyCaneSvg = props => (
-  <svg className = {styles.svg} viewBox="0 0 312 312" {...props}>
+  <svg className={styles.svg} viewBox="0 0 312 312" {...props}>
     <image
       width={312}
       height={312}

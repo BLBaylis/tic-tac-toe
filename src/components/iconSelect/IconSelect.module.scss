@@ -1,8 +1,11 @@
 .iconSelect {
   position: relative;
-  background-color: #BAD4AA;;
-  border: solid 1px #BAD4AA;;
+  background-color: #bad4aa;
+  border: solid 1px #bad4aa;
   height: 100%;
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .heading {
@@ -28,26 +31,34 @@
 
 .confirmButtonUser {
   @extend .button;
-  width : 90%;
+  width: 90%;
   margin: 0 auto;
 }
 
 .confirmButtonComp {
   @extend .button;
-  width : 80%;
+  width: 80%;
   background-color: #7be0ad;
 }
 
 .backButton {
   @extend .button;
-  width : 18.5%;
-  background-color: #F9AB55
-
+  width: 18.5%;
+  background-color: #f9ab55;
 }
 
 .buttonRow {
-  display : flex;
+  display: flex;
   justify-content: space-between;
-  width : 90%;
-  margin : 10px auto;
+  width: 90%;
+  margin: 10px auto;
+}
+
+@media (orientation: portrait) and (min-height: 480px) {
+  .iconSelect {
+    width: 73vh;
+    height: 95vh;
+    max-width: 90vw;
+    max-height: 117vw;
+  }
 }

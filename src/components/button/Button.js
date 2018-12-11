@@ -7,7 +7,9 @@ const Button = props => {
   const rightMargin = props.noRightMargin ? styles.noRightMargin : "";
   const leftMargin = props.noLeftMargin ? styles.noLeftMargin : "";
   const hidden = props.hidden ? styles.hidden : "";
-  const className = `${styles.button} ${rightMargin} ${leftMargin} ${hidden} ${span3} ${colour}`;
+  const className = `${
+    styles.button
+  } ${rightMargin} ${leftMargin} ${hidden} ${span3} ${colour}`;
   return (
     <button className={className} onClick={props.onClick}>
       {props.children}

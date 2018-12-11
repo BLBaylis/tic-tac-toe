@@ -62,10 +62,15 @@ class App extends Component {
               }
             />
           </div>
-          <div className={styles.iconPreviewWrapper}>
-            <IconPreview iconInfo = {iconInfo} toggleIconSelect = {this.toggleIconSelect}/>
-          </div>
-          <Game iconInfo={iconInfo} />
+          {this.state.iconSelectOpen === false && (
+            <div className={styles.iconPreviewWrapper}>
+              <IconPreview
+                iconInfo={iconInfo}
+                toggleIconSelect={this.toggleIconSelect}
+              />
+            </div>
+          )}
+          {this.state.iconSelectOpen === false && <Game iconInfo={iconInfo} />}
         </div>
       </div>
     );

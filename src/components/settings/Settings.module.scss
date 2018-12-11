@@ -1,5 +1,5 @@
 .settings {
-  background-color: #BAD4AA;
+  background-color: #bad4aa;
   color: white;
   height: 100%;
   width: 100%;
@@ -7,33 +7,33 @@
 }
 
 .subHeading {
-    margin : 10px;
+  margin: 10px;
 }
 
 .questions {
-    display : block;
-    margin : 15px;
+  display: block;
+  margin: 15px;
 }
 
 .button {
-    display:block;
-    min-height: 40px;
-    min-width: 40px;
-    width : 75%;
-    border: none;
-    background-color: #F9AB55;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-    transition: all 300ms ease-in-out;
-    cursor: pointer;
-    color: #fff;
-    font-family: "BioRhyme";
-    font-size: 14px;
-    margin : 16px auto;
+  display: block;
+  min-height: 40px;
+  min-width: 40px;
+  width: 75%;
+  border: none;
+  background-color: #f9ab55;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  transition: all 300ms ease-in-out;
+  cursor: pointer;
+  color: #fff;
+  font-family: "BioRhyme";
+  font-size: 14px;
+  margin: 16px auto;
 }
 
 .buttonRow {
-    display : flex;
-    width :80%;
-    margin : 10px auto;
-    justify-content : space-around;
+  display: flex;
+  width: 80%;
+  margin: 10px auto;
+  justify-content: space-around;
 }

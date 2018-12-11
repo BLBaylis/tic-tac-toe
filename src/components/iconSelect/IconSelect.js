@@ -23,11 +23,14 @@ const IconSelect = props => {
         }
       />
       {props.player === "comp" && (
-        <div className = {styles.buttonRow}>
+        <div className={styles.buttonRow}>
           <button onClick={props.flip} className={styles.backButton}>
             BACK
           </button>
-          <button className={styles.confirmButtonComp} onClick={props.toggleIconSelect}>
+          <button
+            className={styles.confirmButtonComp}
+            onClick={props.toggleIconSelect}
+          >
             {`CONFIRM ${props.player.toUpperCase()} ICON`}
           </button>
         </div>

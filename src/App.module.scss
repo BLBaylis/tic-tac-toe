@@ -46,3 +46,22 @@
   justify-content: space-between;
   align-items: center;
 }
+
+@media (orientation: portrait) and (min-height: 480px) {
+  .iconPreviewWrapper {
+    max-height: calc(230px + (264 * (100vh - 480px) / 288));
+    max-width: calc(230px + (264 * (100vh - 480px) / 288));
+  }
+}
+
+@media (orientation: portrait) and (min-height: 768px) {
+  .iconPreviewWrapper {
+    max-width: calc(402px + (232 * (100vh - 768px) / 254));
+  }
+}
+
+@media (orientation: portrait) and (min-height: 1-24px) {
+  .iconPreviewWrapper {
+    max-width: 634px;
+  }
+}

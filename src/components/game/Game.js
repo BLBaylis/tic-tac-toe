@@ -30,7 +30,6 @@ class Game extends React.Component {
   };
 
   handleClick = (squareNo, argsFromState) => {
-    console.log(this.state);
     if (argsFromState.board[squareNo] !== null) {
       return;
     }
@@ -120,7 +119,7 @@ class Game extends React.Component {
       .fill()
       .map((x, index) => (
         <GameSquare
-          iconInfo = {iconInfo}
+          iconInfo={iconInfo}
           key={index}
           value={boardClone[index]}
           onClick={() => this.handleClick(index, argsFromState)}
@@ -172,9 +171,11 @@ class Game extends React.Component {
           <Flipper
             front={
               <GamePanel
-                iconInfo = {this.props.iconInfo}
+                iconInfo={this.props.iconInfo}
                 argsFromState={argsFromState}
-                generateSquares={() => this.generateSquares(argsFromState, this.props.iconInfo)}
+                generateSquares={() =>
+                  this.generateSquares(argsFromState, this.props.iconInfo)
+                }
                 onClickObj={clickHandlersObj}
               />
             }

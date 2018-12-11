@@ -5,7 +5,9 @@ import Button from "../button/Button";
 const Controls = props => {
   return (
     <div className={styles.controls}>
-      <Button primaryColour noLeftMargin onClick={props.onClickObj.undo}>Undo</Button>
+      <Button primaryColour noLeftMargin onClick={props.onClickObj.undo}>
+        Undo
+      </Button>
       <Button
         onClick={() =>
           props.onClickObj.restart(
@@ -16,7 +18,9 @@ const Controls = props => {
       >
         Restart
       </Button>
-      <Button primaryColour noRightMargin onClick={props.onClickObj.redo}>Redo</Button>
+      <Button primaryColour noRightMargin onClick={props.onClickObj.redo}>
+        Redo
+      </Button>
       <Button
         hidden
         onClick={() =>

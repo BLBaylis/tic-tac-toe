@@ -4,5 +4,24 @@
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 1fr 1fr;
   min-height: 40px;
-  margin : 12.5px auto;
+  margin: 12.5px auto;
+}
+
+@media (orientation: portrait) and (min-height: 480px) {
+  .controls {
+    max-width: calc(230px + (264 * (100vh - 480px) / 288));
+  }
+}
+
+@media (orientation: portrait) and (min-height: 768px) {
+  .controls {
+    max-width: calc(402px + (232 * (100vh - 768px) / 254));
+    height: 155px;
+  }
+}
+
+@media (orientation: portrait) and (min-height: 1024px) {
+  .controls {
+    max-width: 634px;
+  }
 }
