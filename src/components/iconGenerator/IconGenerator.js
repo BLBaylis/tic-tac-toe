@@ -1,26 +1,27 @@
-import React from 'react';
-import ButtonSvg from '../../icons/button.svg';
-import CandyCaneSvg from '../../icons/button.svg';
-import CircleSvg from '../../icons/button.svg';
-import CrossSvg from '../../icons/button.svg';
-import PencilsSvg from '../../icons/button.svg';
-import SmileySvg from '../../icons/button.svg';
-import SwordsSvg from '../../icons/button.svg';
-import WheelSvg from '../../icons/button.svg';
+import React from "react";
+import ButtonSvg from "./svgComponents/ButtonSvg";
+import CandyCaneSvg from "./svgComponents/CandyCaneSvg";
+import CircleSvg from "./svgComponents/CircleSvg";
+import CrossSvg from "./svgComponents/CrossSvg";
+import PencilsSvg from "./svgComponents/PencilsSvg";
+import SmileySvg from "./svgComponents/SmileySvg";
+import SwordsSvg from "./svgComponents/SwordsSvg";
+import WheelSvg from "./svgComponents/WheelSvg";
 
 const IconGenerator = props => {
-    return (
-        <React.Fragment>
-            {props.icon === "button" && <ButtonSvg colour = {props.colour}/>}
-            {props.icon === "candyCane" && <CandyCaneSvg colour = {props.colour}/>}
-            {props.icon === "circle" && <CircleSvg colour = {props.colour}/>}
-            {props.icon === "cross" && <CrossSvg colour = {props.colour}/>}
-            {props.icon === "pencils" && <PencilsSvg colour = {props.colour}/>}
-            {props.icon === "smiley" && <SmileySvg colour = {props.colour}/>}
-            {props.icon === "swords" && <SwordsSvg colour = {props.colour}/>}
-            {props.icon === "wheel" && <WheelSvg colour = {props.colour}/>}
-        </React.Fragment>
-    )
-}
+  const { icon, colour } = props.iconInfo;
+  return (
+    <React.Fragment>
+      {icon === "button" && <ButtonSvg colour={colour} />}
+      {icon === "candyCane" && <CandyCaneSvg colour={colour} />}
+      {icon === "circle" && <CircleSvg colour={colour} />}
+      {icon === "cross" && <CrossSvg colour={colour} />}
+      {icon === "pencils" && <PencilsSvg colour={colour} />}
+      {icon === "smiley" && <SmileySvg colour={colour} />}
+      {icon === "swords" && <SwordsSvg colour={colour} />}
+      {icon === "wheel" && <WheelSvg colour={colour} />}
+    </React.Fragment>
+  );
+};
 
-export default IconGenerator
+export default IconGenerator;

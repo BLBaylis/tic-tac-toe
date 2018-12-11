@@ -3,6 +3,7 @@ import styles from "./Controls.module.scss";
 import Button from "../button/Button";
 
 const Controls = props => {
+  console.log(props.argsFromState);
   return (
     <div className={styles.controls}>
       <Button
@@ -19,7 +20,7 @@ const Controls = props => {
       <Button onClick={props.onClickObj.undo}>Undo</Button>
       <Button onClick={props.onClickObj.redo}>Redo</Button>
       <Button
-      hidden
+        hidden
         onClick={() =>
           this.simulateManyGamesAndRecordResults(10000, {
             firstMove: props.argsFromState.firstMove,

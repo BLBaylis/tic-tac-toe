@@ -1,17 +1,17 @@
 import React from "react";
 import styles from "./IconEditor.module.scss";
 import Palette from "../palette/Palette";
-import WheelSvg from '../iconGenerator/svgComponents/WheelSvg';
+import IconGenerator from "../iconGenerator/IconGenerator";
 
 const IconEditor = props => {
   return (
     <div className={styles.iconEditor}>
       <div className={styles.canvas}>
         <div className={styles.canvasInner}>
-            {<WheelSvg/>}
+          {<IconGenerator iconInfo={props.iconInfo} />}
         </div>
       </div>
-      <Palette />
+      <Palette changeSetting={props.changeSetting} />
     </div>
   );
 };

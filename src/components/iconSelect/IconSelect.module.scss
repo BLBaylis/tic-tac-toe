@@ -7,39 +7,13 @@
 
 .heading {
   margin: 10px 0;
-  color: #F5FAF0;
+  color: #f5faf0;
   font-weight: 300;
 }
 
 .highlight {
   font-weight: 800;
   color: #fff;
-}
-
-.iconShowcase {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(40px, 1fr));
-  grid-template-rows: repeat(2, 1fr);
-  grid-gap: 10px;
-  height: 30%;
-  width: 90%;
-  margin: 10px auto;
-}
-
-.icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 40px;
-  min-height: 40px;
-  background-color: #fff;
-  border: none;
-}
-
-.iconInner {
-  height: 40px;
-  width: 40px;
-  background-color: yellow;
 }
 
 .button {

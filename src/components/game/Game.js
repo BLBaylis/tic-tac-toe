@@ -30,6 +30,7 @@ class Game extends React.Component {
   };
 
   handleClick = (squareNo, argsFromState) => {
+    console.log(this.state);
     if (argsFromState.board[squareNo] !== null) {
       return;
     }
@@ -61,6 +62,7 @@ class Game extends React.Component {
       updatedState = simulateCompMove(initialState);
       this.setState(updatedState);
     } else {
+      console.log("firstMove is user", initialState.userTurn);
       this.setState(initialState);
     }
   };
@@ -110,12 +112,13 @@ class Game extends React.Component {
     });
   };
 
-  generateSquares = argsFromState => {
+  generateSquares = (argsFromState, iconInfo) => {
     const boardClone = argsFromState.board.slice();
     return Array(argsFromState.gridSize ** 2)
       .fill()
       .map((x, index) => (
         <GameSquare
+          iconInfo = {iconInfo}
           key={index}
           value={boardClone[index]}
           onClick={() => this.handleClick(index, argsFromState)}
@@ -152,7 +155,8 @@ class Game extends React.Component {
       turnNo: state.turnNo,
       outcome: state.outcome,
       gameLog: state.gameLog,
-      userTurn: state.userTurn
+      userTurn: state.userTurn,
+      firstMove: state.firstMove
     };
     const clickHandlersObj = {
       restart: this.restart,
@@ -166,8 +170,9 @@ class Game extends React.Component {
           <Flipper
             front={
               <GamePanel
+                iconInfo = {this.props.iconInfo}
                 argsFromState={argsFromState}
-                generateSquares={this.generateSquares}
+                generateSquares={() => this.generateSquares(argsFromState, this.props.iconInfo)}
                 onClickObj={clickHandlersObj}
               />
             }

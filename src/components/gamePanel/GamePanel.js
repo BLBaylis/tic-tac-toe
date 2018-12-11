@@ -10,6 +10,7 @@ const gamePanel = props => {
   return (
     <React.Fragment>
       <Grid
+        iconInfo = {props.iconInfo}
         argsFromState={props.argsFromState}
         generateSquares={props.generateSquares}
       />
