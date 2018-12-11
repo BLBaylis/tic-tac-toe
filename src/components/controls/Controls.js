@@ -3,11 +3,10 @@ import styles from "./Controls.module.scss";
 import Button from "../button/Button";
 
 const Controls = props => {
-  console.log(props.argsFromState);
   return (
     <div className={styles.controls}>
+      <Button primaryColour noLeftMargin onClick={props.onClickObj.undo}>Undo</Button>
       <Button
-        noLeftMargin
         onClick={() =>
           props.onClickObj.restart(
             props.argsFromState.firstMove,
@@ -17,8 +16,7 @@ const Controls = props => {
       >
         Restart
       </Button>
-      <Button onClick={props.onClickObj.undo}>Undo</Button>
-      <Button onClick={props.onClickObj.redo}>Redo</Button>
+      <Button primaryColour noRightMargin onClick={props.onClickObj.redo}>Redo</Button>
       <Button
         hidden
         onClick={() =>
@@ -30,7 +28,7 @@ const Controls = props => {
       >
         Debug
       </Button>
-      <Button noRightMargin onClick={props.onClickObj.flip}>
+      <Button primaryColour span3 onClick={props.onClickObj.flip}>
         Settings
       </Button>
     </div>

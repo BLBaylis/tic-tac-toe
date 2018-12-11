@@ -4,88 +4,97 @@ import styles from "./Palette.module.scss";
 const Palette = props => {
   return (
     <div className={styles.palette}>
-      <div
-        onClick={() => props.changeSetting("black")}
-        className={`${styles.colour} ${styles.black}`}
+      <PaletteColour
+        colour = "black"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("grey")}
-        className={`${styles.colour} ${styles.grey}`}
+      <PaletteColour
+        colour = "grey"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("darkRed")}
-        className={`${styles.colour} ${styles.darkRed}`}
+      <PaletteColour
+        colour = "darkRed"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("lightRed")}
-        className={`${styles.colour} ${styles.lightRed}`}
+      <PaletteColour
+        colour = "lightRed"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("orange")}
-        className={`${styles.colour} ${styles.orange}`}
+      <PaletteColour
+        colour = "orange"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("yellow")}
-        className={`${styles.colour} ${styles.yellow}`}
+      <PaletteColour
+        colour = "yellow"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("darkGreen")}
-        className={`${styles.colour} ${styles.darkGreen}`}
+      <PaletteColour
+        colour = "darkGreen"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("lightBlue1")}
-        className={`${styles.colour} ${styles.lightBlue1}`}
+      <PaletteColour
+        colour = "lightBlue1"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("darkBlue1")}
-        className={`${styles.colour} ${styles.darkBlue1}`}
+      <PaletteColour
+        colour = "darkBlue1"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("purple")}
-        className={`${styles.colour} ${styles.purple}`}
+
+      <PaletteColour
+        colour = "purple"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("white")}
-        className={`${styles.colour} ${styles.white}`}
+      <PaletteColour
+        colour = "white"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("silver")}
-        className={`${styles.colour} ${styles.silver}`}
+      <PaletteColour
+        colour = "silver"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("brown")}
-        className={`${styles.colour} ${styles.brown}`}
+      <PaletteColour
+        colour = "brown"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("pink")}
-        className={`${styles.colour} ${styles.pink}`}
+      <PaletteColour
+        colour = "pink"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("gold")}
-        className={`${styles.colour} ${styles.gold}`}
+      <PaletteColour
+        colour = "gold"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("almond")}
-        className={`${styles.colour} ${styles.almond}`}
+      <PaletteColour
+        colour = "almond"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("lightGreen")}
-        className={`${styles.colour} ${styles.lightGreen}`}
+      <PaletteColour
+        colour = "lightGreen"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("lightBlue2")}
-        className={`${styles.colour} ${styles.lightBlue2}`}
+      <PaletteColour
+        colour = "lightBlue2"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("darkBlue2")}
-        className={`${styles.colour} ${styles.darkBlue2}`}
+      <PaletteColour
+        colour = "darkBlue2"
+        changeSetting={props.changeSetting}
       />
-      <div
-        onClick={() => props.changeSetting("lightPurple")}
-        className={`${styles.colour} ${styles.lightPurple}`}
+      <PaletteColour
+        colour = "lightPurple"
+        changeSetting={props.changeSetting}
       />
     </div>
   );
 };
+
+const PaletteColour = props => {
+  const colour = props.colour;
+  return (
+    <button onClick={() => props.changeSetting(colour)}
+        className={`${styles.colour} ${styles[colour]}`}></button>
+  );
+}
 
 export default Palette;

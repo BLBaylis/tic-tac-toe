@@ -62,7 +62,6 @@ class Game extends React.Component {
       updatedState = simulateCompMove(initialState);
       this.setState(updatedState);
     } else {
-      console.log("firstMove is user", initialState.userTurn);
       this.setState(initialState);
     }
   };
@@ -87,7 +86,10 @@ class Game extends React.Component {
 
   redoTurn = () => {
     this.setState(prevState => {
-      const nextTurnState = prevState.gameLog[prevState.turnNo + 2];
+      let nextTurnState = prevState.gameLog[prevState.turnNo + 2];
+      if (!nextTurnState) {
+        nextTurnState = prevState.gameLog[prevState.turnNo + 1];
+      }
       if (!nextTurnState) {
         return;
       }
@@ -187,7 +189,6 @@ class Game extends React.Component {
             }
           />
         </div>
-        <h2 className={styles.winner}>outcome: {state.outcome}!</h2>
       </React.Fragment>
     );
   }

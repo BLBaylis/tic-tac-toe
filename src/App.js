@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Game from "./components/game/Game";
 import IconSelect from "./components/iconSelect/IconSelect";
-import IconGenerator from "./components/iconGenerator/IconGenerator";
+import IconPreview from "./components/iconPreview/IconPreview";
 import Flipper from "./components/flipper/Flipper";
 import styles from "./App.module.scss";
 
@@ -63,9 +63,7 @@ class App extends Component {
             />
           </div>
           <div className={styles.iconPreviewWrapper}>
-            <button onClick={this.toggleIconSelect} className={styles.icon}><IconGenerator iconInfo = {iconInfo.user}/> </button>
-            VS
-            <button onClick={this.toggleIconSelect} className={styles.icon}><IconGenerator iconInfo = {iconInfo.comp}/> </button>
+            <IconPreview iconInfo = {iconInfo} toggleIconSelect = {this.toggleIconSelect}/>
           </div>
           <Game iconInfo={iconInfo} />
         </div>

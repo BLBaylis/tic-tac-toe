@@ -23,17 +23,17 @@ const IconSelect = props => {
         }
       />
       {props.player === "comp" && (
-        <React.Fragment>
-          <button onClick={props.flip} className={styles.button}>
+        <div className = {styles.buttonRow}>
+          <button onClick={props.flip} className={styles.backButton}>
             BACK
           </button>
-          <button className={styles.button} onClick={props.toggleIconSelect}>
+          <button className={styles.confirmButtonComp} onClick={props.toggleIconSelect}>
             {`CONFIRM ${props.player.toUpperCase()} ICON`}
           </button>
-        </React.Fragment>
+        </div>
       )}
       {props.player === "user" && (
-        <button className={styles.button} onClick={props.flip}>
+        <button className={styles.confirmButtonUser} onClick={props.flip}>
           {`CONFIRM ${props.player.toUpperCase()} ICON`}
         </button>
       )}
