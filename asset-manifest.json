@@ -1,13 +1,13 @@
 {
-  "main.css": "/tic-tac-toe-v2/static/css/main.65477a2f.chunk.css",
-  "main.js": "/tic-tac-toe-v2/static/js/main.21c898fe.chunk.js",
-  "main.js.map": "/tic-tac-toe-v2/static/js/main.21c898fe.chunk.js.map",
-  "static/js/1.c10c4a4f.chunk.js": "/tic-tac-toe-v2/static/js/1.c10c4a4f.chunk.js",
-  "static/js/1.c10c4a4f.chunk.js.map": "/tic-tac-toe-v2/static/js/1.c10c4a4f.chunk.js.map",
-  "runtime~main.js": "/tic-tac-toe-v2/static/js/runtime~main.c0657ea4.js",
-  "runtime~main.js.map": "/tic-tac-toe-v2/static/js/runtime~main.c0657ea4.js.map",
-  "static/css/main.65477a2f.chunk.css.map": "/tic-tac-toe-v2/static/css/main.65477a2f.chunk.css.map",
-  "index.html": "/tic-tac-toe-v2/index.html",
-  "precache-manifest.18f56962cfaaab8611bd59aea48b11c0.js": "/tic-tac-toe-v2/precache-manifest.18f56962cfaaab8611bd59aea48b11c0.js",
-  "service-worker.js": "/tic-tac-toe-v2/service-worker.js"
+  "main.css": "blbaylis.github.io/tic-tac-toe-v2/static/css/main.65477a2f.chunk.css",
+  "main.js": "blbaylis.github.io/tic-tac-toe-v2/static/js/main.f264a857.chunk.js",
+  "main.js.map": "blbaylis.github.io/tic-tac-toe-v2/static/js/main.f264a857.chunk.js.map",
+  "static/js/1.c10c4a4f.chunk.js": "blbaylis.github.io/tic-tac-toe-v2/static/js/1.c10c4a4f.chunk.js",
+  "static/js/1.c10c4a4f.chunk.js.map": "blbaylis.github.io/tic-tac-toe-v2/static/js/1.c10c4a4f.chunk.js.map",
+  "runtime~main.js": "blbaylis.github.io/tic-tac-toe-v2/static/js/runtime~main.c88dbc95.js",
+  "runtime~main.js.map": "blbaylis.github.io/tic-tac-toe-v2/static/js/runtime~main.c88dbc95.js.map",
+  "static/css/main.65477a2f.chunk.css.map": "blbaylis.github.io/tic-tac-toe-v2/static/css/main.65477a2f.chunk.css.map",
+  "index.html": "blbaylis.github.io/tic-tac-toe-v2/index.html",
+  "precache-manifest.bc83df2d99379266230ad3c987023559.js": "blbaylis.github.io/tic-tac-toe-v2/precache-manifest.bc83df2d99379266230ad3c987023559.js",
+  "service-worker.js": "blbaylis.github.io/tic-tac-toe-v2/service-worker.js"
 }
