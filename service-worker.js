@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "blbaylis.github.io/tic-tac-toe-v2//precache-manifest.ebdfd03aee8ce3f28df760c99b8f84a1.js"
+  "/tic-tac-toe-v2/precache-manifest.1bb2112b70c7552be0fa3a5436005e32.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("blbaylis.github.io/tic-tac-toe-v2//index.html", {
+workbox.routing.registerNavigationRoute("/tic-tac-toe-v2/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
