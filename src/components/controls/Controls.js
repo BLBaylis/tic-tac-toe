@@ -22,9 +22,8 @@ const Controls = props => {
         Redo
       </Button>
       <Button
-        hidden
         onClick={() =>
-          this.simulateManyGamesAndRecordResults(10000, {
+          props.onClickObj.test(10000, {
             firstMove: props.argsFromState.firstMove,
             gridSize: props.argsFromState.gridSize
           })
