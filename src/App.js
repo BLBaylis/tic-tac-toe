@@ -7,7 +7,7 @@ import styles from "./App.module.scss";
 
 class App extends Component {
   state = {
-    iconSelectOpen: true,
+    iconSelectOpen: false,
     iconInfo: {
       user: {
         icon: "circle",
@@ -33,17 +33,13 @@ class App extends Component {
   };
 
   render() {
-    const iconSelectFlipperWrapperClass = this.state.iconSelectOpen
-      ? styles.iconSelectFlipperWrapper
-      : `${styles.iconSelectFlipperWrapper} ${styles.removeIconSelect}`;
     const iconInfo = this.state.iconInfo;
     return (
       <div className={styles.app}>
-        <header className={styles.appBody}>
+        <header className={styles.appheader}>
           <h1 className={styles.heading}>Brad's Tic Tac Toe</h1>
         </header>
-        <div className={styles.notHeader}>
-          <div className={iconSelectFlipperWrapperClass}>
+        <div className={styles.appBody}>
             <Flipper
               front={
                 <IconSelect
@@ -61,7 +57,6 @@ class App extends Component {
                 />
               }
             />
-          </div>
           {this.state.iconSelectOpen === false && (
             <div className={styles.iconPreviewWrapper}>
               <IconPreview
