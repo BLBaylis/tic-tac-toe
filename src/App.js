@@ -39,7 +39,7 @@ class App extends Component {
     const iconInfo = this.state.iconInfo;
     return (
       <div className={styles.app}>
-        <header className={styles.appHeader}>
+        <header className={styles.appBody}>
           <h1 className={styles.heading}>Brad's Tic Tac Toe</h1>
         </header>
         <div className={styles.notHeader}>

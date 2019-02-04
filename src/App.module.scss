@@ -8,17 +8,17 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #889b7c;
-  font-size: calc(10px + 1.5vmin);
-  color: white;
   height: 10%;
 }
 
 .heading {
   margin: 0;
+  font-size: 6vh;
+  background-color: #889b7c;
+  color: white;
 }
 
-.notHeader {
+.appBody {
   position: relative;
   display: inline-block;
   height: 90%;
@@ -47,6 +47,24 @@
   align-items: center;
 }
 
+@media (orientation: landscape) {
+  .heading {
+    font-size: 5vh;
+  }
+}
+
+@media (orientation: portrait) and (max-aspect-ratio: 500/1000) {
+  .heading {
+    font-size: 4vh;
+  }
+}
+
+@media (orientation: portrait) and (min-aspect-ratio: 501/1000) {
+  .heading {
+    font-size: 5vh;
+  }
+}
+
 @media (orientation: portrait) and (min-height: 480px) {
   .iconPreviewWrapper {
     max-height: calc(230px + (264 * (100vh - 480px) / 288));
@@ -60,7 +78,7 @@
   }
 }
 
-@media (orientation: portrait) and (min-height: 1-24px) {
+@media (orientation: portrait) and (min-height: 1024px) {
   .iconPreviewWrapper {
     max-width: 634px;
   }
