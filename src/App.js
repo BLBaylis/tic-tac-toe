@@ -7,7 +7,7 @@ import styles from "./App.module.scss";
 
 class App extends Component {
   state = {
-    iconSelectOpen: false,
+    iconSelectOpen: true,
     iconInfo: {
       user: {
         icon: "circle",
@@ -33,7 +33,7 @@ class App extends Component {
   };
 
   render() {
-    const iconInfo = this.state.iconInfo;
+    const {iconInfo, iconSelectOpen} = this.state;
     return (
       <div className={styles.app}>
         <header className={styles.appheader}>
@@ -57,7 +57,7 @@ class App extends Component {
                 />
               }
             />
-          {this.state.iconSelectOpen === false && (
+          {!iconSelectOpen && (
             <div className={styles.iconPreviewWrapper}>
               <IconPreview
                 iconInfo={iconInfo}
@@ -65,7 +65,7 @@ class App extends Component {
               />
             </div>
           )}
-          {this.state.iconSelectOpen === false && <Game iconInfo={iconInfo} />}
+          {!iconSelectOpen && <Game iconInfo={iconInfo} />}
         </div>
       </div>
     );

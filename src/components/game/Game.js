@@ -150,6 +150,7 @@ class Game extends React.Component {
 
   render() {
     const state = { ...this.state };
+    const {iconInfo} = this.props;
     const argsFromState = {
       board: state.board,
       gridSize: state.gridSize,
@@ -171,10 +172,9 @@ class Game extends React.Component {
           <Flipper
             front={
               <GamePanel
-                iconInfo={this.props.iconInfo}
                 argsFromState={argsFromState}
                 generateSquares={() =>
-                  this.generateSquares(argsFromState, this.props.iconInfo)
+                  this.generateSquares(argsFromState, iconInfo)
                 }
                 onClickObj={clickHandlersObj}
               />

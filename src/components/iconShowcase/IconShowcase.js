@@ -1,45 +1,36 @@
 import React from "react";
 import styles from "./IconShowcase.module.scss";
-import IconGenerator from "../iconGenerator/IconGenerator";
+import Icon from "../icon/Icon";
 
-const IconShowcase = props => {
+const IconShowcase = ({changeSetting}) => {
   return (
     <div className={styles.iconShowcase}>
-      <Icon
-        changeSetting={props.changeSetting}
+      <IconShowcaseBtn
+        changeSetting={changeSetting}
         icon="circle"
         colour="lightGreen"
       />
-      <Icon changeSetting={props.changeSetting} icon="smiley" colour="yellow" />
-      <Icon changeSetting={props.changeSetting} icon="wheel" colour="black" />
-      <Icon changeSetting={props.changeSetting} icon="button" colour="black" />
-      <Icon
-        changeSetting={props.changeSetting}
+      <IconShowcaseBtn changeSetting={changeSetting} icon="smiley" colour="yellow" />
+      <IconShowcaseBtn changeSetting={changeSetting} icon="wheel" colour="black" />
+      <IconShowcaseBtn changeSetting={changeSetting} icon="button" colour="black" />
+      <IconShowcaseBtn
+        changeSetting={changeSetting}
         icon="cross"
         colour="lightRed"
       />
-      <Icon changeSetting={props.changeSetting} icon="swords" colour="brown" />
-      <Icon changeSetting={props.changeSetting} icon="candyCane" colour="red" />
-      <Icon changeSetting={props.changeSetting} icon="pencils" colour="gold" />
+      <IconShowcaseBtn changeSetting={changeSetting} icon="swords" colour="brown" />
+      <IconShowcaseBtn changeSetting={changeSetting} icon="candyCane" colour="red" />
+      <IconShowcaseBtn changeSetting={changeSetting} icon="pencils" colour="gold" />
     </div>
   );
 };
 
-const Icon = props => {
+const IconShowcaseBtn = ({icon, colour, changeSetting}) => {
   return (
-    <button
-      onClick={() => props.changeSetting(props.icon)}
-      className={styles.icon}
-    >
-      <div className={styles.iconInner}>
-        {
-          <IconGenerator
-            iconInfo={{ icon: props.icon, colour: props.colour }}
-          />
-        }
-      </div>
+    <button className = {styles.iconShowcaseBtn} onClick={() => changeSetting(icon)}>
+      <Icon icon = {icon} colour = {colour} />
     </button>
-  );
-};
+  )
+}
 
 export default IconShowcase;

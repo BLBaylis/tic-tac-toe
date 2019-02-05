@@ -2,19 +2,18 @@ import React from "react";
 import Grid from "../grid/Grid";
 import Controls from "../controls/Controls";
 
-const gamePanel = props => {
-  const onClickObj = {
-    flip: props.flip,
-    ...props.onClickObj
+const gamePanel = ({argsFromState, generateSquares, flip, onClickObj}) => {
+  let newOnClickObj = {
+    flip: flip,
+    ...onClickObj
   };
   return (
     <React.Fragment>
       <Grid
-        iconInfo={props.iconInfo}
-        argsFromState={props.argsFromState}
-        generateSquares={props.generateSquares}
+        argsFromState={argsFromState}
+        generateSquares={generateSquares}
       />
-      <Controls argsFromState={props.argsFromState} onClickObj={onClickObj} />
+      <Controls argsFromState={argsFromState} onClickObj={newOnClickObj} />
     </React.Fragment>
   );
 };

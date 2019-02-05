@@ -3,41 +3,41 @@ import styles from "./IconSelect.module.scss";
 import IconEditor from "../iconEditor/IconEditor";
 import IconShowcase from "../iconShowcase/IconShowcase";
 
-const IconSelect = props => {
+const IconSelect = ({changeSetting, toggleIconSelect, flip, iconInfo, player}) => {
   return (
     <div className={styles.iconSelect}>
       <h2 className={styles.heading}>
         {"SELECT "}
-        <span className={styles.highlight}>{props.player.toUpperCase()}</span>
+        <span className={styles.highlight}>{player.toUpperCase()}</span>
         {" ICON"}
       </h2>
       <IconEditor
         changeSetting={newColour =>
-          props.changeSetting(props.player, "colour", newColour)
+          changeSetting(player, "colour", newColour)
         }
-        iconInfo={props.iconInfo[props.player]}
+        iconInfo={iconInfo[player]}
       />
       <IconShowcase
         changeSetting={newIcon =>
-          props.changeSetting(props.player, "icon", newIcon)
+          changeSetting(player, "icon", newIcon)
         }
       />
-      {props.player === "comp" && (
+      {player === "comp" && (
         <div className={styles.buttonRow}>
-          <button onClick={props.flip} className={styles.backButton}>
+          <button onClick={flip} className={styles.backButton}>
             BACK
           </button>
           <button
             className={styles.confirmButtonComp}
-            onClick={props.toggleIconSelect}
+            onClick={toggleIconSelect}
           >
-            {`CONFIRM ${props.player.toUpperCase()} ICON`}
+            {`CONFIRM ${player.toUpperCase()} ICON`}
           </button>
         </div>
       )}
-      {props.player === "user" && (
-        <button className={styles.confirmButtonUser} onClick={props.flip}>
-          {`CONFIRM ${props.player.toUpperCase()} ICON`}
+      {player === "user" && (
+        <button className={styles.button} onClick={flip}>
+          {`CONFIRM ${player.toUpperCase()} ICON`}
         </button>
       )}
     </div>

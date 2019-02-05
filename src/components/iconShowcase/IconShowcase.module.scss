@@ -9,19 +9,11 @@
   margin: 0 auto;
 }
 
-.icon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.iconShowcaseBtn {
   min-width: 40px;
   min-height: 40px;
-  height: 100%;
-  width: 100%;
-  border: none;
   padding: 0;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
 }
 
-.iconInner {
-  height: 100%;
-  width: 100%;
-}
+

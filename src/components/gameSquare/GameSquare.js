@@ -1,18 +1,19 @@
 import React from "react";
 import styles from "./GameSquare.module.scss";
-import IconGenerator from "../iconGenerator/IconGenerator";
+import Icon from "../icon/Icon";
 
-const GameSquare = props => {
-  const className = props.value
-    ? `${styles.gameSquare} ${styles[props.value]}`
+const GameSquare = ({value, onClick, iconInfo}) => {
+  const {user, comp} = iconInfo;
+  const className = value
+    ? `${styles.gameSquare} ${styles[value]}`
     : styles.gameSquare;
   return (
-    <button className={className} onClick={props.onClick}>
-      {props.value === "user" && (
-        <IconGenerator iconInfo={props.iconInfo.user} />
+    <button className={className} onClick={onClick}>
+      {value === "user" && (
+        <Icon icon={user.icon} colour={user.colour} />
       )}
-      {props.value === "comp" && (
-        <IconGenerator iconInfo={props.iconInfo.comp} />
+      {value === "comp" && (
+        <Icon icon={comp.icon} colour={comp.colour} />
       )}
     </button>
   );

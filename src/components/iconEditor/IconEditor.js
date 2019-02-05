@@ -1,17 +1,18 @@
 import React from "react";
 import styles from "./IconEditor.module.scss";
 import Palette from "../palette/Palette";
-import IconGenerator from "../iconGenerator/IconGenerator";
+import Icon from "../icon/Icon";
 
-const IconEditor = props => {
+const IconEditor = ({changeSetting, iconInfo}) => {
+  const {icon, colour} = iconInfo;
   return (
     <div className={styles.iconEditor}>
       <div className={styles.canvas}>
         <div className={styles.canvasInner}>
-          {<IconGenerator iconInfo={props.iconInfo} />}
+          <Icon icon={icon} colour={colour} />
         </div>
       </div>
-      <Palette changeSetting={props.changeSetting} />
+      <Palette changeSetting={changeSetting} />
     </div>
   );
 };

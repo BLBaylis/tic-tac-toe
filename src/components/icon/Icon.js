@@ -8,8 +8,7 @@ import SmileySvg from "./svgComponents/SmileySvg";
 import SwordsSvg from "./svgComponents/SwordsSvg";
 import WheelSvg from "./svgComponents/WheelSvg";
 
-const IconGenerator = props => {
-  const { icon, colour } = props.iconInfo;
+const Icon = ({ icon, colour }) => {
   return (
     <React.Fragment>
       {icon === "button" && <ButtonSvg colour={colour} />}
@@ -24,4 +23,4 @@ const IconGenerator = props => {
   );
 };
 
-export default IconGenerator;
+export default Icon;
