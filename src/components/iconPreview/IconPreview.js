@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./IconPreview.module.scss";
 import Icon from "../icon/Icon";
 
-const IconPreview = ({iconInfo, toggleIconSelect}) => {
-  const {user, comp} = iconInfo;
+const IconPreview = ({ iconInfo, toggleIconSelect }) => {
+  const { user, comp } = iconInfo;
   return (
     <React.Fragment>
       <button onClick={toggleIconSelect} className={styles.icon}>

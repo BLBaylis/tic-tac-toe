@@ -2,8 +2,8 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(40px, 1fr));
   grid-template-rows: repeat(2, minmax(40px, 1fr));
-  column-gap: 4.12%;
-  row-gap: 8.78%;
+  column-gap: 4.2%;
+  row-gap: 8.79%;
   height: 100%;
   width: 100%;
   margin: 0 auto;
@@ -14,6 +14,14 @@
   min-height: 40px;
   padding: 0;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  border: none;
 }
 
-
+@media (orientation: landscape) {
+  .iconShowcase {
+      grid-template-columns: repeat(2, minmax(40px, 1fr));
+      grid-template-rows: repeat(4, minmax(40px, 1fr));
+      column-gap: 11.73%;
+      row-gap: 5.58%;
+  }
+}

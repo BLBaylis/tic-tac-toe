@@ -150,7 +150,7 @@ class Game extends React.Component {
 
   render() {
     const state = { ...this.state };
-    const {iconInfo} = this.props;
+    const { iconInfo } = this.props;
     const argsFromState = {
       board: state.board,
       gridSize: state.gridSize,

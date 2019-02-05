@@ -1,19 +1,31 @@
-.iconSelect {
-  display: grid;
-  grid-template-rows: 7.5% 45% 30% 10%;
+.iconSelectWrapper {
   position: relative;
   background-color: #bad4aa;
   border: solid 1px #bad4aa;
-  height: calc(100% - 20px);
-  width: calc(100% - 20px);
-  grid-gap: 2.5%;
+  min-height: 460px;
+  height: calc(150vw - 20px);
+  max-height: calc(100vh - 20px);
+  min-width: 300px;
+  width: calc(66vh - 20px);
+  max-width: calc(100vw - 20px);
   margin: 0 auto;
-  padding: 10px;
   top: 50%;
   transform: translateY(-50%);
 }
 
+.iconSelect {
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-rows: 7.5% 45% 30% 10%;
+  row-gap: 2.5%;
+  padding: 3.87%;
+}
+
 .heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   color: #f5faf0;
   font-weight: 300;
@@ -27,22 +39,23 @@
 .button {
   min-height: 40px;
   color: #fff;
-  background-color: #7be0ad;
   border: none;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
   transition: all 300ms ease-in-out;
   cursor: pointer;
+  padding: 0;
 }
 
-.confirmButtonUser {
+.userConfirmButton {
   @extend .button;
-}
-/*
-
-.confirmButtonComp {
-  @extend .button;
-  width: 80%;
   background-color: #7be0ad;
+  width: 100%;
+}
+
+.compConfirmButton {
+  @extend .button;
+  background-color: #7be0ad;
+  width: 80%;
 }
 
 .backButton {
@@ -51,21 +64,35 @@
   background-color: #f9ab55;
 }
 
-.buttonRow {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  margin: 10px auto;
-}*/
-
-@media (orientation: portrait) {
-  .iconSelect {
-    width: calc(66vh - 20px);
-  }
-}
-
 @media (orientation: landscape) {
+  .iconSelectWrapper {
+    min-height: 300px;
+    height: calc(66vw - 20px);
+    max-height: calc(100vh - 20px);
+    min-width: 460px;
+    width: calc(150vh - 20px);
+    max-width: calc(100vw - 20px);
+  }
+
   .iconSelect {
-    width: calc(66vh - 20px);
+    grid-template-rows: 7.5% 70% 14.78%; //92.28%
+    grid-template-columns: 75% 1fr;
+    grid-template-areas:
+      "header header"
+      "editor showcase"
+      "button button";
+    row-gap: 3.86%;
+    column-gap: 2.5%;
+    padding: 2.5%;
+  }
+
+  .heading {
+    grid-area: header;
+  }
+
+  .buttonRow {
+    grid-area: button;
+    display: flex;
+    justify-content: space-between;
   }
 }

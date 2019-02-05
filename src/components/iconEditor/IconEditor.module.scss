@@ -19,3 +19,40 @@
   height: 100%;
   width: 100%;
 }
+
+.palette {
+  position: relative;
+  height: 100%;
+  width: 25%;
+  float: right;
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.paintIcon {
+  position: absolute;
+  z-index: 1;
+  height: auto;
+  width: 50%;
+  left: 25%;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.paintImg {
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+input[type="color"] {
+  -webkit-appearance: none;
+  border: none;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none
+}

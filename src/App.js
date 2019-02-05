@@ -7,7 +7,7 @@ import styles from "./App.module.scss";
 
 class App extends Component {
   state = {
-    iconSelectOpen: true,
+    iconSelectOpen: false,
     iconInfo: {
       user: {
         icon: "circle",
@@ -33,31 +33,31 @@ class App extends Component {
   };
 
   render() {
-    const {iconInfo, iconSelectOpen} = this.state;
+    const { iconInfo, iconSelectOpen } = this.state;
     return (
       <div className={styles.app}>
-        <header className={styles.appheader}>
-          <h1 className={styles.heading}>Brad's Tic Tac Toe</h1>
-        </header>
+        {null && <header className={styles.appheader}>
+                  <h1 className={styles.heading}>Brad's Tic Tac Toe</h1>
+                </header>}
         <div className={styles.appBody}>
-            <Flipper
-              front={
-                <IconSelect
-                  changeSetting={this.changeSetting}
-                  iconInfo={this.state.iconInfo}
-                  player={"user"}
-                />
-              }
-              back={
-                <IconSelect
-                  changeSetting={this.changeSetting}
-                  iconInfo={iconInfo}
-                  toggleIconSelect={this.toggleIconSelect}
-                  player={"comp"}
-                />
-              }
-            />
-          {!iconSelectOpen && (
+          <Flipper
+            front={
+              <IconSelect
+                changeSetting={this.changeSetting}
+                iconInfo={this.state.iconInfo}
+                player={"user"}
+              />
+            }
+            back={
+              <IconSelect
+                changeSetting={this.changeSetting}
+                iconInfo={iconInfo}
+                toggleIconSelect={this.toggleIconSelect}
+                player={"comp"}
+              />
+            }
+          />
+          {iconSelectOpen && (
             <div className={styles.iconPreviewWrapper}>
               <IconPreview
                 iconInfo={iconInfo}
@@ -65,7 +65,7 @@ class App extends Component {
               />
             </div>
           )}
-          {!iconSelectOpen && <Game iconInfo={iconInfo} />}
+          {iconSelectOpen && <Game iconInfo={iconInfo} />}
         </div>
       </div>
     );
