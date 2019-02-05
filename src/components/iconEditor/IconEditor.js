@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./IconEditor.module.scss";
 //import Palette from "../palette/Palette";
 import Icon from "../icon/Icon";
-import paintbrush from '../../paintbrush.svg';
+import paintbrush from "../../paintbrush.svg";
 
 const IconEditor = ({ changeSetting, iconInfo }) => {
   const { icon, colour } = iconInfo;
@@ -16,8 +16,8 @@ const IconEditor = ({ changeSetting, iconInfo }) => {
       {/*<Palette changeSetting={changeSetting} />*/}
       <div className={styles.palette}>
         <input type="color" />
-        <i className = {styles.paintIcon}>
-          <img className={styles.paintImg} src={paintbrush}/>
+        <i className={styles.paintIcon}>
+          <img className={styles.paintImg} src={paintbrush} />
         </i>
       </div>
     </div>

@@ -36,9 +36,11 @@ class App extends Component {
     const { iconInfo, iconSelectOpen } = this.state;
     return (
       <div className={styles.app}>
-        {null && <header className={styles.appheader}>
-                  <h1 className={styles.heading}>Brad's Tic Tac Toe</h1>
-                </header>}
+        {null && (
+          <header className={styles.appheader}>
+            <h1 className={styles.heading}>Brad's Tic Tac Toe</h1>
+          </header>
+        )}
         <div className={styles.appBody}>
           <Flipper
             front={
