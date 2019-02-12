@@ -5,7 +5,7 @@ import Icon from "../icon/Icon";
 const IconPreview = ({ iconInfo, toggleIconSelect }) => {
   const { user, comp } = iconInfo;
   return (
-    <React.Fragment>
+    <div className={styles.iconPreviewWrapper}>
       <button onClick={toggleIconSelect} className={styles.icon}>
         <Icon icon={user.icon} colour={user.colour} />
       </button>
@@ -13,7 +13,7 @@ const IconPreview = ({ iconInfo, toggleIconSelect }) => {
       <button onClick={toggleIconSelect} className={styles.icon}>
         <Icon icon={comp.icon} colour={comp.colour} />
       </button>
-    </React.Fragment>
+    </div>
   );
 };
 

@@ -1,8 +1,8 @@
 import React from "react";
-import styles from "./Game.module.scss";
 import Flipper from "../flipper/Flipper";
 import Settings from "../settings/Settings";
-import GamePanel from "../gamePanel/GamePanel";
+import Grid from "../grid/Grid";
+import Controls from "../controls/Controls";
 import GameSquare from "../gameSquare/GameSquare";
 import transformStateObj from "../../gameLogic/moveSimulationFunctions/transformStateObj";
 import {
@@ -26,7 +26,32 @@ class Game extends React.Component {
     userTurn: true,
     outcome: undefined,
     gridSize: 3,
-    firstMove: "user"
+    firstMove: "user",
+    screenOrientation: undefined,
+    flipped: false
+  };
+
+  componentWillMount() {
+    if (window.matchMedia("(orientation: portrait)").matches) {
+      this.setState({ screenOrientation: "portrait" });
+    } else {
+      this.setState({ screenOrientation: "landscape" });
+    }
+  }
+
+  componentDidMount() {
+    const mql = window.matchMedia("(orientation: portrait)");
+    mql.addListener(() => {
+      if (mql.matches) {
+        this.setState({ screenOrientation: "portrait" });
+      } else {
+        this.setState({ screenOrientation: "landscape" });
+      }
+    });
+  }
+
+  toggleFlip = () => {
+    this.setState(prevState => ({ flipped: !prevState.flipped }));
   };
 
   handleClick = (squareNo, argsFromState) => {
@@ -101,7 +126,7 @@ class Game extends React.Component {
     });
   };
 
-  changeSetting = (settingType, newSetting, argsFromState) => {
+  changeGameSetting = (settingType, newSetting, argsFromState) => {
     const obj = {};
     obj[settingType] = newSetting;
     this.setState(obj, () => {
@@ -149,8 +174,11 @@ class Game extends React.Component {
   };
 
   render() {
+    console.log(this.state.screenOrientation);
     const state = { ...this.state };
     const { iconInfo } = this.props;
+    const flipped = this.state.flipped;
+    const screenOrientation = this.state.screenOrientation;
     const argsFromState = {
       board: state.board,
       gridSize: state.gridSize,
@@ -164,32 +192,51 @@ class Game extends React.Component {
       restart: this.restart,
       undo: this.undoTurn,
       redo: this.redoTurn,
-      test: this.simulateManyGamesAndRecordResults
+      test: this.simulateManyGamesAndRecordResults,
+      toggleFlip: this.toggleFlip
     };
-    return (
-      <React.Fragment>
-        <div className={styles.gameFlipperWrapper}>
-          <Flipper
-            front={
-              <GamePanel
-                argsFromState={argsFromState}
-                generateSquares={() =>
-                  this.generateSquares(argsFromState, iconInfo)
-                }
-                onClickObj={clickHandlersObj}
-              />
-            }
-            back={
-              <Settings
-                argsFromState={{
-                  gridSize: state.gridSize,
-                  firstMove: state.firstMove
-                }}
-                onClick={this.changeSetting}
-              />
+    const frontComp =
+      screenOrientation === "portrait" ? (
+        <React.Fragment>
+          <Grid
+            argsFromState={argsFromState}
+            generateSquares={() =>
+              this.generateSquares(argsFromState, iconInfo)
             }
           />
-        </div>
+          <Controls
+            argsFromState={argsFromState}
+            clickHandlersObj={clickHandlersObj}
+          />
+        </React.Fragment>
+      ) : (
+        <Grid
+          argsFromState={argsFromState}
+          generateSquares={() => this.generateSquares(argsFromState, iconInfo)}
+        />
+      );
+    return (
+      <React.Fragment>
+        <Flipper
+          flipped={flipped}
+          front={frontComp}
+          back={
+            <Settings
+              argsFromState={{
+                gridSize: state.gridSize,
+                firstMove: state.firstMove
+              }}
+              changeGameSetting={this.changeGameSetting}
+              toggleFlip={this.toggleFlip}
+            />
+          }
+        />
+        {screenOrientation === "landscape" && (
+          <Controls
+            argsFromState={argsFromState}
+            clickHandlersObj={clickHandlersObj}
+          />
+        )}
       </React.Fragment>
     );
   }

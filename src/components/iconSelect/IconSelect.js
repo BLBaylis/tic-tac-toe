@@ -4,11 +4,11 @@ import IconEditor from "../iconEditor/IconEditor";
 import IconShowcase from "../iconShowcase/IconShowcase";
 
 const IconSelect = ({
-  changeSetting,
-  toggleIconSelect,
-  flip,
+  player,
   iconInfo,
-  player
+  changeIconSetting,
+  toggleFlip,
+  toggleIconSelect
 }) => {
   return (
     <div className={styles.iconSelectWrapper}>
@@ -19,17 +19,19 @@ const IconSelect = ({
           &nbsp;ICON
         </h2>
         <IconEditor
-          changeSetting={newColour =>
-            changeSetting(player, "colour", newColour)
+          changeIconSetting={newColour =>
+            changeIconSetting(player, "colour", newColour)
           }
           iconInfo={iconInfo[player]}
         />
         <IconShowcase
-          changeSetting={newIcon => changeSetting(player, "icon", newIcon)}
+          changeIconSetting={newIcon =>
+            changeIconSetting(player, "icon", newIcon)
+          }
         />
         <IconSelectNav
           player={player}
-          flip={flip}
+          toggleFlip={toggleFlip}
           toggleIconSelect={toggleIconSelect}
         />
       </div>
@@ -37,12 +39,12 @@ const IconSelect = ({
   );
 };
 
-const IconSelectNav = ({ player, flip, toggleIconSelect }) => {
-  const onClick = player === "user" ? flip : toggleIconSelect;
+const IconSelectNav = ({ player, toggleFlip, toggleIconSelect }) => {
+  const onClick = player === "user" ? toggleFlip : toggleIconSelect;
   return (
     <div className={styles.buttonRow}>
       {player === "comp" && (
-        <button onClick={flip} className={styles.backButton}>
+        <button onClick={toggleFlip} className={styles.backButton}>
           BACK
         </button>
       )}

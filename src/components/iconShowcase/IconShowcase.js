@@ -2,46 +2,46 @@ import React from "react";
 import styles from "./IconShowcase.module.scss";
 import Icon from "../icon/Icon";
 
-const IconShowcase = ({ changeSetting }) => {
+const IconShowcase = ({ changeIconSetting }) => {
   return (
     <div className={styles.iconShowcase}>
       <IconShowcaseBtn
-        changeSetting={changeSetting}
+        changeIconSetting={changeIconSetting}
         icon="circle"
         colour="lightGreen"
       />
       <IconShowcaseBtn
-        changeSetting={changeSetting}
+        changeIconSetting={changeIconSetting}
         icon="smiley"
         colour="yellow"
       />
       <IconShowcaseBtn
-        changeSetting={changeSetting}
+        changeIconSetting={changeIconSetting}
         icon="wheel"
         colour="black"
       />
       <IconShowcaseBtn
-        changeSetting={changeSetting}
+        changeIconSetting={changeIconSetting}
         icon="button"
         colour="black"
       />
       <IconShowcaseBtn
-        changeSetting={changeSetting}
+        changeIconSetting={changeIconSetting}
         icon="cross"
         colour="lightRed"
       />
       <IconShowcaseBtn
-        changeSetting={changeSetting}
+        changeIconSetting={changeIconSetting}
         icon="swords"
         colour="brown"
       />
       <IconShowcaseBtn
-        changeSetting={changeSetting}
+        changeIconSetting={changeIconSetting}
         icon="candyCane"
         colour="red"
       />
       <IconShowcaseBtn
-        changeSetting={changeSetting}
+        changeIconSetting={changeIconSetting}
         icon="pencils"
         colour="gold"
       />
@@ -49,11 +49,11 @@ const IconShowcase = ({ changeSetting }) => {
   );
 };
 
-const IconShowcaseBtn = ({ icon, colour, changeSetting }) => {
+const IconShowcaseBtn = ({ icon, colour, changeIconSetting }) => {
   return (
     <button
       className={styles.iconShowcaseBtn}
-      onClick={() => changeSetting(icon)}
+      onClick={() => changeIconSetting(icon)}
     >
       <Icon icon={icon} colour={colour} />
     </button>

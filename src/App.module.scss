@@ -1,7 +1,6 @@
 .app {
   text-align: center;
   height: 100%;
-  position: relative;
 }
 
 .appHeader {
@@ -19,37 +18,57 @@
 }
 
 .appBody {
-  position: relative;
-  /*display: inline-block;*/
   height: 100%;
   width: 100%;
-}
-
-.iconSelectFlipperWrapper {
-  position: absolute;
-  z-index: 1;
-  height: calc(100% - 20px);
-  width: calc(100% - 20px);
-  left: 10px;
-  top: 10px;
-  transition: transform 250ms linear;
 }
 
 .removeIconSelect {
   transform: translate(-150%);
 }
 
-.iconPreviewWrapper {
-  display: flex;
-  width: calc(100vw - 90px);
-  margin: 15px auto;
-  justify-content: space-between;
-  align-items: center;
+.gameScreenWrapper {
+  height: 100%;
+  width: 100%;
+  padding: 2.083vh;
+}
+
+.gameScreen {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  height: auto;
 }
 
 @media (orientation: landscape) {
   .heading {
     font-size: 5vh;
+  }
+
+  .gameScreenWrapper {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0 auto;
+    padding: 2.08%;
+    min-height: 300px;
+    height: 63.47vw;
+    max-height: 99vh;
+    min-width: 460px;
+    width: 146.47vh;
+    max-width: 94.07vw;
+  }
+
+  .gameScreen {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas:
+      "grid grid preview"
+      "grid grid controls"
+      "grid grid controls";
+    row-gap: 3.33%;
+    column-gap: 2.17%;
+    height: 100%;
   }
 }
 
@@ -65,21 +84,23 @@
   }
 }
 
-@media (orientation: portrait) and (min-height: 480px) {
-  .iconPreviewWrapper {
-    max-height: calc(230px + (264 * (100vh - 480px) / 288));
-    max-width: calc(230px + (264 * (100vh - 480px) / 288));
+@media (orientation: landscape) and (max-height: 320px),
+  (orientation: landscape) and (max-width: 480px) {
+  .gameScreen {
+    grid-template-columns: 145px 145px 1fr;
+    grid-template-rows: repeat(3, 93.333px);
+    grid-gap: 10px;
+    height: 300px;
+  }
+
+  .gameScreenWrapper {
+    padding: 10px;
   }
 }
 
-@media (orientation: portrait) and (min-height: 768px) {
-  .iconPreviewWrapper {
-    max-width: calc(402px + (232 * (100vh - 768px) / 254));
-  }
-}
-
-@media (orientation: portrait) and (min-height: 1024px) {
-  .iconPreviewWrapper {
-    max-width: 634px;
+@media (orientation: portait) and (max-width: 320px),
+  (orientation: portait) and (max-height: 480px) {
+  .gameScreenWrapper {
+    padding: 10px;
   }
 }

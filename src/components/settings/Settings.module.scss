@@ -37,3 +37,24 @@
   margin: 10px auto;
   justify-content: space-around;
 }
+
+@media (orientation: landscape) {
+  .settings {
+    height: 10px;
+    width: 10px;
+  }
+}
+
+@media (orientation: portait) and (min-aspect-ratio: 31/48) {
+  .settings {
+    height: calc(100vh - 170px);
+    max-width: calc(100vw - 4.167vh);
+  }
+}
+
+@media (orientation: portait) and (max-width: 320px),
+  (orientation: portait) and (max-height: 480px) {
+  .settings {
+    height: 300px;
+  }
+}

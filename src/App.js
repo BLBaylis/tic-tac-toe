@@ -7,7 +7,8 @@ import styles from "./App.module.scss";
 
 class App extends Component {
   state = {
-    iconSelectOpen: false,
+    iconSelectOpen: true,
+    flipped: false,
     iconInfo: {
       user: {
         icon: "circle",
@@ -20,11 +21,11 @@ class App extends Component {
     }
   };
 
-  toggleIconSelect = () => {
-    this.setState(prevState => ({ iconSelectOpen: !prevState.iconSelectOpen }));
+  toggleNonIconSetting = setting => {
+    this.setState(prevState => ({ [setting]: !prevState[setting] }));
   };
 
-  changeSetting = (player, settingType, newSetting) => {
+  changeIconSetting = (player, settingType, newSetting) => {
     let iconInfoCopy = { ...this.state.iconInfo };
     let playerObj = { ...this.state.iconInfo[player] };
     playerObj[settingType] = newSetting;
@@ -33,7 +34,7 @@ class App extends Component {
   };
 
   render() {
-    const { iconInfo, iconSelectOpen } = this.state;
+    const { iconInfo, iconSelectOpen, flipped } = this.state;
     return (
       <div className={styles.app}>
         {null && (
@@ -42,32 +43,44 @@ class App extends Component {
           </header>
         )}
         <div className={styles.appBody}>
-          <Flipper
-            front={
-              <IconSelect
-                changeSetting={this.changeSetting}
-                iconInfo={this.state.iconInfo}
-                player={"user"}
-              />
-            }
-            back={
-              <IconSelect
-                changeSetting={this.changeSetting}
-                iconInfo={iconInfo}
-                toggleIconSelect={this.toggleIconSelect}
-                player={"comp"}
-              />
-            }
-          />
           {iconSelectOpen && (
-            <div className={styles.iconPreviewWrapper}>
-              <IconPreview
-                iconInfo={iconInfo}
-                toggleIconSelect={this.toggleIconSelect}
-              />
+            <Flipper
+              style={{ backgroundColor: "#889B7C", height: "100%" }}
+              flipped={flipped}
+              front={
+                <IconSelect
+                  player={"user"}
+                  iconInfo={iconInfo}
+                  changeIconSetting={this.changeIconSetting}
+                  toggleFlip={() => this.toggleNonIconSetting("flipped")}
+                />
+              }
+              back={
+                <IconSelect
+                  player={"comp"}
+                  iconInfo={iconInfo}
+                  changeIconSetting={this.changeIconSetting}
+                  toggleFlip={() => this.toggleNonIconSetting("flipped")}
+                  toggleIconSelect={() =>
+                    this.toggleNonIconSetting("iconSelectOpen")
+                  }
+                />
+              }
+            />
+          )}
+          {!iconSelectOpen && (
+            <div className={styles.gameScreenWrapper}>
+              <div className={styles.gameScreen}>
+                <IconPreview
+                  iconInfo={iconInfo}
+                  toggleIconSelect={() =>
+                    this.toggleNonIconSetting("iconSelectOpen")
+                  }
+                />
+                <Game iconInfo={iconInfo} />
+              </div>
             </div>
           )}
-          {iconSelectOpen && <Game iconInfo={iconInfo} />}
         </div>
       </div>
     );
