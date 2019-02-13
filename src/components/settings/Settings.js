@@ -29,7 +29,6 @@ class Settings extends React.Component {
             </div>
             <label className={styles.formRow}>
               <input
-                className={styles.formRow}
                 name="firstMove"
                 type="radio"
                 value="user"
@@ -40,7 +39,6 @@ class Settings extends React.Component {
             </label>
             <label className={styles.formRow}>
               <input
-                className={styles.formRow}
                 name="firstMove"
                 type="radio"
                 value="comp"
@@ -52,7 +50,6 @@ class Settings extends React.Component {
             <div className={styles.question}>Which grid size?</div>
             <label className={styles.formRow}>
               <input
-                className={styles.formRow}
                 name="gridSize"
                 type="radio"
                 value="3"
@@ -63,7 +60,6 @@ class Settings extends React.Component {
             </label>
             <label className={styles.formRow}>
               <input
-                className={styles.formRow}
                 name="gridSize"
                 type="radio"
                 value="5"
@@ -74,7 +70,6 @@ class Settings extends React.Component {
             </label>
             <label className={styles.formRow}>
               <input
-                className={styles.formRow}
                 name="gridSize"
                 type="radio"
                 value="7"
