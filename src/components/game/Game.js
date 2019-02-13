@@ -27,66 +27,55 @@ class Game extends React.Component {
     outcome: undefined,
     gridSize: 3,
     firstMove: "user",
-    screenOrientation: undefined,
     flipped: false
   };
-
-  componentWillMount() {
-    if (window.matchMedia("(orientation: portrait)").matches) {
-      this.setState({ screenOrientation: "portrait" });
-    } else {
-      this.setState({ screenOrientation: "landscape" });
-    }
-  }
-
-  componentDidMount() {
-    const mql = window.matchMedia("(orientation: portrait)");
-    mql.addListener(() => {
-      if (mql.matches) {
-        this.setState({ screenOrientation: "portrait" });
-      } else {
-        this.setState({ screenOrientation: "landscape" });
-      }
-    });
-  }
 
   toggleFlip = () => {
     this.setState(prevState => ({ flipped: !prevState.flipped }));
   };
 
-  handleClick = (squareNo, argsFromState) => {
-    if (argsFromState.board[squareNo] !== null) {
+  handleClick = squareNo => {
+    const { flipped, firstMove, ...rest } = this.state;
+    const stateObjClone = JSON.parse(JSON.stringify(rest));
+    if (stateObjClone.board[squareNo] !== null) {
       return;
     }
-    let updatedState = transformStateObj(squareNo, argsFromState);
+    let updatedState = transformStateObj(squareNo, stateObjClone);
     if (updatedState.outcome === undefined) {
       updatedState = simulateCompMove(updatedState);
     }
     this.setState(updatedState);
   };
 
-  restart = (firstMove, gridSize) => {
-    let updatedState;
-    let initialState = {
-      board: Array(gridSize ** 2).fill(null),
-      turnNo: 0,
-      userTurn: firstMove === "user" ? true : false,
+  changeGameSetting = (gridSize, firstMove) => {
+    gridSize = Number(gridSize);
+    this.setState({ gridSize, firstMove }, () => {
+      this.restart();
+    });
+  };
+
+  restart = () => {
+    const newInitialState = {
+      board: Array(this.state.gridSize ** 2).fill(null),
       gameLog: [
         {
-          board: Array(gridSize ** 2).fill(null),
+          board: Array(this.state.gridSize ** 2).fill(null),
           turnNo: 0,
-          userTurn: firstMove === "user" ? true : false,
+          userTurn: this.state.firstMove === "user",
           outcome: undefined
         }
       ],
+      turnNo: 0,
+      userTurn: this.state.firstMove === "user",
       outcome: undefined,
-      gridSize: gridSize
+      gridSize: this.state.gridSize,
+      firstMove: this.state.firstMove,
+      flipped: false
     };
-    if (firstMove === "comp") {
-      updatedState = simulateCompMove(initialState);
-      this.setState(updatedState);
+    if (newInitialState.firstMove === "comp") {
+      this.setState(simulateCompMove(newInitialState));
     } else {
-      this.setState(initialState);
+      this.setState(newInitialState);
     }
   };
 
@@ -126,33 +115,20 @@ class Game extends React.Component {
     });
   };
 
-  changeGameSetting = (settingType, newSetting, argsFromState) => {
-    const obj = {};
-    obj[settingType] = newSetting;
-    this.setState(obj, () => {
-      if (settingType === "firstMove") {
-        this.restart(newSetting, argsFromState.gridSize);
-      } else {
-        this.restart(argsFromState.firstMove, newSetting);
-      }
-    });
-  };
-
-  generateSquares = (argsFromState, iconInfo) => {
-    const boardClone = argsFromState.board.slice();
-    return Array(argsFromState.gridSize ** 2)
+  generateSquares = iconInfo => {
+    return Array(this.state.gridSize ** 2)
       .fill()
       .map((x, index) => (
         <GameSquare
           iconInfo={iconInfo}
           key={index}
-          value={boardClone[index]}
-          onClick={() => this.handleClick(index, argsFromState)}
+          value={this.state.board[index]}
+          onClick={() => this.handleClick(index)}
         />
       ));
   };
 
-  simulateManyGamesAndRecordResults = (amountOfGames, argsFromState) => {
+  simulateManyGamesAndRecordResults = amountOfGames => {
     let result;
     let counters = {
       userCounter: 0,
@@ -163,31 +139,21 @@ class Game extends React.Component {
       noOutcomeLog: [],
       randomGamesLog: []
     };
-    const { gridSize, firstMove } = argsFromState;
+    const { gridSize, firstMove } = this.state;
     for (let gamesPlayed = 0; gamesPlayed < amountOfGames; gamesPlayed++) {
-      result = simulateGame(argsFromState);
-      console.log(`game ${gamesPlayed} finished`);
+      result = simulateGame(firstMove, gridSize);
+      if (gamesPlayed % (amountOfGames / 20) === 0) {
+        console.log(`${(gamesPlayed / amountOfGames) * 100}% done!`);
+      }
       counters = recordGameResults(result, counters);
-      this.restart(firstMove, gridSize);
+      this.restart();
     }
     console.log(counters);
   };
 
   render() {
-    console.log(this.state.screenOrientation);
-    const state = { ...this.state };
+    const { gridSize, outcome, flipped } = this.state;
     const { iconInfo } = this.props;
-    const flipped = this.state.flipped;
-    const screenOrientation = this.state.screenOrientation;
-    const argsFromState = {
-      board: state.board,
-      gridSize: state.gridSize,
-      turnNo: state.turnNo,
-      outcome: state.outcome,
-      gameLog: state.gameLog,
-      userTurn: state.userTurn,
-      firstMove: state.firstMove
-    };
     const clickHandlersObj = {
       restart: this.restart,
       undo: this.undoTurn,
@@ -195,48 +161,20 @@ class Game extends React.Component {
       test: this.simulateManyGamesAndRecordResults,
       toggleFlip: this.toggleFlip
     };
-    const frontComp =
-      screenOrientation === "portrait" ? (
-        <React.Fragment>
-          <Grid
-            argsFromState={argsFromState}
-            generateSquares={() =>
-              this.generateSquares(argsFromState, iconInfo)
-            }
-          />
-          <Controls
-            argsFromState={argsFromState}
-            clickHandlersObj={clickHandlersObj}
-          />
-        </React.Fragment>
-      ) : (
-        <Grid
-          argsFromState={argsFromState}
-          generateSquares={() => this.generateSquares(argsFromState, iconInfo)}
-        />
-      );
     return (
       <React.Fragment>
         <Flipper
           flipped={flipped}
-          front={frontComp}
-          back={
-            <Settings
-              argsFromState={{
-                gridSize: state.gridSize,
-                firstMove: state.firstMove
-              }}
-              changeGameSetting={this.changeGameSetting}
-              toggleFlip={this.toggleFlip}
+          front={
+            <Grid
+              outcome={outcome}
+              gridSize={gridSize}
+              generateSquares={() => this.generateSquares(iconInfo)}
             />
           }
+          back={<Settings changeGameSetting={this.changeGameSetting} />}
         />
-        {screenOrientation === "landscape" && (
-          <Controls
-            argsFromState={argsFromState}
-            clickHandlersObj={clickHandlersObj}
-          />
-        )}
+        <Controls clickHandlersObj={clickHandlersObj} />
       </React.Fragment>
     );
   }

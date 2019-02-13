@@ -2,55 +2,97 @@ import React from "react";
 import styles from "./Settings.module.scss";
 import Button from "../button/Button";
 
-const Settings = props => {
-  return (
-    <div className={styles.settings}>
-      <h2 className={styles.subHeading}>SETTINGS</h2>
-      <span className={styles.questions}>Who goes first?</span>
-      {/* <div className={styles.buttonRow}>
-              <Button
-                primaryColour
-                onClick={() =>
-                  props.onClick("firstMove", "user", props.argsFromState)
-                }
-              >
-                USER
-              </Button>
-              <Button
-                primaryColour
-                onClick={() =>
-                  props.onClick("firstMove", "comp", props.argsFromState)
-                }
-              >
-                COMP
-              </Button>
+class Settings extends React.Component {
+  state = {
+    gridSize: "3",
+    firstMove: "user"
+  };
+
+  handleOnChange = event => {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  };
+
+  handleSettingsSubmit = event => {
+    event.preventDefault();
+    this.props.changeGameSetting(this.state.gridSize, this.state.firstMove);
+  };
+
+  render() {
+    return (
+      <div className={styles.settings}>
+        <form onSubmit={this.handleSettingsSubmit} className={styles.form}>
+          <h2 className={styles.subheading}>Settings</h2>
+          <div className={styles.innerForm}>
+            <div className={styles.question} style={{ marginTop: 0 }}>
+              Who goes first?
             </div>
-            <span className={styles.questions}>Grid Size</span>
-            <div className={styles.buttonRow}>
-              <Button
-                primaryColour
-                onClick={() => props.onClick("gridSize", 3, props.argsFromState)}
-              >
-                3 x 3
-              </Button>
-              <Button
-                primaryColour
-                onClick={() => props.onClick("gridSize", 5, props.argsFromState)}
-              >
-                5 x 5
-              </Button>
-              <Button
-                primaryColour
-                onClick={() => props.onClick("gridSize", 7, props.argsFromState)}
-              >
-                7 x 7
-              </Button>
-            </div>*/}
-      <button className={styles.button} onClick={props.flip}>
-        Back
-      </button>
-    </div>
-  );
-};
+            <label className={styles.formRow}>
+              <input
+                className={styles.formRow}
+                name="firstMove"
+                type="radio"
+                value="user"
+                checked={this.state.firstMove === "user"}
+                onChange={this.handleOnChange}
+              />{" "}
+              User
+            </label>
+            <label className={styles.formRow}>
+              <input
+                className={styles.formRow}
+                name="firstMove"
+                type="radio"
+                value="comp"
+                checked={this.state.firstMove === "comp"}
+                onChange={this.handleOnChange}
+              />{" "}
+              Comp
+            </label>
+            <div className={styles.question}>Which grid size?</div>
+            <label className={styles.formRow}>
+              <input
+                className={styles.formRow}
+                name="gridSize"
+                type="radio"
+                value="3"
+                checked={this.state.gridSize === "3"}
+                onChange={this.handleOnChange}
+              />{" "}
+              3 x 3
+            </label>
+            <label className={styles.formRow}>
+              <input
+                className={styles.formRow}
+                name="gridSize"
+                type="radio"
+                value="5"
+                checked={this.state.gridSize === "5"}
+                onChange={this.handleOnChange}
+              />{" "}
+              5 x 5
+            </label>
+            <label className={styles.formRow}>
+              <input
+                className={styles.formRow}
+                name="gridSize"
+                type="radio"
+                value="7"
+                checked={this.state.gridSize === "7"}
+                onChange={this.handleOnChange}
+              />{" "}
+              7 x 7
+            </label>
+          </div>
+          <input
+            className={styles.button}
+            type="submit"
+            value="Save Settings"
+          />
+        </form>
+      </div>
+    );
+  }
+}
 
 export default Settings;

@@ -4,10 +4,9 @@ import getCenterSquareIndex from "../../gameLogic/lineGeneratorFunctions/getCent
 import transformStateObj from "./transformStateObj";
 import { findAllUntakenSquares } from "../helperFunctions";
 
-export const simulateGame = argsFromState => {
+export const simulateGame = (firstMove, gridSize) => {
   let state;
   let movesTaken = 0;
-  const { firstMove, gridSize } = argsFromState;
   let initialState = {
     board: Array(gridSize ** 2).fill(null),
     turnNo: 0,
@@ -21,10 +20,10 @@ export const simulateGame = argsFromState => {
       }
     ],
     outcome: undefined,
-    gridSize: gridSize
+    gridSize
   };
-  const maxMoves = argsFromState.gridSize ** 2;
-  if (argsFromState.firstMove === "comp") {
+  const maxMoves = gridSize ** 2;
+  if (firstMove === "comp") {
     state = simulateCompMove(initialState);
     movesTaken = 1;
   } else {
