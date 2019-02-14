@@ -12,11 +12,11 @@ class App extends Component {
     iconInfo: {
       user: {
         icon: "circle",
-        colour: "lightGreen"
+        colour: "#22b14c"
       },
       comp: {
         icon: "cross",
-        colour: "lightRed"
+        colour: "#ed261a"
       }
     }
   };
@@ -60,10 +60,12 @@ class App extends Component {
                   player={"comp"}
                   iconInfo={iconInfo}
                   changeIconSetting={this.changeIconSetting}
-                  toggleFlip={() => this.toggleNonIconSetting("flipped")}
-                  toggleIconSelect={() =>
-                    this.toggleNonIconSetting("iconSelectOpen")
-                  }
+                  toggleFlip={() => {
+                    this.toggleNonIconSetting("flipped");
+                  }}
+                  toggleIconSelect={() => {
+                    this.toggleNonIconSetting("iconSelectOpen");
+                  }}
                 />
               }
             />
@@ -76,6 +78,7 @@ class App extends Component {
                   toggleIconSelect={() =>
                     this.toggleNonIconSetting("iconSelectOpen")
                   }
+                  toggleFlip={() => this.toggleNonIconSetting("flipped")}
                 />
                 <Game iconInfo={iconInfo} />
               </div>

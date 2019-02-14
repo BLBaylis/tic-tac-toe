@@ -1,11 +1,18 @@
 import React from "react";
 import styles from "./IconEditor.module.scss";
-//import Palette from "../palette/Palette";
 import Icon from "../icon/Icon";
-import paintbrush from "../../paintbrush.svg";
+import Paintbrush from "../paintbrush";
+import { hex } from "color-convert";
 
-const IconEditor = ({ changeSetting, iconInfo }) => {
+const IconEditor = ({ changeIconSetting, iconInfo }) => {
   const { icon, colour } = iconInfo;
+  let paintBrushColour;
+  const colourBrightness = hex.hsl(`${colour.slice(1)}`)[2];
+  if (colourBrightness < 95) {
+    paintBrushColour = "#fff";
+  } else {
+    paintBrushColour = "#f9ab55";
+  }
   return (
     <div className={styles.iconEditor}>
       <div className={styles.canvas}>
@@ -13,11 +20,14 @@ const IconEditor = ({ changeSetting, iconInfo }) => {
           <Icon icon={icon} colour={colour} />
         </div>
       </div>
-      {/*<Palette changeSetting={changeSetting} />*/}
       <div className={styles.palette}>
-        <input type="color" />
+        <input
+          type="color"
+          onChange={e => changeIconSetting(e.target.value)}
+          value={colour}
+        />
         <i className={styles.paintIcon}>
-          <img className={styles.paintImg} src={paintbrush} />
+          <Paintbrush className={styles.paintImg} colour={paintBrushColour} />
         </i>
       </div>
     </div>

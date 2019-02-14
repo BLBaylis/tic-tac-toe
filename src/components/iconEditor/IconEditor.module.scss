@@ -32,8 +32,8 @@
   position: absolute;
   z-index: 1;
   height: auto;
-  width: 50%;
-  left: 25%;
+  width: 75%;
+  left: 12.5%;
   top: 50%;
   transform: translateY(-50%);
   pointer-events: none;
@@ -55,4 +55,8 @@ input[type="color"] {
 
 input[type="color"]::-webkit-color-swatch {
   border: none;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
 }

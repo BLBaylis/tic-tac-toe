@@ -40,7 +40,13 @@ const IconSelect = ({
 };
 
 const IconSelectNav = ({ player, toggleFlip, toggleIconSelect }) => {
-  const onClick = player === "user" ? toggleFlip : toggleIconSelect;
+  const onClick =
+    player === "user"
+      ? toggleFlip
+      : () => {
+          toggleIconSelect();
+          toggleFlip();
+        };
   return (
     <div className={styles.buttonRow}>
       {player === "comp" && (

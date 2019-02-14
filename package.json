@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://blbaylis.github.io/tic-tac-toe-v2/",
   "dependencies": {
+    "color-convert": "^2.0.0",
     "gh-pages": "^2.0.1",
     "node-sass": "^4.10.0",
     "react": "^16.6.0",

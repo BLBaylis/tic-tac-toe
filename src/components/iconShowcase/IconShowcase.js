@@ -5,46 +5,22 @@ import Icon from "../icon/Icon";
 const IconShowcase = ({ changeIconSetting }) => {
   return (
     <div className={styles.iconShowcase}>
-      <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
-        icon="circle"
-        colour="lightGreen"
-      />
-      <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
-        icon="smiley"
-        colour="yellow"
-      />
+      <IconShowcaseBtn changeIconSetting={changeIconSetting} icon="circle" />
+      <IconShowcaseBtn changeIconSetting={changeIconSetting} icon="smiley" />
       <IconShowcaseBtn
         changeIconSetting={changeIconSetting}
         icon="wheel"
-        colour="black"
+        colour="orange"
       />
       <IconShowcaseBtn
         changeIconSetting={changeIconSetting}
         icon="button"
-        colour="black"
+        colour="lightBlue"
       />
-      <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
-        icon="cross"
-        colour="lightRed"
-      />
-      <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
-        icon="swords"
-        colour="brown"
-      />
-      <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
-        icon="candyCane"
-        colour="red"
-      />
-      <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
-        icon="pencils"
-        colour="gold"
-      />
+      <IconShowcaseBtn changeIconSetting={changeIconSetting} icon="cross" />
+      <IconShowcaseBtn changeIconSetting={changeIconSetting} icon="swords" />
+      <IconShowcaseBtn changeIconSetting={changeIconSetting} icon="candyCane" />
+      <IconShowcaseBtn changeIconSetting={changeIconSetting} icon="pencils" />
     </div>
   );
 };
@@ -55,7 +31,7 @@ const IconShowcaseBtn = ({ icon, colour, changeIconSetting }) => {
       className={styles.iconShowcaseBtn}
       onClick={() => changeIconSetting(icon)}
     >
-      <Icon icon={icon} colour={colour} />
+      <Icon icon={icon} colour={colour} bgColour={"#fff"} />
     </button>
   );
 };

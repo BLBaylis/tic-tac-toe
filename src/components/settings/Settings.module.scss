@@ -19,7 +19,7 @@
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-  font-size: 3vh;
+  font-size: 15px;
 }
 
 .subheading {
@@ -72,7 +72,7 @@
 
 @media (orientation: portrait) {
   .settings {
-    max-width: 61.65vh;
+    max-height: 61.65vh;
     max-width: 61.65vh;
   }
 }
