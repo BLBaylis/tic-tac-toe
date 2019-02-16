@@ -5,7 +5,26 @@ import Button from "../button/Button";
 class Settings extends React.Component {
   state = {
     gridSize: "3",
-    firstMove: "user"
+    firstMove: "user",
+    settingsDivHeight: undefined
+  };
+
+  settingsDivRef = React.createRef();
+
+  componentDidMount() {
+    this.updateDivHeight();
+    window.addEventListener("resize", this.updateDivHeight);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.updateDivHeight);
+  }
+
+  updateDivHeight = () => {
+    const settingsDiv = this.settingsDivRef.current;
+    const settingsDivHeight = window.getComputedStyle(settingsDiv).height;
+    settingsDiv.style.fontSize = settingsDivHeight;
+    this.setState({ settingsDivHeight });
   };
 
   handleOnChange = event => {
@@ -20,7 +39,7 @@ class Settings extends React.Component {
 
   render() {
     return (
-      <div className={styles.settings}>
+      <div className={styles.settings} ref={this.settingsDivRef}>
         <form onSubmit={this.handleSettingsSubmit} className={styles.form}>
           <h2 className={styles.subheading}>Settings</h2>
           <div className={styles.innerForm}>
@@ -37,7 +56,7 @@ class Settings extends React.Component {
               />{" "}
               User
             </label>
-            <label className={styles.formRow}>
+            <label className={styles.formRow} style={{ left: "51.5%" }}>
               <input
                 name="firstMove"
                 type="radio"
