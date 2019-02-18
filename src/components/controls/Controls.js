@@ -2,16 +2,19 @@ import React from "react";
 import styles from "./Controls.module.scss";
 
 const Controls = ({ clickHandlersObj }) => {
-  const { restart, undo, redo, test, toggleFlip } = clickHandlersObj;
+  const { restart, undoTurn, redoTurn, test, toggleFlip } = clickHandlersObj;
   return (
     <div className={styles.controls}>
-      <button className={styles.button} style={{ marginTop: 0 }} onClick={undo}>
-        Undo
+      <button
+        className={styles.button}
+        style={{ marginTop: 0 }}
+        onClick={undoTurn}
+      >Undo
       </button>
       <button className={styles.button} onClick={() => restart()}>
         Restart
       </button>
-      <button className={styles.button} onClick={redo}>
+      <button className={styles.button} onClick={redoTurn}>
         Redo
       </button>
       {null && <button onClick={() => test(10000)}>Debug</button>}

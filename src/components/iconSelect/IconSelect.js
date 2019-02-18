@@ -40,13 +40,10 @@ const IconSelect = ({
 };
 
 const IconSelectNav = ({ player, toggleFlip, toggleIconSelect }) => {
-  const onClick =
-    player === "user"
-      ? toggleFlip
-      : () => {
-          toggleIconSelect();
-          toggleFlip();
-        };
+  const compOnClick = () => {
+    toggleIconSelect();
+    toggleFlip();
+  };
   return (
     <div className={styles.buttonRow}>
       {player === "comp" && (
@@ -54,7 +51,9 @@ const IconSelectNav = ({ player, toggleFlip, toggleIconSelect }) => {
           BACK
         </button>
       )}
-      <button className={styles[`${player}ConfirmButton`]} onClick={onClick}>
+      <button
+        className={styles[`${player}ConfirmButton`]}
+        onClick={player === "user" ? toggleFlip : compOnClick}>
         {`CONFIRM ${player.toUpperCase()} ICON`}
       </button>
     </div>

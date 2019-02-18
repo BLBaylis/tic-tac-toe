@@ -27,9 +27,9 @@ class App extends Component {
 
   changeIconSetting = (player, settingType, newSetting) => {
     let iconInfoCopy = { ...this.state.iconInfo };
-    let playerObj = { ...this.state.iconInfo[player] };
-    playerObj[settingType] = newSetting;
-    iconInfoCopy[player] = playerObj;
+    let playerObjCopy = { ...this.state.iconInfo[player] };
+    playerObjCopy[settingType] = newSetting;
+    iconInfoCopy[player] = playerObjCopy;
     this.setState({ iconInfo: iconInfoCopy });
   };
 

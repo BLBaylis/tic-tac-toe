@@ -19,7 +19,7 @@
   transition: all 300ms ease-in-out;
   cursor: pointer;
   font-family: "BioRhyme";
-  font-size: 14px;
+  font-size: calc(16px + 1vh);
 }
 
 .settingsBtn {

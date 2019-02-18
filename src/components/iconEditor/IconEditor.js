@@ -6,13 +6,7 @@ import { hex } from "color-convert";
 
 const IconEditor = ({ changeIconSetting, iconInfo }) => {
   const { icon, colour } = iconInfo;
-  let paintBrushColour;
   const colourBrightness = hex.hsl(`${colour.slice(1)}`)[2];
-  if (colourBrightness < 95) {
-    paintBrushColour = "#fff";
-  } else {
-    paintBrushColour = "#f9ab55";
-  }
   return (
     <div className={styles.iconEditor}>
       <div className={styles.canvas}>
@@ -27,7 +21,10 @@ const IconEditor = ({ changeIconSetting, iconInfo }) => {
           value={colour}
         />
         <i className={styles.paintIcon}>
-          <Paintbrush className={styles.paintImg} colour={paintBrushColour} />
+          <Paintbrush
+            className={styles.paintImg}
+            colour={colourBrightness < 95 ? "#fff" : "#f9ab55"}
+          />
         </i>
       </div>
     </div>

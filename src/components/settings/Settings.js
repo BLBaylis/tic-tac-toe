@@ -1,12 +1,10 @@
 import React from "react";
 import styles from "./Settings.module.scss";
-import Button from "../button/Button";
 
 class Settings extends React.Component {
   state = {
     gridSize: "3",
-    firstMove: "user",
-    settingsDivHeight: undefined
+    firstMove: "user"
   };
 
   settingsDivRef = React.createRef();
@@ -24,7 +22,6 @@ class Settings extends React.Component {
     const settingsDiv = this.settingsDivRef.current;
     const settingsDivHeight = window.getComputedStyle(settingsDiv).height;
     settingsDiv.style.fontSize = settingsDivHeight;
-    this.setState({ settingsDivHeight });
   };
 
   handleOnChange = event => {

@@ -128,7 +128,7 @@ class Game extends React.Component {
       ));
   };
 
-  simulateManyGamesAndRecordResults = amountOfGames => {
+  test = amountOfGames => {
     let result;
     let counters = {
       userCounter: 0,
@@ -152,15 +152,10 @@ class Game extends React.Component {
   };
 
   render() {
-    const { gridSize, outcome, flipped } = this.state;
-    const { iconInfo } = this.props;
-    const clickHandlersObj = {
-      restart: this.restart,
-      undo: this.undoTurn,
-      redo: this.redoTurn,
-      test: this.simulateManyGamesAndRecordResults,
-      toggleFlip: this.toggleFlip
-    };
+    const { state, props, restart, undoTurn, redoTurn, test, toggleFlip} = this;
+    const { gridSize, outcome, flipped } = state;
+    const { iconInfo } = props;
+    const clickHandlersObj = { restart, undoTurn, redoTurn, test, toggleFlip };
     return (
       <React.Fragment>
         <Flipper
