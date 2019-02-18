@@ -9,7 +9,8 @@ const Controls = ({ clickHandlersObj }) => {
         className={styles.button}
         style={{ marginTop: 0 }}
         onClick={undoTurn}
-      >Undo
+      >
+        Undo
       </button>
       <button className={styles.button} onClick={() => restart()}>
         Restart

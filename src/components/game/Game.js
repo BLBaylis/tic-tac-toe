@@ -152,7 +152,15 @@ class Game extends React.Component {
   };
 
   render() {
-    const { state, props, restart, undoTurn, redoTurn, test, toggleFlip} = this;
+    const {
+      state,
+      props,
+      restart,
+      undoTurn,
+      redoTurn,
+      test,
+      toggleFlip
+    } = this;
     const { gridSize, outcome, flipped } = state;
     const { iconInfo } = props;
     const clickHandlersObj = { restart, undoTurn, redoTurn, test, toggleFlip };

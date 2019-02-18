@@ -7,13 +7,13 @@ const Grid = ({ outcome, gridSize, generateSquares }) => {
     <div className={gridClassName}>
       {outcome && (
         <div className={styles.outcome}>
-          {outcome === "draw" ? "DRAW" : (
-              outcome !== undefined ? `${outcome.toUpperCase()} WINS!` : ""
-            )
-          }
+          {outcome === "draw"
+            ? "DRAW"
+            : outcome !== undefined
+              ? `${outcome.toUpperCase()} WINS!`
+              : ""}
         </div>
-        )
-      }
+      )}
       {generateSquares()}
     </div>
   );

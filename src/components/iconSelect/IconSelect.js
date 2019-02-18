@@ -53,7 +53,8 @@ const IconSelectNav = ({ player, toggleFlip, toggleIconSelect }) => {
       )}
       <button
         className={styles[`${player}ConfirmButton`]}
-        onClick={player === "user" ? toggleFlip : compOnClick}>
+        onClick={player === "user" ? toggleFlip : compOnClick}
+      >
         {`CONFIRM ${player.toUpperCase()} ICON`}
       </button>
     </div>
