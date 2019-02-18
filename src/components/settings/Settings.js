@@ -35,6 +35,10 @@ class Settings extends React.Component {
   };
 
   render() {
+    /*const inputStyles = window.getComputedStyle(document.getElementsByTagName("input")[0]);
+    for (let i = 0; i < inputStyles.length; i++) {
+      console.log(`${inputStyles[i]} : ${inputStyles[inputStyles[i]]}`);
+    }*/
     return (
       <div className={styles.settings} ref={this.settingsDivRef}>
         <form onSubmit={this.handleSettingsSubmit} className={styles.form}>
