@@ -2,7 +2,7 @@ import calculateCompMove from "../../gameLogic/compMoveLogic/calculateCompMove";
 import generateAllLines from "../../gameLogic/lineGeneratorFunctions/generateAllLines";
 import getCenterSquareIndex from "../../gameLogic/lineGeneratorFunctions/getCenterSquareIndex";
 import transformStateObj from "./transformStateObj";
-import { findAllUntakenSquares } from "../helperFunctions";
+import { findAllEmptySquares } from "../helperFunctions";
 
 export const simulateGame = (firstMove, gridSize) => {
   let state;
@@ -46,7 +46,7 @@ const simulateRandomMove = prevState => {
   let indicesArr = Array(prevState.gridSize ** 2)
     .fill()
     .map((x, index) => index);
-  let remainingSquares = findAllUntakenSquares(indicesArr, prevState.board);
+  let remainingSquares = findAllEmptySquares(indicesArr, prevState.board);
   let randomIndex = Math.floor(Math.random() * remainingSquares.length);
   return transformStateObj(remainingSquares[randomIndex], prevState);
 };

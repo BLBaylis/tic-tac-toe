@@ -3,7 +3,6 @@ import styles from "./IconShowcase.module.scss";
 import Icon from "../icon/Icon";
 
 const IconShowcase = ({ oppositionIconType, changeIconSetting }) => {
-  console.log(oppositionIconType);
   return (
     <div className={styles.iconShowcase}>
       <IconShowcaseBtn

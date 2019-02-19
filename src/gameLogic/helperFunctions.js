@@ -1,6 +1,5 @@
-export const findAllUntakenSquares = (arr, board) => {
-  const arrClone = arr.slice();
-  return arrClone.filter(x => board[x] === null);
+export const findAllEmptySquares = (arr, board) => {
+  return arr.filter(x => board[x] === null);
 };
 
 export const chooseRandom = (arr, board) => {

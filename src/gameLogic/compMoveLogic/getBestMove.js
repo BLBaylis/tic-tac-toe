@@ -1,4 +1,4 @@
-import { findAllUntakenSquares } from "../helperFunctions";
+import { findAllEmptySquares } from "../helperFunctions";
 import chooseFromMoveChoicesBasedOnOppositionLines from "./chooseFromMoveChoicesBasedOnOppositionLines";
 import processLines from "./processLines";
 
@@ -7,18 +7,19 @@ const getBestMove = (
   playerWithoutTempoLines,
   argsFromState
 ) => {
+  const { board, gridSize } = argsFromState;
   const possibleMoves = playerWithTempoLines.reduce((total, curr) => {
-    return total.concat(findAllUntakenSquares(curr, argsFromState.board));
+    return total.concat(findAllEmptySquares(curr, board));
   }, []);
   const processedUserLines = processLines(
     playerWithoutTempoLines,
-    argsFromState.board,
-    argsFromState.gridSize
+    board,
+    gridSize
   );
   return chooseFromMoveChoicesBasedOnOppositionLines(
     possibleMoves,
     processedUserLines,
-    argsFromState.board
+    board
   );
 };
 export default getBestMove;
