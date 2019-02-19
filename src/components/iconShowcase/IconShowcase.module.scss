@@ -9,13 +9,36 @@
   margin: 0 auto;
 }
 
-.iconShowcaseBtn {
+.iconShowcaseBtn,
+.iconShowcaseBtnDisabled {
+  position: relative;
   min-width: 40px;
   min-height: 40px;
   padding: 0;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
   border: none;
   cursor: pointer;
+}
+
+.iconShowcaseBtn:hover::after,
+.iconShowcaseBtnDisabled::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: grey;
+  opacity: 0.3;
+}
+
+.iconShowcaseBtnDisabled::after {
+  background-color: red;
+  cursor: not-allowed;
+}
+
+.iconShowcaseBtnDisabled:hover::after {
+  opacity: 0.2;
 }
 
 @media (orientation: landscape) {

@@ -28,6 +28,24 @@
   float: right;
 }
 
+.palette::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: transparent;
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.palette:hover::after {
+  background-color: #fff;
+  border: solid 5px #000;
+  box-sizing: border-box;
+}
+
 .paintIcon {
   position: absolute;
   z-index: 1;

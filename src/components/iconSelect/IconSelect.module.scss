@@ -40,7 +40,7 @@
 .button {
   min-height: 40px;
   height: 100%;
-  font-size: calc(16px + 1vmin);
+  font-size: calc(12px + 1vmin);
   color: #fff;
   border: none;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
@@ -64,10 +64,19 @@
   width: 80%;
 }
 
+.compConfirmButton:hover,
+.userConfirmButton:hover {
+  background-color: #8ceabb;
+}
+
 .backButton {
   @extend .button;
   width: 18.5%;
   background-color: #f9ab55;
+}
+
+.backButton:hover {
+  background-color: #f4b269;
 }
 
 @media (orientation: landscape) {

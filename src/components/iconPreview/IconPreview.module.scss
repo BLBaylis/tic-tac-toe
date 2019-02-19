@@ -10,6 +10,16 @@
   padding: 0;
 }
 
+.icon:hover svg path:first-child {
+  fill: #eee;
+  height: 100%;
+}
+
+.icon:hover,
+.icon:hover > svg {
+  background-color: #eee;
+}
+
 .highlight {
   font-weight: 800;
   color: #fff;

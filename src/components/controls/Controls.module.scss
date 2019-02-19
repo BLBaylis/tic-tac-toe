@@ -19,7 +19,11 @@
   transition: all 300ms ease-in-out;
   cursor: pointer;
   font-family: "BioRhyme";
-  font-size: calc(16px + 1vh);
+  font-size: calc(14px + 1vh);
+}
+
+.button:hover {
+  background-color: #8ceabb;
 }
 
 .settingsBtn {
@@ -27,6 +31,10 @@
   width: 100%;
   grid-column: span 3;
   background-color: #f9ab55;
+}
+
+.settingsBtn:hover {
+  background-color: #f4b269;
 }
 
 @media (orientation: landscape) {

@@ -12,10 +12,12 @@ class App extends Component {
     iconInfo: {
       user: {
         icon: "circle",
+        iconType: "nought",
         colour: "#22b14c"
       },
       comp: {
         icon: "cross",
+        iconType: undefined,
         colour: "#ed261a"
       }
     }
@@ -25,11 +27,13 @@ class App extends Component {
     this.setState(prevState => ({ [setting]: !prevState[setting] }));
   };
 
-  changeIconSetting = (player, settingType, newSetting) => {
+  changeIconSetting = (player, settingChanges) => {
     let iconInfoCopy = { ...this.state.iconInfo };
-    let playerObjCopy = { ...this.state.iconInfo[player] };
-    playerObjCopy[settingType] = newSetting;
-    iconInfoCopy[player] = playerObjCopy;
+    iconInfoCopy[player] = {
+      icon: settingChanges.icon || this.state.iconInfo[player].icon,
+      iconType: settingChanges.iconType || this.state.iconInfo[player].iconType,
+      colour: settingChanges.colour || this.state.iconInfo[player].colour
+    };
     this.setState({ iconInfo: iconInfoCopy });
   };
 

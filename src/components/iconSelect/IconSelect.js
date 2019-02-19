@@ -10,6 +10,7 @@ const IconSelect = ({
   toggleFlip,
   toggleIconSelect
 }) => {
+  const otherPlayer = player === "user" ? "comp" : "user";
   return (
     <div className={styles.iconSelectWrapper}>
       <div className={styles.iconSelect}>
@@ -20,13 +21,17 @@ const IconSelect = ({
         </h2>
         <IconEditor
           changeIconSetting={newColour =>
-            changeIconSetting(player, "colour", newColour)
+            changeIconSetting(player, { colour: newColour })
           }
           iconInfo={iconInfo[player]}
         />
         <IconShowcase
-          changeIconSetting={newIcon =>
-            changeIconSetting(player, "icon", newIcon)
+          oppositionIconType={iconInfo[otherPlayer].iconType}
+          changeIconSetting={(newIcon, newIconType) =>
+            changeIconSetting(player, {
+              icon: newIcon,
+              iconType: newIconType
+            })
           }
         />
         <IconSelectNav
