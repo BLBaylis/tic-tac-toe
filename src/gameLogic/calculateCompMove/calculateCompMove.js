@@ -1,10 +1,14 @@
-import getLineInfoForBothPlayers from "./getLineInfoForBothPlayers";
-import getBestMove from "./getBestMove";
-import { findAllEmptySquares, chooseRandom } from "../helperFunctions";
+import getLineInfoForBothPlayers from "./calculateCompMoveFunctions/getLineInfoForBothPlayers";
+import getBestMove from "./calculateCompMoveFunctions/getBestMove";
+import {
+  generateIndexBoard,
+  chooseRandom,
+  getCenterSquareIndex
+} from "../helperFunctions";
 
-const calculateCompMove = (centerIndex, allLines, argsFromState) => {
+const calculateCompMove = argsFromState => {
   const { board, gridSize, turnNo } = argsFromState;
-  /* calculate centerIndex in function? */
+  const centerIndex = getCenterSquareIndex(gridSize);
   const centerValue = board[centerIndex];
   if (!centerValue) {
     return centerIndex;
@@ -22,15 +26,14 @@ const calculateCompMove = (centerIndex, allLines, argsFromState) => {
     compBestLines,
     userBestLineLength,
     userBestLines
-  } = getLineInfoForBothPlayers(allLines, board);
+  } = getLineInfoForBothPlayers(board);
   if (compBestLineLength >= userBestLineLength) {
     if (compBestLineLength === 0) {
-      const remainingSquares = findAllEmptySquares(board);
-      return chooseRandom(remainingSquares, board);
+      return chooseRandom(generateIndexBoard(board), board);
     }
-    return getBestMove(compBestLines, userBestLines, argsFromState);
+    return getBestMove(compBestLines, userBestLines, board);
   } else {
-    return getBestMove(userBestLines, compBestLines, argsFromState);
+    return getBestMove(userBestLines, compBestLines, board);
   }
 };
 

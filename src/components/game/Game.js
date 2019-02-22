@@ -4,12 +4,12 @@ import Settings from "../settings/Settings";
 import Grid from "../grid/Grid";
 import Controls from "../controls/Controls";
 import GameSquare from "../gameSquare/GameSquare";
-import transformStateObj from "../../gameLogic/moveSimulationFunctions/transformStateObj";
 import {
   simulateGame,
-  simulateCompMove
-} from "../../gameLogic/moveSimulationFunctions/simulateGame";
-import recordGameResults from "../../gameLogic/moveSimulationFunctions/recordGameResults";
+  simulateMove
+} from "../../gameLogic/simulateGame/simulateGame";
+import calculateCompMove from "../../gameLogic/calculateCompMove/calculateCompMove";
+import recordGameResults from "../../gameLogic/recordGameResults";
 
 class Game extends React.Component {
   state = {
@@ -40,9 +40,12 @@ class Game extends React.Component {
     if (stateObjClone.board[squareNo] !== null) {
       return;
     }
-    let updatedState = transformStateObj(squareNo, stateObjClone);
+    let updatedState = simulateMove(squareNo, stateObjClone);
     if (updatedState.outcome === undefined) {
-      updatedState = simulateCompMove(updatedState);
+      updatedState = simulateMove(
+        calculateCompMove(updatedState),
+        updatedState
+      );
     }
     this.setState(updatedState);
   };
@@ -73,7 +76,9 @@ class Game extends React.Component {
       flipped: false
     };
     if (newInitialState.firstMove === "comp") {
-      this.setState(simulateCompMove(newInitialState));
+      this.setState(
+        simulateMove(calculateCompMove(newInitialState), newInitialState)
+      );
     } else {
       this.setState(newInitialState);
     }

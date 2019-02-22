@@ -1,16 +1,33 @@
 export const findAllEmptySquares = (arr, board) => {
-  return arr.filter(x => board[x] === null);
+  return arr.filter(squareIndex => board[squareIndex] === null);
 };
 
+export const generateIndexBoard = board => {
+  return Array(board.length).fill().map((curr, index) => index);
+}
+
 export const chooseRandom = (arr, board) => {
-  const arrClone = arr.slice();
-  let randomIndex = Math.floor(Math.random() * arrClone.length);
-  while (board[arrClone[randomIndex]] !== null && arrClone.length < 0) {
-    arrClone.splice(randomIndex, 1);
-    randomIndex = Math.floor(Math.random() * arrClone.length);
+  let emptySpaces = findAllEmptySquares(arr, board);
+  if (!emptySpaces.length) {
+    throw new Error(`chooseRandom couldn't find empty square, arr: ${arr}, board: ${board}, emptySpaces : ${emptySpaces}`);
   }
-  if (board[arr[randomIndex]] === null) {
-    return arr[randomIndex];
-  }
-  return false;
+  let randomIndex = Math.floor(Math.random() * emptySpaces.length);
+  return emptySpaces[randomIndex];
+};
+
+export const generateRowFromRowNum = (rowNum, lineLength) => {
+  return Array(lineLength)
+    .fill()
+    .map((x, index) => rowNum * lineLength + index);
+};
+
+export const generateColumnFromColNum = (colNum, lineLength) => {
+  return Array(lineLength)
+    .fill()
+    .map((x, index) => colNum + index * lineLength);
+};
+
+export const getCenterSquareIndex = gridSize => {
+  const n = (gridSize - 1) / 2;
+  return gridSize * n + n;
 };
