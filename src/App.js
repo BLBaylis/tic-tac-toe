@@ -63,6 +63,7 @@ class App extends Component {
                   player={"user"}
                   iconInfo={iconInfo}
                   changeIconSetting={this.changeIconSetting}
+                  flipped={flipped}
                   toggleFlip={() => this.toggleNonIconSetting("flipped")}
                 />
               }

@@ -10,13 +10,16 @@
   padding: 0;
 }
 
-.icon:hover svg path:first-child {
+.icon:hover svg path:first-child,
+.icon:focus svg path:first-child {
   fill: #eee;
   height: 100%;
 }
 
 .icon:hover,
-.icon:hover > svg {
+.icon:hover > svg,
+.icon:focus,
+.icon:focus > svg {
   background-color: #eee;
 }
 

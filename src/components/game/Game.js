@@ -164,7 +164,9 @@ class Game extends React.Component {
       undoTurn,
       redoTurn,
       test,
-      toggleFlip
+      toggleFlip,
+      generateSquares,
+      changeGameSetting
     } = this;
     const { gridSize, outcome, flipped } = state;
     const { iconInfo } = props;
@@ -177,10 +179,16 @@ class Game extends React.Component {
             <Grid
               outcome={outcome}
               gridSize={gridSize}
-              generateSquares={() => this.generateSquares(iconInfo)}
+              generateSquares={() => generateSquares(iconInfo)}
             />
           }
-          back={<Settings changeGameSetting={this.changeGameSetting} />}
+          back={
+            <Settings
+              changeGameSetting={changeGameSetting}
+              toggleFlip={toggleFlip}
+              flipped={flipped}
+            />
+          }
         />
         <Controls clickHandlersObj={clickHandlersObj} />
       </React.Fragment>

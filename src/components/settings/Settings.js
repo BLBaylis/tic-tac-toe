@@ -31,11 +31,12 @@ class Settings extends React.Component {
 
   handleSettingsSubmit = event => {
     event.preventDefault();
-    console.log(event);
+    this.props.toggleFlip();
     this.props.changeGameSetting(this.state.gridSize, this.state.firstMove);
   };
 
   render() {
+    const flipped = this.props.flipped;
     return (
       <div className={styles.settings} ref={this.settingsDivRef}>
         <form onSubmit={this.handleSettingsSubmit} className={styles.form}>
@@ -51,6 +52,7 @@ class Settings extends React.Component {
                 value="user"
                 checked={this.state.firstMove === "user"}
                 onChange={this.handleOnChange}
+                tabIndex={flipped ? "0" : "-1"}
               />{" "}
               User
             </label>
@@ -61,6 +63,7 @@ class Settings extends React.Component {
                 value="comp"
                 checked={this.state.firstMove === "comp"}
                 onChange={this.handleOnChange}
+                tabIndex={flipped ? "0" : "-1"}
               />{" "}
               Comp
             </label>
@@ -72,6 +75,7 @@ class Settings extends React.Component {
                 value="3"
                 checked={this.state.gridSize === "3"}
                 onChange={this.handleOnChange}
+                tabIndex={flipped ? "0" : "-1"}
               />{" "}
               3 x 3
             </label>
@@ -82,6 +86,7 @@ class Settings extends React.Component {
                 value="5"
                 checked={this.state.gridSize === "5"}
                 onChange={this.handleOnChange}
+                tabIndex={flipped ? "0" : "-1"}
               />{" "}
               5 x 5
             </label>
@@ -92,6 +97,7 @@ class Settings extends React.Component {
                 value="7"
                 checked={this.state.gridSize === "7"}
                 onChange={this.handleOnChange}
+                tabIndex={flipped ? "0" : "-1"}
               />{" "}
               7 x 7
             </label>
@@ -100,6 +106,7 @@ class Settings extends React.Component {
             className={styles.button}
             type="submit"
             value="Save Settings"
+            tabIndex={flipped ? "0" : "-1"}
           />
         </form>
       </div>

@@ -22,7 +22,8 @@
   font-size: calc(14px + 1vh);
 }
 
-.button:hover {
+.button:hover,
+.button:focus {
   background-color: #8ceabb;
 }
 
@@ -33,7 +34,8 @@
   background-color: #f9ab55;
 }
 
-.settingsBtn:hover {
+.settingsBtn:hover,
+.settingsBtn:focus {
   background-color: #f4b269;
 }
 

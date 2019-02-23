@@ -4,9 +4,11 @@ import Icon from "../icon/Icon";
 import Paintbrush from "../paintbrush";
 import { hex } from "color-convert";
 
-const IconEditor = ({ changeIconSetting, iconInfo }) => {
+const IconEditor = ({ changeIconSetting, iconInfo, player, flipped }) => {
   const { icon, colour } = iconInfo;
   const colourBrightness = hex.hsl(`${colour.slice(1)}`)[2];
+  const userBackface = flipped && player === "user";
+  const compBackface = !flipped && player === "comp";
   return (
     <div className={styles.iconEditor}>
       <div className={styles.canvas}>
@@ -19,6 +21,7 @@ const IconEditor = ({ changeIconSetting, iconInfo }) => {
           type="color"
           onChange={e => changeIconSetting(e.target.value)}
           value={colour}
+          tabIndex={!userBackface && !compBackface ? "0" : "-1"}
         />
         <i className={styles.paintIcon}>
           <Paintbrush

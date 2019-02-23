@@ -2,7 +2,9 @@ import React from "react";
 import styles from "./IconShowcase.module.scss";
 import Icon from "../icon/Icon";
 
-const IconShowcase = ({ oppositionIconType, changeIconSetting, player }) => {
+const IconShowcase = ({ oppositionIconType, changeIconSetting, player, flipped }) => {
+  const userBackface = flipped && player === "user";
+  const compBackface = !flipped && player === "comp";
   return (
     <div className={styles.iconShowcase}>
       <IconShowcaseBtn
@@ -10,18 +12,21 @@ const IconShowcase = ({ oppositionIconType, changeIconSetting, player }) => {
         icon="circle"
         iconType="nought"
         disabled={oppositionIconType === "nought" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
         changeIconSetting={changeIconSetting}
         icon="smiley"
         iconType="nought"
         disabled={oppositionIconType === "nought" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
         changeIconSetting={changeIconSetting}
         icon="wheel"
         iconType="nought"
         disabled={oppositionIconType === "nought" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
         colour="orange"
       />
       <IconShowcaseBtn
@@ -29,6 +34,7 @@ const IconShowcase = ({ oppositionIconType, changeIconSetting, player }) => {
         icon="button"
         iconType="nought"
         disabled={oppositionIconType === "nought" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
         colour="lightBlue"
       />
       <IconShowcaseBtn
@@ -36,24 +42,28 @@ const IconShowcase = ({ oppositionIconType, changeIconSetting, player }) => {
         icon="cross"
         iconType="cross"
         disabled={oppositionIconType === "cross" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
         changeIconSetting={changeIconSetting}
         icon="swords"
         iconType="cross"
         disabled={oppositionIconType === "cross" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
         changeIconSetting={changeIconSetting}
         icon="candyCane"
         iconType="cross"
         disabled={oppositionIconType === "cross" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
         changeIconSetting={changeIconSetting}
         icon="pencils"
         iconType="cross"
         disabled={oppositionIconType === "cross" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
     </div>
   );
@@ -64,7 +74,8 @@ const IconShowcaseBtn = ({
   iconType,
   colour,
   changeIconSetting,
-  disabled
+  disabled,
+  tabIndex
 }) => {
   const className = !disabled
     ? styles.iconShowcaseBtn
@@ -74,6 +85,7 @@ const IconShowcaseBtn = ({
       className={className}
       onClick={() => changeIconSetting(icon, iconType)}
       disabled={disabled}
+      tabIndex = {tabIndex}
     >
       <Icon icon={icon} colour={colour} bgColour={"#fff"} />
     </button>

@@ -26,6 +26,7 @@
   height: 100%;
 }
 
-.gameSquare:empty:hover::after {
+.gameSquare:empty:hover::after,
+.gameSquare:empty:focus::after {
   background-color: #bad4aa;
 }

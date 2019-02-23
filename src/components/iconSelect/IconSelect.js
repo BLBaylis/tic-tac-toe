@@ -5,6 +5,7 @@ import IconShowcase from "../iconShowcase/IconShowcase";
 
 const IconSelect = ({
   player,
+  flipped,
   iconInfo,
   changeIconSetting,
   toggleFlip,
@@ -20,6 +21,8 @@ const IconSelect = ({
           &nbsp;ICON
         </h2>
         <IconEditor
+        player = {player}
+        flipped={flipped}
           changeIconSetting={newColour =>
             changeIconSetting(player, { colour: newColour })
           }
@@ -27,6 +30,7 @@ const IconSelect = ({
         />
         <IconShowcase
           player={player}
+          flipped = {flipped}
           oppositionIconType={iconInfo[otherPlayer].iconType}
           changeIconSetting={(newIcon, newIconType) =>
             changeIconSetting(player, {
