@@ -31,6 +31,7 @@ class Settings extends React.Component {
 
   handleSettingsSubmit = event => {
     event.preventDefault();
+    console.log(event);
     this.props.changeGameSetting(this.state.gridSize, this.state.firstMove);
   };
 

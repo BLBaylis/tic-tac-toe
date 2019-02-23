@@ -1,7 +1,11 @@
 import {
+  generateIndexArr,
   generateRowFromRowNum,
   generateColumnFromColNum
 } from "../../helperFunctions";
+
+//generateAllLines is used to generate all potential winning lines in a grid
+//for for the board to be cross-checked against
 
 const generateAllLines = lineLength => {
   return [].concat(
@@ -12,16 +16,12 @@ const generateAllLines = lineLength => {
 };
 
 const generateRows = lineLength => {
-  const rowNo = Array(lineLength)
-    .fill()
-    .map((x, index) => index);
+  const rowNo = generateIndexArr(lineLength);
   return rowNo.map(x => generateRowFromRowNum(x, lineLength));
 };
 
 const generateColumns = lineLength => {
-  const colNo = Array(lineLength)
-    .fill()
-    .map((x, index) => index);
+  const colNo = generateIndexArr(lineLength);
   return colNo.map(x => generateColumnFromColNum(x, lineLength));
 };
 

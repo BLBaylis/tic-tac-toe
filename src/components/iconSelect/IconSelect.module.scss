@@ -64,6 +64,10 @@
   width: 80%;
 }
 
+.compConfirmButton:disabled {
+  cursor: not-allowed;
+}
+
 .compConfirmButton:hover,
 .userConfirmButton:hover {
   background-color: #8ceabb;

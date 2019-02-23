@@ -2,7 +2,7 @@ import calculateCompMove from "../calculateCompMove/calculateCompMove";
 import winCheck, {
   drawCheck
 } from "./simulateGameFunctions/gameEndingConditions";
-import { generateIndexBoard, chooseRandom } from "../helperFunctions";
+import { generateIndexArr, chooseRandom } from "../helperFunctions";
 
 export const simulateGame = (firstMove, gridSize) => {
   let state;
@@ -34,12 +34,6 @@ export const simulateGame = (firstMove, gridSize) => {
     if (state.outcome !== undefined) {
       return state;
     }
-    const compMove = calculateCompMove(state);
-    if (movesTaken === 1 && compMove !== 4) {
-      console.log(compMove);
-      console.log(state);
-      throw new Error();
-    }
     state = simulateMove(calculateCompMove(state), state);
     if (state.outcome !== undefined) {
       return state;
@@ -54,19 +48,20 @@ export const simulateMove = (squareNo, prevState) => {
   if (board[squareNo] || outcome !== undefined) {
     return prevState;
   }
+  const boardClone = board.slice();
   if (gameLog[turnNo + 1]) {
     gameLog = gameLog.slice(0, turnNo + 1);
   }
-  board[squareNo] = userTurn ? "user" : "comp";
+  boardClone[squareNo] = userTurn ? "user" : "comp";
   turnNo++;
-  let winChecked = winCheck(board, gridSize);
+  let winChecked = winCheck(boardClone, gridSize);
   if (winChecked) {
     outcome = winChecked;
   } else if (drawCheck(turnNo, gridSize)) {
     outcome = "draw";
   }
   const nonGameLogStateChanges = {
-    board,
+    board: boardClone,
     turnNo,
     userTurn: !userTurn,
     outcome
@@ -80,6 +75,6 @@ export const simulateMove = (squareNo, prevState) => {
 
 const simulateRandomMove = prevState => {
   const board = prevState.board;
-  const chosenMove = chooseRandom(generateIndexBoard(board), board);
+  const chosenMove = chooseRandom(generateIndexArr(board.length), board);
   return simulateMove(chosenMove, prevState);
 };

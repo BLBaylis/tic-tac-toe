@@ -26,6 +26,7 @@ const IconSelect = ({
           iconInfo={iconInfo[player]}
         />
         <IconShowcase
+          player={player}
           oppositionIconType={iconInfo[otherPlayer].iconType}
           changeIconSetting={(newIcon, newIconType) =>
             changeIconSetting(player, {
@@ -36,6 +37,7 @@ const IconSelect = ({
         />
         <IconSelectNav
           player={player}
+          iconInfo={iconInfo}
           toggleFlip={toggleFlip}
           toggleIconSelect={toggleIconSelect}
         />
@@ -44,7 +46,7 @@ const IconSelect = ({
   );
 };
 
-const IconSelectNav = ({ player, toggleFlip, toggleIconSelect }) => {
+const IconSelectNav = ({ player, toggleFlip, toggleIconSelect, iconInfo }) => {
   const compOnClick = () => {
     toggleIconSelect();
     toggleFlip();
@@ -57,6 +59,7 @@ const IconSelectNav = ({ player, toggleFlip, toggleIconSelect }) => {
         </button>
       )}
       <button
+        disabled={player === "comp" && !iconInfo.comp.icon}
         className={styles[`${player}ConfirmButton`]}
         onClick={player === "user" ? toggleFlip : compOnClick}
       >

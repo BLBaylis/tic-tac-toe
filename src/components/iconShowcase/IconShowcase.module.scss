@@ -20,6 +20,10 @@
   cursor: pointer;
 }
 
+.iconShowcaseBtnDisabled {
+  cursor: not-allowed;
+}
+
 .iconShowcaseBtn:hover::after,
 .iconShowcaseBtnDisabled::after {
   content: "";
@@ -34,7 +38,6 @@
 
 .iconShowcaseBtnDisabled::after {
   background-color: red;
-  cursor: not-allowed;
 }
 
 .iconShowcaseBtnDisabled:hover::after {

@@ -69,6 +69,10 @@
   background-color: #f4b269;
 }
 
+.button:active input[type="radio"]:checked {
+  colour: green;
+}
+
 input[type="radio"] {
   appearance: none;
   margin: 0;

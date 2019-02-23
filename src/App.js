@@ -16,7 +16,7 @@ class App extends Component {
         colour: "#22b14c"
       },
       comp: {
-        icon: "cross",
+        icon: undefined,
         iconType: undefined,
         colour: "#ed261a"
       }
@@ -28,12 +28,19 @@ class App extends Component {
   };
 
   changeIconSetting = (player, settingChanges) => {
-    let iconInfoCopy = { ...this.state.iconInfo };
+    const iconInfo = this.state.iconInfo;
+    let iconInfoCopy = { ...iconInfo };
     iconInfoCopy[player] = {
       icon: settingChanges.icon || this.state.iconInfo[player].icon,
       iconType: settingChanges.iconType || this.state.iconInfo[player].iconType,
       colour: settingChanges.colour || this.state.iconInfo[player].colour
     };
+    if (
+      player === "user" &&
+      settingChanges.iconType !== iconInfo.user.iconType
+    ) {
+      iconInfo.comp.icon = undefined;
+    }
     this.setState({ iconInfo: iconInfoCopy });
   };
 
