@@ -1,8 +1,8 @@
 .icon {
-  height: 55px;
-  width: 55px;
   min-height: 40px;
   min-width: 40px;
+  width: 10.416vh;
+  height: 10.416vh;
   border: none;
   background-color: #fff;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
@@ -10,23 +10,108 @@
   padding: 0;
 }
 
-.highlight {
-  font-weight: 800;
-  color: #fff;
-  font-size: 30px;
-  color: #889b7c;
+.icon:hover svg path:first-child,
+.icon:focus svg path:first-child {
+  fill: #eee;
+  height: 100%;
 }
 
-@media (orientation: portrait) and (min-height: 480px) {
-  .icon {
-    height: calc(55px + (20 * (100vh - 480px) / 288));
-    width: calc(55px + (20 * (100vh - 480px) / 288));
+.icon:hover,
+.icon:hover > svg,
+.icon:focus,
+.icon:focus > svg {
+  background-color: #eee;
+}
+
+.highlight {
+  font-weight: 800;
+  color: #000;
+  font-size: 30px;
+}
+
+.iconPreviewWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 40px;
+  height: 10.416vh;
+  width: calc(100vw - 4.167vh);
+  margin: 0 auto 2.083vh;
+}
+
+@media (min-width: 600px), (min-height: 600px) {
+  .highlight {
+    font-size: 40px
   }
 }
 
-@media (orientation: portrait) and (min-height: 768x) {
+@media (min-width: 700px), (min-height: 700px) {
+  .highlight {
+    font-size: 50px
+  }
+}
+
+@media (min-width: 1024px), (min-height: 1024px) {
+  .highlight {
+    font-size: 60px
+  }
+}
+
+@media (orientation: landscape) {
+  .iconPreviewWrapper {
+    grid-area: preview;
+    width: 100%;
+    margin: 0;
+    height: 45.98%;
+  }
+
   .icon {
-    height: 75px;
-    width: 75px;
+    height: 100%;
+    width: 28.5%;
+  }
+
+  .highlight {
+    font-size: 20px
+  }
+}
+
+@media (orientation: landscape) and (min-width: 700px),
+(orientation: landscape) and (min-height: 700px) {
+  .highlight {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 1024px), (min-height: 1024px) {
+  .highlight {
+    font-size: 60px
+  }
+}
+
+@media (orientation: landscape) and (max-height: 320px),
+  (orientation: landscape) and (max-width: 480px) {
+  .iconPreviewWrapper {
+    width: 100%;
+    margin: 0;
+  }
+}
+
+@media (orientation: portrait) {
+  .iconPreviewWrapper {
+    max-width: 61.65vh;
+  }
+}
+
+@media (orientation: portait) and (max-width: 320px),
+  (orientation: portait) and (max-height: 480px) {
+  .icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .iconPreviewWrapper {
+    height: 50px;
+    width: 300px;
+    margin: 0 auto 10px;
   }
 }

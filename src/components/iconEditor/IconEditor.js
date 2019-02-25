@@ -1,17 +1,36 @@
 import React from "react";
 import styles from "./IconEditor.module.scss";
-import Palette from "../palette/Palette";
-import IconGenerator from "../iconGenerator/IconGenerator";
+import Icon from "../icon/Icon";
+import Paintbrush from "../paintbrush";
+import { hex } from "color-convert";
 
-const IconEditor = props => {
+const IconEditor = ({ changeIconSetting, iconInfo, player, flipped }) => {
+  const { icon, colour } = iconInfo;
+  const colourBrightness = hex.hsl(`${colour.slice(1)}`)[2];
+  const userBackface = flipped && player === "user";
+  const compBackface = !flipped && player === "comp";
   return (
     <div className={styles.iconEditor}>
       <div className={styles.canvas}>
         <div className={styles.canvasInner}>
-          {<IconGenerator iconInfo={props.iconInfo} />}
+          <Icon icon={icon} colour={colour} />
         </div>
       </div>
-      <Palette changeSetting={props.changeSetting} />
+      <div className={styles.palette}>
+        <input
+          type="color"
+          aria-label="palette"
+          onChange={e => changeIconSetting(e.target.value)}
+          value={colour}
+          tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+        />
+        <i className={styles.paintIcon}>
+          <Paintbrush
+            className={styles.paintImg}
+            colour={colourBrightness < 95 ? "#fff" : "#f9ab55"}
+          />
+        </i>
+      </div>
     </div>
   );
 };

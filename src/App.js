@@ -4,73 +4,102 @@ import IconSelect from "./components/iconSelect/IconSelect";
 import IconPreview from "./components/iconPreview/IconPreview";
 import Flipper from "./components/flipper/Flipper";
 import styles from "./App.module.scss";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 class App extends Component {
   state = {
     iconSelectOpen: true,
+    flipped: false,
     iconInfo: {
       user: {
         icon: "circle",
-        colour: "lightGreen"
+        iconType: "nought",
+        colour: "#22b14c"
       },
       comp: {
-        icon: "cross",
-        colour: "lightRed"
+        icon: undefined,
+        iconType: undefined,
+        colour: "#ed261a"
       }
     }
   };
 
-  toggleIconSelect = () => {
-    this.setState(prevState => ({ iconSelectOpen: !prevState.iconSelectOpen }));
+  toggleNonIconSetting = setting => {
+    this.setState(prevState => ({ [setting]: !prevState[setting] }));
   };
 
-  changeSetting = (player, settingType, newSetting) => {
-    let iconInfoCopy = { ...this.state.iconInfo };
-    let playerObj = { ...this.state.iconInfo[player] };
-    playerObj[settingType] = newSetting;
-    iconInfoCopy[player] = playerObj;
+  changeIconSetting = (player, settingChanges) => {
+    const iconInfo = this.state.iconInfo;
+    let iconInfoCopy = { ...iconInfo };
+    iconInfoCopy[player] = {
+      icon: settingChanges.icon || this.state.iconInfo[player].icon,
+      iconType: settingChanges.iconType || this.state.iconInfo[player].iconType,
+      colour: settingChanges.colour || this.state.iconInfo[player].colour
+    };
+    if (
+      player === "user" &&
+      settingChanges.iconType !== iconInfo.user.iconType
+    ) {
+      iconInfo.comp.icon = undefined;
+    }
     this.setState({ iconInfo: iconInfoCopy });
   };
 
   render() {
-    const iconSelectFlipperWrapperClass = this.state.iconSelectOpen
-      ? styles.iconSelectFlipperWrapper
-      : `${styles.iconSelectFlipperWrapper} ${styles.removeIconSelect}`;
-    const iconInfo = this.state.iconInfo;
+    const { iconInfo, iconSelectOpen, flipped } = this.state;
     return (
       <div className={styles.app}>
-        <header className={styles.appHeader}>
-          <h1 className={styles.heading}>Brad's Tic Tac Toe</h1>
-        </header>
-        <div className={styles.notHeader}>
-          <div className={iconSelectFlipperWrapperClass}>
-            <Flipper
-              front={
-                <IconSelect
-                  changeSetting={this.changeSetting}
-                  iconInfo={this.state.iconInfo}
-                  player={"user"}
-                />
-              }
-              back={
-                <IconSelect
-                  changeSetting={this.changeSetting}
-                  iconInfo={iconInfo}
-                  toggleIconSelect={this.toggleIconSelect}
-                  player={"comp"}
-                />
-              }
-            />
-          </div>
-          {this.state.iconSelectOpen === false && (
-            <div className={styles.iconPreviewWrapper}>
+        <div className={styles.appBody}>
+          <ReactCSSTransitionGroup
+            transitionName="slide"
+            className = {styles.reactCSSTransitionGroup}
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+          >
+            {iconSelectOpen && (
+              <Flipper
+                key = "iconSelectFlipper"
+                style={{ backgroundColor: "#889B7C", height: "100%", top: "100%" }}
+                flipped={flipped}
+                front={
+                  <IconSelect
+                    key = {"iconSelectUser"}
+                    player={"user"}
+                    iconInfo={iconInfo}
+                    changeIconSetting={this.changeIconSetting}
+                    flipped={flipped}
+                    toggleFlip={() => this.toggleNonIconSetting("flipped")}
+                  />
+                }
+                back={
+                  <IconSelect
+                    key = {"iconSelectComp"}
+                    player={"comp"}
+                    iconInfo={iconInfo}
+                    changeIconSetting={this.changeIconSetting}
+                    toggleFlip={() => {
+                      this.toggleNonIconSetting("flipped");
+                    }}
+                    toggleIconSelect={() => {
+                      this.toggleNonIconSetting("iconSelectOpen");
+                    }}
+                  />
+                }
+              />
+            )}
+          </ReactCSSTransitionGroup>
+          <div className={styles.gameScreenWrapper}>
+            <div className={styles.gameScreen}>
               <IconPreview
                 iconInfo={iconInfo}
-                toggleIconSelect={this.toggleIconSelect}
+                toggleIconSelect={() =>
+                  this.toggleNonIconSetting("iconSelectOpen")
+                }
+                toggleFlip={() => this.toggleNonIconSetting("flipped")}
               />
+              <Game iconInfo={iconInfo} />
             </div>
-          )}
-          {this.state.iconSelectOpen === false && <Game iconInfo={iconInfo} />}
+          </div>
         </div>
       </div>
     );

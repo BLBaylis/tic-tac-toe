@@ -1,18 +1,25 @@
 import React from "react";
 import styles from "./IconPreview.module.scss";
-import IconGenerator from "../iconGenerator/IconGenerator";
+import Icon from "../icon/Icon";
 
-const IconPreview = props => {
+const IconPreview = ({ iconInfo, toggleIconSelect, toggleFlip }) => {
+  const { user, comp } = iconInfo;
   return (
-    <React.Fragment>
-      <button onClick={props.toggleIconSelect} className={styles.icon}>
-        <IconGenerator iconInfo={props.iconInfo.user} />
+    <div className={styles.iconPreviewWrapper}>
+      <button onClick={toggleIconSelect} className={styles.icon}>
+        <Icon icon={user.icon} colour={user.colour} />
       </button>
       <span className={styles.highlight}>VS</span>
-      <button onClick={props.toggleIconSelect} className={styles.icon}>
-        <IconGenerator iconInfo={props.iconInfo.comp} />
+      <button
+        onClick={() => {
+          toggleIconSelect();
+          toggleFlip();
+        }}
+        className={styles.icon}
+      >
+        <Icon icon={comp.icon} colour={comp.colour} />
       </button>
-    </React.Fragment>
+    </div>
   );
 };
 

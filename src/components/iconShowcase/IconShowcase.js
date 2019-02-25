@@ -1,43 +1,94 @@
 import React from "react";
 import styles from "./IconShowcase.module.scss";
-import IconGenerator from "../iconGenerator/IconGenerator";
+import Icon from "../icon/Icon";
 
-const IconShowcase = props => {
+const IconShowcase = ({ oppositionIconType, changeIconSetting, player, flipped }) => {
+  const userBackface = flipped && player === "user";
+  const compBackface = !flipped && player === "comp";
   return (
     <div className={styles.iconShowcase}>
-      <Icon
-        changeSetting={props.changeSetting}
+      <IconShowcaseBtn
+        changeIconSetting={changeIconSetting}
         icon="circle"
-        colour="lightGreen"
+        iconType="nought"
+        disabled={oppositionIconType === "nought" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
-      <Icon changeSetting={props.changeSetting} icon="smiley" colour="yellow" />
-      <Icon changeSetting={props.changeSetting} icon="wheel" colour="black" />
-      <Icon changeSetting={props.changeSetting} icon="button" colour="black" />
-      <Icon
-        changeSetting={props.changeSetting}
+      <IconShowcaseBtn
+        changeIconSetting={changeIconSetting}
+        icon="smiley"
+        iconType="nought"
+        disabled={oppositionIconType === "nought" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+      />
+      <IconShowcaseBtn
+        changeIconSetting={changeIconSetting}
+        icon="wheel"
+        iconType="nought"
+        disabled={oppositionIconType === "nought" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+        colour="orange"
+      />
+      <IconShowcaseBtn
+        changeIconSetting={changeIconSetting}
+        icon="button"
+        iconType="nought"
+        disabled={oppositionIconType === "nought" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+        colour="lightBlue"
+      />
+      <IconShowcaseBtn
+        changeIconSetting={changeIconSetting}
         icon="cross"
-        colour="lightRed"
+        iconType="cross"
+        disabled={oppositionIconType === "cross" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
-      <Icon changeSetting={props.changeSetting} icon="swords" colour="brown" />
-      <Icon changeSetting={props.changeSetting} icon="candyCane" colour="red" />
-      <Icon changeSetting={props.changeSetting} icon="pencils" colour="gold" />
+      <IconShowcaseBtn
+        changeIconSetting={changeIconSetting}
+        icon="swords"
+        iconType="cross"
+        disabled={oppositionIconType === "cross" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+      />
+      <IconShowcaseBtn
+        changeIconSetting={changeIconSetting}
+        icon="candyCane"
+        iconType="cross"
+        disabled={oppositionIconType === "cross" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+      />
+      <IconShowcaseBtn
+        changeIconSetting={changeIconSetting}
+        icon="pencils"
+        iconType="cross"
+        disabled={oppositionIconType === "cross" && player === "comp"}
+        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+      />
     </div>
   );
 };
 
-const Icon = props => {
+const IconShowcaseBtn = ({
+  icon,
+  iconType,
+  colour,
+  changeIconSetting,
+  disabled,
+  tabIndex
+}) => {
+  const className = !disabled
+    ? styles.iconShowcaseBtn
+    : styles.iconShowcaseBtnDisabled;
   return (
     <button
-      onClick={() => props.changeSetting(props.icon)}
-      className={styles.icon}
+      aria-label={icon}
+      className={className}
+      onClick={() => changeIconSetting(icon, iconType)}
+      disabled={disabled}
+      tabIndex = {tabIndex}
     >
-      <div className={styles.iconInner}>
-        {
-          <IconGenerator
-            iconInfo={{ icon: props.icon, colour: props.colour }}
-          />
-        }
-      </div>
+      <Icon icon={icon} colour={colour} bgColour={"#fff"} />
     </button>
   );
 };
