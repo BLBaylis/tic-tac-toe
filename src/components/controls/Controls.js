@@ -12,13 +12,16 @@ const Controls = ({ clickHandlersObj }) => {
       >
         Undo
       </button>
-      <button className={styles.button} onClick={() => restart()}>
+      <button
+className={styles.button} onClick={() => restart()}>
         Restart
       </button>
-      <button className={styles.button} onClick={redoTurn}>
+      <button
+className={styles.button} onClick={redoTurn}>
         Redo
       </button>
-      {null && <button onClick={() => test(10000)}>Debug</button>}
+      {null && <button
+onClick={() => test(10000)}>Debug</button>}
       <button
         className={styles.settingsBtn}
         style={{ marginBottom: 0 }}

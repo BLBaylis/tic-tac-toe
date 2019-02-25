@@ -25,9 +25,8 @@
 
 .highlight {
   font-weight: 800;
-  color: #fff;
+  color: #000;
   font-size: 30px;
-  color: #889b7c;
 }
 
 .iconPreviewWrapper {
@@ -38,6 +37,24 @@
   height: 10.416vh;
   width: calc(100vw - 4.167vh);
   margin: 0 auto 2.083vh;
+}
+
+@media (min-width: 600px), (min-height: 600px) {
+  .highlight {
+    font-size: 40px
+  }
+}
+
+@media (min-width: 700px), (min-height: 700px) {
+  .highlight {
+    font-size: 50px
+  }
+}
+
+@media (min-width: 1024px), (min-height: 1024px) {
+  .highlight {
+    font-size: 60px
+  }
 }
 
 @media (orientation: landscape) {
@@ -51,6 +68,23 @@
   .icon {
     height: 100%;
     width: 28.5%;
+  }
+
+  .highlight {
+    font-size: 20px
+  }
+}
+
+@media (orientation: landscape) and (min-width: 700px),
+(orientation: landscape) and (min-height: 700px) {
+  .highlight {
+    font-size: 40px;
+  }
+}
+
+@media (min-width: 1024px), (min-height: 1024px) {
+  .highlight {
+    font-size: 60px
   }
 }
 

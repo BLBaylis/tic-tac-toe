@@ -19,6 +19,7 @@ const IconEditor = ({ changeIconSetting, iconInfo, player, flipped }) => {
       <div className={styles.palette}>
         <input
           type="color"
+          aria-label="palette"
           onChange={e => changeIconSetting(e.target.value)}
           value={colour}
           tabIndex={!userBackface && !compBackface ? "0" : "-1"}

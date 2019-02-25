@@ -82,6 +82,7 @@ const IconShowcaseBtn = ({
     : styles.iconShowcaseBtnDisabled;
   return (
     <button
+      aria-label={icon}
       className={className}
       onClick={() => changeIconSetting(icon, iconType)}
       disabled={disabled}

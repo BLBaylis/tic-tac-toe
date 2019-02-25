@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./IconSelect.module.scss";
 import IconEditor from "../iconEditor/IconEditor";
 import IconShowcase from "../iconShowcase/IconShowcase";
+import arrow from "./arrow.svg";
 
 const IconSelect = ({
   player,
@@ -21,8 +22,8 @@ const IconSelect = ({
           &nbsp;ICON
         </h2>
         <IconEditor
-        player = {player}
-        flipped={flipped}
+          player = {player}
+          flipped={flipped}
           changeIconSetting={newColour =>
             changeIconSetting(player, { colour: newColour })
           }
@@ -59,7 +60,7 @@ const IconSelectNav = ({ player, toggleFlip, toggleIconSelect, iconInfo }) => {
     <div className={styles.buttonRow}>
       {player === "comp" && (
         <button onClick={toggleFlip} className={styles.backButton}>
-          BACK
+          <img className = {styles.arrow} src={arrow} alt ="back arrow"/>
         </button>
       )}
       <button
