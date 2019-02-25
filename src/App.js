@@ -4,6 +4,7 @@ import IconSelect from "./components/iconSelect/IconSelect";
 import IconPreview from "./components/iconPreview/IconPreview";
 import Flipper from "./components/flipper/Flipper";
 import styles from "./App.module.scss";
+import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 class App extends Component {
   state = {
@@ -48,54 +49,57 @@ class App extends Component {
     const { iconInfo, iconSelectOpen, flipped } = this.state;
     return (
       <div className={styles.app}>
-        {null && (
-          <header className={styles.appheader}>
-            <h1 className={styles.heading}>Brad's Tic Tac Toe</h1>
-          </header>
-        )}
         <div className={styles.appBody}>
-          {iconSelectOpen && (
-            <Flipper
-              style={{ backgroundColor: "#889B7C", height: "100%" }}
-              flipped={flipped}
-              front={
-                <IconSelect
-                  player={"user"}
-                  iconInfo={iconInfo}
-                  changeIconSetting={this.changeIconSetting}
-                  flipped={flipped}
-                  toggleFlip={() => this.toggleNonIconSetting("flipped")}
-                />
-              }
-              back={
-                <IconSelect
-                  player={"comp"}
-                  iconInfo={iconInfo}
-                  changeIconSetting={this.changeIconSetting}
-                  toggleFlip={() => {
-                    this.toggleNonIconSetting("flipped");
-                  }}
-                  toggleIconSelect={() => {
-                    this.toggleNonIconSetting("iconSelectOpen");
-                  }}
-                />
-              }
-            />
-          )}
-          {!iconSelectOpen && (
-            <div className={styles.gameScreenWrapper}>
-              <div className={styles.gameScreen}>
-                <IconPreview
-                  iconInfo={iconInfo}
-                  toggleIconSelect={() =>
-                    this.toggleNonIconSetting("iconSelectOpen")
-                  }
-                  toggleFlip={() => this.toggleNonIconSetting("flipped")}
-                />
-                <Game iconInfo={iconInfo} />
-              </div>
+          <ReactCSSTransitionGroup
+            transitionName="slide"
+            className = {styles.reactCSSTransitionGroup}
+            transitionEnterTimeout={300}
+            transitionLeaveTimeout={300}
+          >
+            {iconSelectOpen && (
+              <Flipper
+                key = "iconSelectFlipper"
+                style={{ backgroundColor: "#889B7C", height: "100%", top: "100%" }}
+                flipped={flipped}
+                front={
+                  <IconSelect
+                    key = {"iconSelectUser"}
+                    player={"user"}
+                    iconInfo={iconInfo}
+                    changeIconSetting={this.changeIconSetting}
+                    flipped={flipped}
+                    toggleFlip={() => this.toggleNonIconSetting("flipped")}
+                  />
+                }
+                back={
+                  <IconSelect
+                    key = {"iconSelectComp"}
+                    player={"comp"}
+                    iconInfo={iconInfo}
+                    changeIconSetting={this.changeIconSetting}
+                    toggleFlip={() => {
+                      this.toggleNonIconSetting("flipped");
+                    }}
+                    toggleIconSelect={() => {
+                      this.toggleNonIconSetting("iconSelectOpen");
+                    }}
+                  />
+                }
+              />
+            )}
+          </ReactCSSTransitionGroup>
+          <div className={styles.gameScreenWrapper}>
+            <div className={styles.gameScreen}>
+              <IconPreview
+                iconInfo={iconInfo}
+                toggleIconSelect={() =>
+                  this.toggleNonIconSetting("iconSelectOpen")
+                }
+                toggleFlip={() => this.toggleNonIconSetting("flipped")}
+              />
+              <Game iconInfo={iconInfo} />
             </div>
-          )}
+          </div>
         </div>
       </div>
     );

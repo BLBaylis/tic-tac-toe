@@ -1,8 +1,8 @@
 .flipperContainer {
+  position: relative;
   perspective: 3000px;
   height: 100%;
   width: 100%;
-  transition: transform 250ms linear;
 }
 
 .flipper {

@@ -33,6 +33,42 @@ h2 {
   overflow: hidden;
 }
 
+.slide-enter {
+  transform: translateX(-100%);
+}
+
+.slide-enter-active {
+  transform: translateX(0);
+  transition: transform 300ms linear
+}
+
+.slide-leave {
+  transform: translateX(0);
+  transition: transform 300ms linear
+}
+
+.slide-leave-active {
+  transform: translateX(-100%);
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms linear
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity 200ms linear
+}
+
 @media (orientation: landscape) {
   #root {
     min-width: 480px;

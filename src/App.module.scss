@@ -3,27 +3,19 @@
   height: 100%;
 }
 
-.appHeader {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 10%;
-}
-
-.heading {
-  margin: 0;
-  font-size: 6vh;
-  background-color: #889b7c;
-  color: white;
-}
-
 .appBody {
+  position: relative;
   height: 100%;
   width: 100%;
 }
 
-.removeIconSelect {
-  transform: translate(-150%);
+.reactCSSTransitionGroup {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: -100%;
+  left: 0;
+  z-index: 1;
 }
 
 .gameScreenWrapper {

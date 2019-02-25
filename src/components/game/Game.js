@@ -127,6 +127,7 @@ class Game extends React.Component {
         <GameSquare
           iconInfo={iconInfo}
           key={index}
+          keyProp = {index}
           value={this.state.board[index]}
           onClick={() => this.handleClick(index)}
         />

@@ -12,6 +12,7 @@
   .grid-#{$value} {
     @extend .grid;
     grid-template-columns: repeat(#{$value}, 1fr);
+    grid-template-rows: repeat(#{$value}, 1fr);
   }
 }
 
