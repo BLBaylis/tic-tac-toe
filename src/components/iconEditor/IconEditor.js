@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./IconEditor.module.scss";
-import Icon from "../icon/Icon";
-import Paintbrush from "../paintbrush";
+import Icon from "../Icon/Icon";
+import Paintbrush from "../Paintbrush";
 import { hex } from "color-convert";
 
 const IconEditor = ({ changeIconSetting, iconInfo, player, flipped }) => {

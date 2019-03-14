@@ -1,15 +1,15 @@
 import React from "react";
-import Flipper from "../flipper/Flipper";
-import Settings from "../settings/Settings";
-import Grid from "../grid/Grid";
-import Controls from "../controls/Controls";
-import GameSquare from "../gameSquare/GameSquare";
+import Flipper from "../../components/Flipper/Flipper";
+import Settings from "../../components/Settings/Settings";
+import Grid from "../../components/Grid/Grid";
+import Controls from "../../components/Controls/Controls";
+import GameSquare from "../../components/GameSquare/GameSquare";
 import {
   simulateGame,
   simulateMove
-} from "../../gameLogic/simulateGame/simulateGame";
-import calculateCompMove from "../../gameLogic/calculateCompMove/calculateCompMove";
-import recordGameResults from "../../gameLogic/recordGameResults";
+} from "./gameLogicFunctions/simulateGame/simulateGame";
+import calculateCompMove from "./gameLogicFunctions/calculateCompMove/calculateCompMove";
+import recordGameResults from "./gameLogicFunctions/recordGameResults";
 
 class Game extends React.Component {
   state = {

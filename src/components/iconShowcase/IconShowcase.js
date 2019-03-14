@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./IconShowcase.module.scss";
-import Icon from "../icon/Icon";
+import Icon from "../Icon/Icon";
 
 const IconShowcase = ({ oppositionIconType, changeIconSetting, player, flipped }) => {
   const userBackface = flipped && player === "user";

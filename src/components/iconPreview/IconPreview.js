@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./IconPreview.module.scss";
-import Icon from "../icon/Icon";
+import Icon from "../Icon/Icon";
 
 const IconPreview = ({ iconInfo, toggleIconSelect, toggleFlip }) => {
   const { user, comp } = iconInfo;

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./IconSelect.module.scss";
-import IconEditor from "../iconEditor/IconEditor";
-import IconShowcase from "../iconShowcase/IconShowcase";
+import IconEditor from "../IconEditor/IconEditor";
+import IconShowcase from "../IconShowcase/IconShowcase";
 import arrow from "./arrow.svg";
 
 const IconSelect = ({

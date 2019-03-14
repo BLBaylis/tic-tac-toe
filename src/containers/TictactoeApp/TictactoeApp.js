@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import Game from "./components/game/Game";
-import IconSelect from "./components/iconSelect/IconSelect";
-import IconPreview from "./components/iconPreview/IconPreview";
-import Flipper from "./components/flipper/Flipper";
-import styles from "./App.module.scss";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import Game from "../Game/Game";
+import IconSelect from "../../components/IconSelect/IconSelect";
+import IconPreview from "../../components/IconPreview/IconPreview";
+import Flipper from "../../components/Flipper/Flipper";
 
-class App extends Component {
+import styles from "./TictactoeApp.module.scss";
+
+class TictactoeApp extends Component {
   state = {
     iconSelectOpen: true,
     flipped: false,
@@ -106,4 +107,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default TictactoeApp;

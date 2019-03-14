@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./GameSquare.module.scss";
-import Icon from "../icon/Icon";
+import Icon from "../Icon/Icon";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 const GameSquare = ({ value, onClick, iconInfo, keyProp }) => {
