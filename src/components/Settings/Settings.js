@@ -3,7 +3,7 @@ import styles from "./Settings.module.scss";
 
 class Settings extends React.Component {
   state = {
-    gridSize: "3",
+    gridSize: 3,
     firstMove: "user"
   };
 
@@ -32,7 +32,7 @@ class Settings extends React.Component {
   handleSettingsSubmit = event => {
     event.preventDefault();
     this.props.toggleFlip();
-    this.props.changeGameSetting(this.state.gridSize, this.state.firstMove);
+    this.props.restartGame(this.state.gridSize, this.state.firstMove);
   };
 
   render() {

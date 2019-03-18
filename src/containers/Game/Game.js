@@ -1,137 +1,80 @@
 import React from "react";
+import { connect } from "react-redux";
+
 import Flipper from "../../components/Flipper/Flipper";
 import Settings from "../../components/Settings/Settings";
 import Grid from "../../components/Grid/Grid";
 import Controls from "../../components/Controls/Controls";
 import GameSquare from "../../components/GameSquare/GameSquare";
 import {
-  simulateGame,
-  simulateMove
-} from "./gameLogicFunctions/simulateGame/simulateGame";
-import calculateCompMove from "./gameLogicFunctions/calculateCompMove/calculateCompMove";
-import recordGameResults from "./gameLogicFunctions/recordGameResults";
+  makeMove,
+  makeUserMoveThenCompMove,
+  flipGameGrid,
+  restartGame,
+  restartGameThenCompMove,
+  undoTurn,
+  redoTurn
+} from "../../actions";
+
+import simulateGame from "../../gameFunctions/testing/simulateGame";
+import recordGameResults from "../../gameFunctions/testing/recordGameResults";
+import { generateIndexArr } from "../../gameFunctions/helperFunctions";
+
+const mapStateToProps = state => {
+  const gameState = state.updateGameGridReducer;
+  const ui = state.updateInterfaceReducer;
+  return {
+    gameState,
+    gameMode: gameState.gameMode,
+    gridFlipped: ui.gridFlipped
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  makeUserMove: squareNumber => dispatch(makeMove(squareNumber)),
+  makeUserMoveThenCompMove: squareNumber =>
+    dispatch(makeUserMoveThenCompMove(squareNumber)),
+  toggleFlip: () => dispatch(flipGameGrid()),
+  restartGame: (gridSize, firstMove) =>
+    dispatch(restartGame(gridSize, firstMove)),
+  restartGameThenCompMove: (gridSize, firstMove) =>
+    dispatch(restartGameThenCompMove(gridSize, firstMove)),
+  undoTurn: turnNo => dispatch(undoTurn(turnNo)),
+  redoTurn: turnNo => dispatch(redoTurn(turnNo))
+});
 
 class Game extends React.Component {
-  state = {
-    board: Array(9).fill(null),
-    gameLog: [
-      {
-        board: Array(9).fill(null),
-        turnNo: 0,
-        userTurn: true,
-        outcome: undefined
-      }
-    ],
-    turnNo: 0,
-    userTurn: true,
-    outcome: undefined,
-    gridSize: 3,
-    firstMove: "user",
-    flipped: false
-  };
-
-  toggleFlip = () => {
-    this.setState(prevState => ({ flipped: !prevState.flipped }));
-  };
-
-  handleClick = squareNo => {
-    const { flipped, firstMove, ...rest } = this.state;
-    const stateObjClone = JSON.parse(JSON.stringify(rest));
-    if (stateObjClone.board[squareNo] !== null) {
+  handleClick = squareNumber => {
+    if (this.props.gameState.board[squareNumber] !== null) {
       return;
     }
-    let updatedState = simulateMove(squareNo, stateObjClone);
-    if (updatedState.outcome === undefined) {
-      updatedState = simulateMove(
-        calculateCompMove(updatedState),
-        updatedState
-      );
-    }
-    this.setState(updatedState);
-  };
-
-  changeGameSetting = (gridSize, firstMove) => {
-    gridSize = Number(gridSize);
-    this.setState({ gridSize, firstMove }, () => {
-      this.restart();
-    });
-  };
-
-  restart = () => {
-    const newInitialState = {
-      board: Array(this.state.gridSize ** 2).fill(null),
-      gameLog: [
-        {
-          board: Array(this.state.gridSize ** 2).fill(null),
-          turnNo: 0,
-          userTurn: this.state.firstMove === "user",
-          outcome: undefined
-        }
-      ],
-      turnNo: 0,
-      userTurn: this.state.firstMove === "user",
-      outcome: undefined,
-      gridSize: this.state.gridSize,
-      firstMove: this.state.firstMove,
-      flipped: false
-    };
-    if (newInitialState.firstMove === "comp") {
-      this.setState(
-        simulateMove(calculateCompMove(newInitialState), newInitialState)
-      );
+    if (this.props.gameMode === "vsComp") {
+      return this.props.makeUserMoveThenCompMove(squareNumber);
     } else {
-      this.setState(newInitialState);
+      return this.props.makeUserMove(squareNumber);
     }
   };
 
-  undoTurn = () => {
-    this.setState(prevState => {
-      let lastTurnState = prevState.gameLog[prevState.turnNo - 2];
-      if (!lastTurnState) {
-        return;
-      }
-      if (lastTurnState.userTurn === false) {
-        lastTurnState = prevState.gameLog[prevState.turnNo - 1];
-      }
-      return {
-        board: lastTurnState.board,
-        turnNo: lastTurnState.turnNo,
-        userTurn: lastTurnState.userTurn,
-        outcome: lastTurnState.outcome
-      };
-    });
-  };
-
-  redoTurn = () => {
-    this.setState(prevState => {
-      let nextTurnState = prevState.gameLog[prevState.turnNo + 2];
-      if (!nextTurnState) {
-        nextTurnState = prevState.gameLog[prevState.turnNo + 1];
-      }
-      if (!nextTurnState) {
-        return;
-      }
-      return {
-        board: nextTurnState.board,
-        turnNo: nextTurnState.turnNo,
-        userTurn: nextTurnState.userTurn,
-        outcome: nextTurnState.outcome
-      };
-    });
+  restartGame = (gridSize, firstMove) => {
+    if (firstMove === "user") {
+      return this.props.restartGame(gridSize, firstMove);
+    } else {
+      return this.props.restartGameThenCompMove(gridSize, firstMove);
+    }
   };
 
   generateSquares = iconInfo => {
-    return Array(this.state.gridSize ** 2)
-      .fill()
-      .map((x, index) => (
-        <GameSquare
-          iconInfo={iconInfo}
-          key={index}
-          keyProp = {index}
-          value={this.state.board[index]}
-          onClick={() => this.handleClick(index)}
-        />
-      ));
+    const { gridSize, board } = this.props.gameState;
+    const indexArr = generateIndexArr(gridSize ** 2);
+    return indexArr.map(index => (
+      <GameSquare
+        iconInfo={iconInfo}
+        key={index}
+        keyProp={index}
+        value={board[index]}
+        onClick={() => this.handleClick(index)}
+      />
+    ));
   };
 
   test = amountOfGames => {
@@ -145,37 +88,40 @@ class Game extends React.Component {
       noOutcomeLog: [],
       randomGamesLog: []
     };
-    const { gridSize, firstMove } = this.state;
+    const { gridSize, firstMove } = this.props.gameState;
     for (let gamesPlayed = 0; gamesPlayed < amountOfGames; gamesPlayed++) {
       result = simulateGame(firstMove, gridSize);
       if (gamesPlayed % (amountOfGames / 20) === 0) {
         console.log(`${(gamesPlayed / amountOfGames) * 100}% done!`);
       }
       counters = recordGameResults(result, counters);
-      this.restart();
+      this.restartGame();
     }
     console.log(counters);
   };
 
   render() {
+    const { props, test, generateSquares, restartGame } = this;
     const {
-      state,
-      props,
-      restart,
-      undoTurn,
-      redoTurn,
-      test,
+      gameState,
+      gridFlipped,
+      iconInfo,
       toggleFlip,
-      generateSquares,
-      changeGameSetting
-    } = this;
-    const { gridSize, outcome, flipped } = state;
-    const { iconInfo } = props;
-    const clickHandlersObj = { restart, undoTurn, redoTurn, test, toggleFlip };
+      undoTurn,
+      redoTurn
+    } = props;
+    const { firstMove, gridSize, turnNo, outcome } = gameState;
+    const clickHandlersObj = {
+      restartGame: () => restartGame(gridSize, firstMove),
+      undoTurn: () => undoTurn(turnNo),
+      redoTurn: () => redoTurn(turnNo),
+      test,
+      toggleFlip
+    };
     return (
       <React.Fragment>
         <Flipper
-          flipped={flipped}
+          flipped={gridFlipped}
           front={
             <Grid
               outcome={outcome}
@@ -185,9 +131,9 @@ class Game extends React.Component {
           }
           back={
             <Settings
-              changeGameSetting={changeGameSetting}
+              restartGame={restartGame}
               toggleFlip={toggleFlip}
-              flipped={flipped}
+              flipped={gridFlipped}
             />
           }
         />
@@ -197,4 +143,7 @@ class Game extends React.Component {
   }
 }
 
-export default Game;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Game);

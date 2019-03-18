@@ -11,8 +11,8 @@ import {
 //calculateCompMove() takes an object with board, gridSize and turnNo and
 //returns a number which is a squareIndex.  This is an optimal computer move.
 
-const calculateCompMove = argsFromState => {
-  const { board, gridSize, turnNo } = argsFromState;
+const calculateCompMove = (board, gridSize, turnNo) => {
+  //debugger;
   const centerIndex = getCenterSquareIndex(gridSize);
   const centerValue = board[centerIndex];
   //Taking the center is always the best move if available

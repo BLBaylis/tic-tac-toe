@@ -2,7 +2,13 @@ import React from "react";
 import styles from "./Controls.module.scss";
 
 const Controls = ({ clickHandlersObj }) => {
-  const { restart, undoTurn, redoTurn, test, toggleFlip } = clickHandlersObj;
+  const {
+    restartGame,
+    undoTurn,
+    redoTurn,
+    test,
+    toggleFlip
+  } = clickHandlersObj;
   return (
     <div className={styles.controls}>
       <button
@@ -12,16 +18,13 @@ const Controls = ({ clickHandlersObj }) => {
       >
         Undo
       </button>
-      <button
-className={styles.button} onClick={() => restart()}>
+      <button className={styles.button} onClick={() => restartGame()}>
         Restart
       </button>
-      <button
-className={styles.button} onClick={redoTurn}>
+      <button className={styles.button} onClick={redoTurn}>
         Redo
       </button>
-      {null && <button
-onClick={() => test(10000)}>Debug</button>}
+      {null && <button onClick={() => test(10000)}>Debug</button>}
       <button
         className={styles.settingsBtn}
         style={{ marginBottom: 0 }}

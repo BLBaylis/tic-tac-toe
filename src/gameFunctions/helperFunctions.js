@@ -1,3 +1,12 @@
+export const countSquaresInLine = (line, player, board) => {
+  return line.filter(squareIndex => board[squareIndex] === player).length;
+};
+
+export const getCenterSquareIndex = gridSize => {
+  const n = (gridSize - 1) / 2;
+  return gridSize * n + n;
+};
+
 export const findAllEmptySquares = (arr, board) => {
   return arr.filter(squareIndex => board[squareIndex] === null);
 };
@@ -19,21 +28,4 @@ export const chooseRandom = (arr, board) => {
   }
   let randomIndex = Math.floor(Math.random() * emptySpaces.length);
   return emptySpaces[randomIndex];
-};
-
-export const generateRowFromRowNum = (rowNum, lineLength) => {
-  return Array(lineLength)
-    .fill()
-    .map((x, index) => rowNum * lineLength + index);
-};
-
-export const generateColumnFromColNum = (colNum, lineLength) => {
-  return Array(lineLength)
-    .fill()
-    .map((x, index) => colNum + index * lineLength);
-};
-
-export const getCenterSquareIndex = gridSize => {
-  const n = (gridSize - 1) / 2;
-  return gridSize * n + n;
 };

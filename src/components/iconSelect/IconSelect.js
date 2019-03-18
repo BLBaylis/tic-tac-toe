@@ -22,7 +22,7 @@ const IconSelect = ({
           &nbsp;ICON
         </h2>
         <IconEditor
-          player = {player}
+          player={player}
           flipped={flipped}
           changeIconSetting={newColour =>
             changeIconSetting(player, { colour: newColour })
@@ -31,7 +31,7 @@ const IconSelect = ({
         />
         <IconShowcase
           player={player}
-          flipped = {flipped}
+          flipped={flipped}
           oppositionIconType={iconInfo[otherPlayer].iconType}
           changeIconSetting={(newIcon, newIconType) =>
             changeIconSetting(player, {
@@ -60,7 +60,7 @@ const IconSelectNav = ({ player, toggleFlip, toggleIconSelect, iconInfo }) => {
     <div className={styles.buttonRow}>
       {player === "comp" && (
         <button onClick={toggleFlip} className={styles.backButton}>
-          <img className = {styles.arrow} src={arrow} alt ="back arrow"/>
+          <img className={styles.arrow} src={arrow} alt="back arrow" />
         </button>
       )}
       <button

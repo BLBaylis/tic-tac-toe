@@ -1,8 +1,14 @@
-import getBestLineLength from "./getBestLineLength";
+import { countSquaresInLine } from "../../helperFunctions";
 
 const determineWhichPlayerHasTempo = (bestCompLines, bestUserLines, board) => {
-  const bestCompLineLength = getBestLineLength(bestCompLines, "comp", board);
-  const bestUserLineLength = getBestLineLength(bestUserLines, "user", board);
+  const compLineLengths = bestCompLines.map(line =>
+    countSquaresInLine(line, "comp", board)
+  );
+  const bestCompLineLength = Math.max(...compLineLengths);
+  const userLineLengths = bestCompLines.map(line =>
+    countSquaresInLine(line, "user", board)
+  );
+  const bestUserLineLength = Math.max(...userLineLengths);
   const tempoPlayerLines =
     bestCompLineLength >= bestUserLineLength ? bestCompLines : bestUserLines;
   const nonTempoPlayerLines =

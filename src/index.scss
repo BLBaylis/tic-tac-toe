@@ -3,10 +3,10 @@
 }
 
 @font-face {
-  font-family: 'BioRhyme';
-  src: url('./fonts/BioRhyme/BioRhyme-Regular.ttf') format('truetype');
+  font-family: "BioRhyme";
+  src: url("./fonts/BioRhyme/BioRhyme-Regular.ttf") format("truetype");
   font-style: normal;
-  font-weight: 500
+  font-weight: 500;
 }
 
 h2 {
@@ -27,12 +27,12 @@ h2 {
 
 .slide-enter-active {
   transform: translateX(0);
-  transition: transform 300ms linear
+  transition: transform 300ms linear;
 }
 
 .slide-leave {
   transform: translateX(0);
-  transition: transform 300ms linear
+  transition: transform 300ms linear;
 }
 
 .slide-leave-active {
@@ -45,7 +45,7 @@ h2 {
 
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 500ms linear
+  transition: opacity 500ms linear;
 }
 
 .fade-leave {
@@ -54,7 +54,7 @@ h2 {
 
 .fade-leave-active {
   opacity: 0.01;
-  transition: opacity 200ms linear
+  transition: opacity 200ms linear;
 }
 
 @media (orientation: landscape) {

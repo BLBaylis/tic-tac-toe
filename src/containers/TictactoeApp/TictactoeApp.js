@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+
 import Game from "../Game/Game";
 import IconSelect from "../../components/IconSelect/IconSelect";
 import IconPreview from "../../components/IconPreview/IconPreview";
@@ -53,18 +54,22 @@ class TictactoeApp extends Component {
         <div className={styles.appBody}>
           <ReactCSSTransitionGroup
             transitionName="slide"
-            className = {styles.reactCSSTransitionGroup}
+            className={styles.reactCSSTransitionGroup}
             transitionEnterTimeout={300}
             transitionLeaveTimeout={300}
           >
             {iconSelectOpen && (
               <Flipper
-                key = "iconSelectFlipper"
-                style={{ backgroundColor: "#889B7C", height: "100%", top: "100%" }}
+                key="iconSelectFlipper"
+                style={{
+                  backgroundColor: "#889B7C",
+                  height: "100%",
+                  top: "100%"
+                }}
                 flipped={flipped}
                 front={
                   <IconSelect
-                    key = {"iconSelectUser"}
+                    key={"iconSelectUser"}
                     player={"user"}
                     iconInfo={iconInfo}
                     changeIconSetting={this.changeIconSetting}
@@ -74,7 +79,7 @@ class TictactoeApp extends Component {
                 }
                 back={
                   <IconSelect
-                    key = {"iconSelectComp"}
+                    key={"iconSelectComp"}
                     player={"comp"}
                     iconInfo={iconInfo}
                     changeIconSetting={this.changeIconSetting}

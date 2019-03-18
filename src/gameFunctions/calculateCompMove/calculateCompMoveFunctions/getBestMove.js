@@ -1,10 +1,8 @@
 import { findAllEmptySquares, chooseRandom } from "../../helperFunctions";
 
-//Takes the best lines from each player and finds the best move for the tempo
-// player.  If the tempoPlayer is comp, then it will make the move that is
-// given.  If it is the user that is tempoPlayer, it will once again determine
-// the best move for user, then the comp will take it move to deny it from
-// the user.
+//Finds the best move for the tempoPlayer and takes it.  If tempoPlayer is comp
+//then it is simply making a move that moves it closer to victory.  If
+//tempoPlayer is user, then comp takes that move, denying it from the user.
 
 const getBestMove = (tempoPlayerLines, nonTempoPlayerLines, board) => {
   //get the untaken spaces from tempoPlayers best line choices.  I don't use
@@ -51,7 +49,8 @@ const chooseFromMoveChoicesBasedOnOppositionLines = (
     //if multiple choices of equal effectiveness, choose randomly between them
     return chooseRandom(bestMoves, board);
   }
-  return bestMoves;
+  //1 best move choice
+  return bestMoves[0];
 };
 
 const getTallyOfBlockedOppositionMovesSortedByBoardIndex = (
@@ -73,12 +72,12 @@ const returnAllUntakenSquaresDuplicatesIncluded = (arr, board) => {
 
 //returns an array where each index contains a tally of occurances of that index
 //in arr e.g [1, 1, 2] => [0, 2, 1]
-const countLinesThatContainSquareIndex = (arr, board) => {
-  const newArr = Array(board.length).fill(0);
-  return arr.reduce((total, curr) => {
+const countLinesThatContainSquareIndex = (lines, board) => {
+  const arr = Array(board.length).fill(0);
+  return lines.reduce((total, curr) => {
     total[curr]++;
     return total;
-  }, newArr);
+  }, arr);
 };
 
 export default getBestMove;

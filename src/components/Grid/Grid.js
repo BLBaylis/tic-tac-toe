@@ -10,8 +10,8 @@ const Grid = ({ outcome, gridSize, generateSquares }) => {
           {outcome === "draw"
             ? "DRAW"
             : outcome !== undefined
-              ? `${outcome.toUpperCase()} WINS!`
-              : ""}
+            ? `${outcome.toUpperCase()} WINS!`
+            : ""}
         </div>
       )}
       {generateSquares()}

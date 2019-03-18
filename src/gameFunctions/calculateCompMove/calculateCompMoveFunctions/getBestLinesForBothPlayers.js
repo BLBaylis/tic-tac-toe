@@ -1,4 +1,4 @@
-import getBestLineLength, { countSquaresInLine } from "./getBestLineLength";
+import { countSquaresInLine } from "../../helperFunctions";
 
 const getBestLinesForBothPlayers = (
   winnableCompLines,
@@ -15,6 +15,13 @@ const getBestLines = (lines, player, board) => {
   return lines.filter(
     line => countSquaresInLine(line, player, board) === bestLineLength
   );
+};
+
+const getBestLineLength = (lines, player, board) => {
+  const lineLengths = lines.map(line =>
+    countSquaresInLine(line, player, board)
+  );
+  return Math.max(...lineLengths);
 };
 
 export default getBestLinesForBothPlayers;

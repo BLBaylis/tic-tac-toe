@@ -2,7 +2,12 @@ import React from "react";
 import styles from "./IconShowcase.module.scss";
 import Icon from "../Icon/Icon";
 
-const IconShowcase = ({ oppositionIconType, changeIconSetting, player, flipped }) => {
+const IconShowcase = ({
+  oppositionIconType,
+  changeIconSetting,
+  player,
+  flipped
+}) => {
   const userBackface = flipped && player === "user";
   const compBackface = !flipped && player === "comp";
   return (
@@ -86,7 +91,7 @@ const IconShowcaseBtn = ({
       className={className}
       onClick={() => changeIconSetting(icon, iconType)}
       disabled={disabled}
-      tabIndex = {tabIndex}
+      tabIndex={tabIndex}
     >
       <Icon icon={icon} colour={colour} bgColour={"#fff"} />
     </button>
