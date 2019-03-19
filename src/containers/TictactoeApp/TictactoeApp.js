@@ -1,17 +1,28 @@
 import React, { Component } from "react";
+import { connect } from 'react-redux';
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import Game from "../Game/Game";
 import IconSelect from "../../components/IconSelect/IconSelect";
 import IconPreview from "../../components/IconPreview/IconPreview";
 import Flipper from "../../components/Flipper/Flipper";
+import { toggleIconSelectOpen, toggleIconSelectFlipped, updateIconInfo } from '../../actions';
 
 import styles from "./TictactoeApp.module.scss";
 
+const mapStateToProps = (state) => {
+  const { iconSelectOpen, iconSelectFlipped } = state.interfaceReducer;
+  return { iconSelectOpen, iconSelectFlipped, iconInfo: state.iconInfoReducer };
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleIconSelectOpen: () => dispatch(toggleIconSelectOpen()),
+  toggleIconSelectFlipped: () => dispatch(toggleIconSelectFlipped()),
+  updateIconInfo: (player, iconChangesObj) => dispatch(updateIconInfo(player, iconChangesObj))
+})
+
 class TictactoeApp extends Component {
-  state = {
-    iconSelectOpen: true,
-    flipped: false,
+  /*state = {
     iconInfo: {
       user: {
         icon: "circle",
@@ -24,13 +35,9 @@ class TictactoeApp extends Component {
         colour: "#ed261a"
       }
     }
-  };
+  };*/
 
-  toggleNonIconSetting = setting => {
-    this.setState(prevState => ({ [setting]: !prevState[setting] }));
-  };
-
-  changeIconSetting = (player, settingChanges) => {
+  /*changeIconSetting = (player, settingChanges) => {
     const iconInfo = this.state.iconInfo;
     let iconInfoCopy = { ...iconInfo };
     iconInfoCopy[player] = {
@@ -45,10 +52,17 @@ class TictactoeApp extends Component {
       iconInfo.comp.icon = undefined;
     }
     this.setState({ iconInfo: iconInfoCopy });
-  };
+  };*/
 
   render() {
-    const { iconInfo, iconSelectOpen, flipped } = this.state;
+    const {
+      iconSelectOpen,
+      iconSelectFlipped,
+      toggleIconSelectOpen,
+      toggleIconSelectFlipped,
+      iconInfo,
+      updateIconInfo
+    } = this.props;
     return (
       <div className={styles.app}>
         <div className={styles.appBody}>
@@ -66,15 +80,15 @@ class TictactoeApp extends Component {
                   height: "100%",
                   top: "100%"
                 }}
-                flipped={flipped}
+                flipped={iconSelectFlipped}
                 front={
                   <IconSelect
                     key={"iconSelectUser"}
                     player={"user"}
                     iconInfo={iconInfo}
-                    changeIconSetting={this.changeIconSetting}
-                    flipped={flipped}
-                    toggleFlip={() => this.toggleNonIconSetting("flipped")}
+                    updateIconInfo={updateIconInfo}
+                    iconSelectFlipped={iconSelectFlipped}
+                    toggleIconSelectFlipped={toggleIconSelectFlipped}
                   />
                 }
                 back={
@@ -82,13 +96,9 @@ class TictactoeApp extends Component {
                     key={"iconSelectComp"}
                     player={"comp"}
                     iconInfo={iconInfo}
-                    changeIconSetting={this.changeIconSetting}
-                    toggleFlip={() => {
-                      this.toggleNonIconSetting("flipped");
-                    }}
-                    toggleIconSelect={() => {
-                      this.toggleNonIconSetting("iconSelectOpen");
-                    }}
+                    updateIconInfo={updateIconInfo}
+                    toggleIconSelectFlipped={toggleIconSelectFlipped}
+                    toggleIconSelectOpen={toggleIconSelectOpen}
                   />
                 }
               />
@@ -98,10 +108,8 @@ class TictactoeApp extends Component {
             <div className={styles.gameScreen}>
               <IconPreview
                 iconInfo={iconInfo}
-                toggleIconSelect={() =>
-                  this.toggleNonIconSetting("iconSelectOpen")
-                }
-                toggleFlip={() => this.toggleNonIconSetting("flipped")}
+                toggleIconSelectOpen={toggleIconSelectOpen}
+                toggleIconSelectFlipped={toggleIconSelectFlipped}
               />
               <Game iconInfo={iconInfo} />
             </div>
@@ -112,4 +120,4 @@ class TictactoeApp extends Component {
   }
 }
 
-export default TictactoeApp;
+export default connect(mapStateToProps, mapDispatchToProps)(TictactoeApp);

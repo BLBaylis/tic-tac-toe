@@ -4,8 +4,8 @@ import Icon from "../Icon/Icon";
 import Paintbrush from "../Paintbrush";
 import { hex } from "color-convert";
 
-const IconEditor = ({ changeIconSetting, iconInfo, player, flipped }) => {
-  const { icon, colour } = iconInfo;
+const IconEditor = ({ iconInfo, updateIconInfo, player, flipped }) => {
+  const { [`${player}Icon`]: icon, [`${player}IconColour`]: colour } = iconInfo;
   const colourBrightness = hex.hsl(`${colour.slice(1)}`)[2];
   const userBackface = flipped && player === "user";
   const compBackface = !flipped && player === "comp";
@@ -20,7 +20,7 @@ const IconEditor = ({ changeIconSetting, iconInfo, player, flipped }) => {
         <input
           type="color"
           aria-label="palette"
-          onChange={e => changeIconSetting(e.target.value)}
+          onChange={e => updateIconInfo(e.target.value)}
           value={colour}
           tabIndex={!userBackface && !compBackface ? "0" : "-1"}
         />

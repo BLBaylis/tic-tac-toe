@@ -4,7 +4,7 @@ import Icon from "../Icon/Icon";
 
 const IconShowcase = ({
   oppositionIconType,
-  changeIconSetting,
+  updateIconInfo,
   player,
   flipped
 }) => {
@@ -13,21 +13,21 @@ const IconShowcase = ({
   return (
     <div className={styles.iconShowcase}>
       <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
+        updateIconInfo={updateIconInfo}
         icon="circle"
         iconType="nought"
         disabled={oppositionIconType === "nought" && player === "comp"}
         tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
+        updateIconInfo={updateIconInfo}
         icon="smiley"
         iconType="nought"
         disabled={oppositionIconType === "nought" && player === "comp"}
         tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
+        updateIconInfo={updateIconInfo}
         icon="wheel"
         iconType="nought"
         disabled={oppositionIconType === "nought" && player === "comp"}
@@ -35,7 +35,7 @@ const IconShowcase = ({
         colour="orange"
       />
       <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
+        updateIconInfo={updateIconInfo}
         icon="button"
         iconType="nought"
         disabled={oppositionIconType === "nought" && player === "comp"}
@@ -43,28 +43,28 @@ const IconShowcase = ({
         colour="lightBlue"
       />
       <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
+        updateIconInfo={updateIconInfo}
         icon="cross"
         iconType="cross"
         disabled={oppositionIconType === "cross" && player === "comp"}
         tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
+        updateIconInfo={updateIconInfo}
         icon="swords"
         iconType="cross"
         disabled={oppositionIconType === "cross" && player === "comp"}
         tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
+        updateIconInfo={updateIconInfo}
         icon="candyCane"
         iconType="cross"
         disabled={oppositionIconType === "cross" && player === "comp"}
         tabIndex={!userBackface && !compBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
-        changeIconSetting={changeIconSetting}
+        updateIconInfo={updateIconInfo}
         icon="pencils"
         iconType="cross"
         disabled={oppositionIconType === "cross" && player === "comp"}
@@ -78,7 +78,7 @@ const IconShowcaseBtn = ({
   icon,
   iconType,
   colour,
-  changeIconSetting,
+  updateIconInfo,
   disabled,
   tabIndex
 }) => {
@@ -89,7 +89,7 @@ const IconShowcaseBtn = ({
     <button
       aria-label={icon}
       className={className}
-      onClick={() => changeIconSetting(icon, iconType)}
+      onClick={() => updateIconInfo(icon, iconType)}
       disabled={disabled}
       tabIndex={tabIndex}
     >

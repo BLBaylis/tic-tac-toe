@@ -4,7 +4,7 @@ import Icon from "../Icon/Icon";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 const GameSquare = ({ value, onClick, iconInfo, keyProp }) => {
-  const { user, comp } = iconInfo;
+  const { userIcon, userIconColour, compIcon, compIconColour } = iconInfo;
   return (
     <button
       aria-label="grid square"
@@ -14,13 +14,13 @@ const GameSquare = ({ value, onClick, iconInfo, keyProp }) => {
       <ReactCSSTransitionGroup
         transitionName="fade"
         transitionEnterTimeout={500}
-        transitionLeaveTimeout={200}
+        transitionLeaveTimeout={150}
       >
         {value === "user" && (
-          <Icon key={keyProp} icon={user.icon} colour={user.colour} />
+          <Icon key={keyProp} icon={userIcon} colour={userIconColour} />
         )}
         {value === "comp" && (
-          <Icon key={keyProp} icon={comp.icon} colour={comp.colour} />
+          <Icon key={keyProp} icon={compIcon} colour={compIconColour} />
         )}
       </ReactCSSTransitionGroup>
     </button>

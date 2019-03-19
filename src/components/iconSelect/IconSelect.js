@@ -6,11 +6,11 @@ import arrow from "./arrow.svg";
 
 const IconSelect = ({
   player,
-  flipped,
   iconInfo,
-  changeIconSetting,
-  toggleFlip,
-  toggleIconSelect
+  updateIconInfo,
+  iconSelectFlipped,
+  toggleIconSelectFlipped,
+  toggleIconSelectOpen
 }) => {
   const otherPlayer = player === "user" ? "comp" : "user";
   return (
@@ -23,18 +23,15 @@ const IconSelect = ({
         </h2>
         <IconEditor
           player={player}
-          flipped={flipped}
-          changeIconSetting={newColour =>
-            changeIconSetting(player, { colour: newColour })
-          }
-          iconInfo={iconInfo[player]}
+          flipped={iconSelectFlipped}
+          updateIconInfo={newColour => updateIconInfo(player, { iconColour: newColour })}
+          iconInfo={iconInfo}
         />
         <IconShowcase
           player={player}
-          flipped={flipped}
-          oppositionIconType={iconInfo[otherPlayer].iconType}
-          changeIconSetting={(newIcon, newIconType) =>
-            changeIconSetting(player, {
+          flipped={iconSelectFlipped}
+          oppositionIconType={iconInfo[`${otherPlayer}IconType`]}
+          updateIconInfo={(newIcon, newIconType) => updateIconInfo(player, {
               icon: newIcon,
               iconType: newIconType
             })
@@ -43,8 +40,8 @@ const IconSelect = ({
         <IconSelectNav
           player={player}
           iconInfo={iconInfo}
-          toggleFlip={toggleFlip}
-          toggleIconSelect={toggleIconSelect}
+          toggleFlip={toggleIconSelectFlipped}
+          toggleIconSelect={toggleIconSelectOpen}
         />
       </div>
     </div>
@@ -64,7 +61,7 @@ const IconSelectNav = ({ player, toggleFlip, toggleIconSelect, iconInfo }) => {
         </button>
       )}
       <button
-        disabled={player === "comp" && !iconInfo.comp.icon}
+        disabled={player === "comp" && !iconInfo.compIcon}
         className={styles[`${player}ConfirmButton`]}
         onClick={player === "user" ? toggleFlip : compOnClick}
       >

@@ -2,22 +2,22 @@ import React from "react";
 import styles from "./IconPreview.module.scss";
 import Icon from "../Icon/Icon";
 
-const IconPreview = ({ iconInfo, toggleIconSelect, toggleFlip }) => {
-  const { user, comp } = iconInfo;
+const IconPreview = ({ iconInfo, toggleIconSelectOpen, toggleIconSelectFlipped }) => {
+  const { userIcon, userColour, compIcon, compIconColour } = iconInfo;
   return (
     <div className={styles.iconPreviewWrapper}>
-      <button onClick={toggleIconSelect} className={styles.icon}>
-        <Icon icon={user.icon} colour={user.colour} />
+      <button onClick={toggleIconSelectOpen} className={styles.icon}>
+        <Icon icon={userIcon} colour={userColour} />
       </button>
       <span className={styles.highlight}>VS</span>
       <button
         onClick={() => {
-          toggleIconSelect();
-          toggleFlip();
+          toggleIconSelectOpen();
+          toggleIconSelectFlipped();
         }}
         className={styles.icon}
       >
-        <Icon icon={comp.icon} colour={comp.colour} />
+        <Icon icon={compIcon} colour={compIconColour} />
       </button>
     </div>
   );

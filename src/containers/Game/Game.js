@@ -21,12 +21,12 @@ import recordGameResults from "../../gameFunctions/testing/recordGameResults";
 import { generateIndexArr } from "../../gameFunctions/helperFunctions";
 
 const mapStateToProps = state => {
-  const gameState = state.updateGameGridReducer;
-  const ui = state.updateInterfaceReducer;
+  const gameState = state.gameStateReducer;
+  const { gridFlipped } = state.interfaceReducer;
   return {
     gameState,
     gameMode: gameState.gameMode,
-    gridFlipped: ui.gridFlipped
+    gridFlipped
   };
 };
 
