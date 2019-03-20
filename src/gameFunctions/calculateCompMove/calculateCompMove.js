@@ -2,18 +2,13 @@ import getAllWinnableLinesForBothPlayers from "./calculateCompMoveFunctions/getA
 import getBestLinesForBothPlayers from "./calculateCompMoveFunctions/getBestLinesForBothPlayers";
 import determineWhichPlayerHasTempo from "./calculateCompMoveFunctions/determineWhichPlayerHasTempo";
 import getBestMove from "./calculateCompMoveFunctions/getBestMove";
-import {
-  generateIndexArr,
-  chooseRandom,
-  getCenterSquareIndex
-} from "../helperFunctions";
+import { generateIndexArr, chooseRandom } from "../helperFunctions";
 
 //calculateCompMove() takes an object with board, gridSize and turnNo and
 //returns a number which is a squareIndex.  This is an optimal computer move.
 
 const calculateCompMove = (board, gridSize, turnNo) => {
-  //debugger;
-  const centerIndex = getCenterSquareIndex(gridSize);
+  const centerIndex = (gridSize ** 2 - 1) / 2;
   const centerValue = board[centerIndex];
   //Taking the center is always the best move if available
   if (!centerValue) {

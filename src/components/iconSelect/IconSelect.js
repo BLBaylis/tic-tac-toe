@@ -24,14 +24,17 @@ const IconSelect = ({
         <IconEditor
           player={player}
           flipped={iconSelectFlipped}
-          updateIconInfo={newColour => updateIconInfo(player, { iconColour: newColour })}
+          updateIconInfo={newColour =>
+            updateIconInfo(player, { iconColour: newColour })
+          }
           iconInfo={iconInfo}
         />
         <IconShowcase
           player={player}
           flipped={iconSelectFlipped}
           oppositionIconType={iconInfo[`${otherPlayer}IconType`]}
-          updateIconInfo={(newIcon, newIconType) => updateIconInfo(player, {
+          updateIconInfo={(newIcon, newIconType) =>
+            updateIconInfo(player, {
               icon: newIcon,
               iconType: newIconType
             })

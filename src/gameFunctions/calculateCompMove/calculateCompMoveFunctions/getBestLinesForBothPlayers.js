@@ -3,23 +3,23 @@ import { countSquaresInLine } from "../../helperFunctions";
 const getBestLinesForBothPlayers = (
   winnableCompLines,
   winnableUserLines,
-  board
+  gameBoard
 ) => {
-  const bestCompLines = getBestLines(winnableCompLines, "comp", board);
-  const bestUserLines = getBestLines(winnableUserLines, "user", board);
+  const bestCompLines = getBestLines(winnableCompLines, "comp", gameBoard);
+  const bestUserLines = getBestLines(winnableUserLines, "user", gameBoard);
   return { bestCompLines, bestUserLines };
 };
 
-const getBestLines = (lines, player, board) => {
-  const bestLineLength = getBestLineLength(lines, player, board);
+const getBestLines = (lines, player, gameBoard) => {
+  const bestLineLength = getBestLineLength(lines, player, gameBoard);
   return lines.filter(
-    line => countSquaresInLine(line, player, board) === bestLineLength
+    line => countSquaresInLine(line, player, gameBoard) === bestLineLength
   );
 };
 
-const getBestLineLength = (lines, player, board) => {
+const getBestLineLength = (lines, player, gameBoard) => {
   const lineLengths = lines.map(line =>
-    countSquaresInLine(line, player, board)
+    countSquaresInLine(line, player, gameBoard)
   );
   return Math.max(...lineLengths);
 };

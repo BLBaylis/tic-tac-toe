@@ -2,8 +2,7 @@ import {
   MAKE_MOVE,
   FLIP_GAME_GRID,
   RESTART_GAME,
-  UNDO_TURN,
-  REDO_TURN,
+  CHANGE_TO_RECORDED_TURN,
   TOGGLE_ICON_SELECT_OPEN,
   TOGGLE_ICON_SELECT_FLIPPED,
   UPDATE_ICON_INFO
@@ -46,25 +45,20 @@ export const restartGameThenCompMove = (gridSize, firstMove) => (
   dispatch(makeMove(compMove));
 };
 
-export const undoTurn = turnNo => ({
-  type: UNDO_TURN,
-  payload: turnNo
-});
-
-export const redoTurn = turnNo => ({
-  type: REDO_TURN,
-  payload: turnNo
+export const changeToRecordedTurn = turnsToMove => ({
+  type: CHANGE_TO_RECORDED_TURN,
+  payload: turnsToMove
 });
 
 export const toggleIconSelectOpen = () => ({
   type: TOGGLE_ICON_SELECT_OPEN
-})
+});
 
 export const toggleIconSelectFlipped = () => ({
   type: TOGGLE_ICON_SELECT_FLIPPED
-})
+});
 
 export const updateIconInfo = (player, iconChanges) => ({
   type: UPDATE_ICON_INFO,
-  payload: {player, iconChanges}
-})
+  payload: { player, iconChanges }
+});

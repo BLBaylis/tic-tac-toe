@@ -1,9 +1,9 @@
 import { generateIndexArr } from "./helperFunctions";
 
-//generateAllLines is used to generate all potential winning lines in a grid
+//generateAllLines is used to generate all potential winning IndexLines in a grid
 //for for the board to be cross-checked against
 
-const generateAllLines = lineLength => {
+const generateAllIndexLines = lineLength => {
   return [].concat(
     generateColumns(lineLength),
     generateRows(lineLength),
@@ -31,16 +31,16 @@ const generateDiagonals = lineLength => {
   return [diag1, diag2];
 };
 
-export const generateRowFromRowNum = (rowNum, lineLength) => {
+const generateRowFromRowNum = (rowNum, lineLength) => {
   return Array(lineLength)
     .fill()
     .map((x, index) => rowNum * lineLength + index);
 };
 
-export const generateColumnFromColNum = (colNum, lineLength) => {
+const generateColumnFromColNum = (colNum, lineLength) => {
   return Array(lineLength)
     .fill()
     .map((x, index) => colNum + index * lineLength);
 };
 
-export default generateAllLines;
+export default generateAllIndexLines;

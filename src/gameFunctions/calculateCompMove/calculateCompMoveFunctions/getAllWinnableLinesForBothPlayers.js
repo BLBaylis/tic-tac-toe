@@ -1,13 +1,13 @@
-import generateAllLines from "../../generateAllLines";
+import generateAllIndexLines from "../../generateAllIndexLines";
 
 const getAllWinnableLinesForBothPlayers = board => {
   const winnableCompLines = getWinnableLines(
-    generateAllLines(board.length ** (1 / 2)),
+    generateAllIndexLines(board.length ** (1 / 2)),
     "comp",
     board
   );
   const winnableUserLines = getWinnableLines(
-    generateAllLines(board.length ** (1 / 2)),
+    generateAllIndexLines(board.length ** (1 / 2)),
     "user",
     board
   );

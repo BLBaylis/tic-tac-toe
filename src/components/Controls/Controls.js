@@ -4,8 +4,7 @@ import styles from "./Controls.module.scss";
 const Controls = ({ clickHandlersObj }) => {
   const {
     restartGame,
-    undoTurn,
-    redoTurn,
+    changeToRecordedTurn,
     test,
     toggleFlip
   } = clickHandlersObj;
@@ -14,14 +13,17 @@ const Controls = ({ clickHandlersObj }) => {
       <button
         className={styles.button}
         style={{ marginTop: 0 }}
-        onClick={undoTurn}
+        onClick={() => changeToRecordedTurn("back")}
       >
         Undo
       </button>
       <button className={styles.button} onClick={() => restartGame()}>
         Restart
       </button>
-      <button className={styles.button} onClick={redoTurn}>
+      <button
+        className={styles.button}
+        onClick={() => changeToRecordedTurn("forward")}
+      >
         Redo
       </button>
       {null && <button onClick={() => test(10000)}>Debug</button>}

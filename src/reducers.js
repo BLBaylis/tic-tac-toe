@@ -2,8 +2,7 @@ import {
   MAKE_MOVE,
   FLIP_GAME_GRID,
   RESTART_GAME,
-  UNDO_TURN,
-  REDO_TURN,
+  CHANGE_TO_RECORDED_TURN,
   TOGGLE_ICON_SELECT_OPEN,
   TOGGLE_ICON_SELECT_FLIPPED,
   UPDATE_ICON_INFO
@@ -43,10 +42,7 @@ const initialIconState = {
   compIconColour: "#ed261a"
 };
 
-export const gameStateReducer = (
-  state = initialGameState,
-  action = {}
-) => {
+export const gameStateReducer = (state = initialGameState, action = {}) => {
   switch (action.type) {
     case MAKE_MOVE:
       return simulateMove(action.payload, state);
@@ -67,10 +63,17 @@ export const gameStateReducer = (
           }
         ]
       };
-    case UNDO_TURN:
-      return { ...state, ...state.gameLog[action.payload - 2] };
-    case REDO_TURN:
-      return { ...state, ...state.gameLog[action.payload + 2] };
+    case CHANGE_TO_RECORDED_TURN:
+      if (action.payload < 0 || !state.gameLog[action.payload]) {
+        return state;
+      }
+      const recordedTurnState = state.gameLog[action.payload];
+      return {
+        ...state,
+        ...recordedTurnState,
+        board: recordedTurnState.board.slice(),
+        gameLog: [...state.gameLog]
+      };
     default:
       return state;
   }
@@ -81,9 +84,9 @@ export const interfaceReducer = (state = initialUIState, action = {}) => {
     case FLIP_GAME_GRID:
       return { ...state, gridFlipped: !state.gridFlipped };
     case TOGGLE_ICON_SELECT_OPEN:
-      return {...state, iconSelectOpen: !state.iconSelectOpen}
+      return { ...state, iconSelectOpen: !state.iconSelectOpen };
     case TOGGLE_ICON_SELECT_FLIPPED:
-      return {...state, iconSelectFlipped: !state.iconSelectFlipped}
+      return { ...state, iconSelectFlipped: !state.iconSelectFlipped };
     default:
       return state;
   }
@@ -96,22 +99,29 @@ export const iconInfoReducer = (state = initialIconState, action = {}) => {
     if (player === "user" && stateChanges.userIconType !== state.userIconType) {
       stateChanges.compIcon = undefined;
     }
-    return {...state, ...stateChanges};
+    return { ...state, ...stateChanges };
   } else {
-    return state
+    return state;
   }
-}
+};
 
 const processKeyPairs = (player, iconChanges) => {
   const keyPairsArr = Object.entries(iconChanges);
   const capitalisedKeysArr = capitaliseKeyNames(keyPairsArr);
   const textAddedToKeysArr = addTextToFrontOfKeys(capitalisedKeysArr, player);
-  const keyPairObjsArr = textAddedToKeysArr.map(keyPair => ({[keyPair[0]] : keyPair[1]}));
+  const keyPairObjsArr = textAddedToKeysArr.map(keyPair => ({
+    [keyPair[0]]: keyPair[1]
+  }));
   return keyPairObjsArr.reduce((newObj, keyObj) => {
-    return Object.assign(newObj, keyObj)
+    return Object.assign(newObj, keyObj);
   }, {});
-}
+};
 
-const capitaliseKeyNames = (keyPairs) => keyPairs.map(keyPair => [keyPair[0].charAt(0).toUpperCase() + keyPair[0].slice(1), keyPair[1]]);
+const capitaliseKeyNames = keyPairs =>
+  keyPairs.map(keyPair => [
+    keyPair[0].charAt(0).toUpperCase() + keyPair[0].slice(1),
+    keyPair[1]
+  ]);
 
-const addTextToFrontOfKeys = (keyPairs, text) => keyPairs.map(keyPair => [`${text}${keyPair[0]}`, keyPair[1]]);
+const addTextToFrontOfKeys = (keyPairs, text) =>
+  keyPairs.map(keyPair => [`${text}${keyPair[0]}`, keyPair[1]]);

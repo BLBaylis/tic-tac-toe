@@ -1,12 +1,16 @@
 import { countSquaresInLine } from "../../helperFunctions";
 
-const determineWhichPlayerHasTempo = (bestCompLines, bestUserLines, board) => {
+const determineWhichPlayerHasTempo = (
+  bestCompLines,
+  bestUserLines,
+  gameBoard
+) => {
   const compLineLengths = bestCompLines.map(line =>
-    countSquaresInLine(line, "comp", board)
+    countSquaresInLine(line, "comp", gameBoard)
   );
   const bestCompLineLength = Math.max(...compLineLengths);
-  const userLineLengths = bestCompLines.map(line =>
-    countSquaresInLine(line, "user", board)
+  const userLineLengths = bestUserLines.map(line =>
+    countSquaresInLine(line, "user", gameBoard)
   );
   const bestUserLineLength = Math.max(...userLineLengths);
   const tempoPlayerLines =

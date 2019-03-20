@@ -5,7 +5,11 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
 
-import { gameStateReducer, interfaceReducer, iconInfoReducer } from "./reducers";
+import {
+  gameStateReducer,
+  interfaceReducer,
+  iconInfoReducer
+} from "./reducers";
 import "./index.scss";
 import TictactoeApp from "./containers/TictactoeApp/TictactoeApp";
 

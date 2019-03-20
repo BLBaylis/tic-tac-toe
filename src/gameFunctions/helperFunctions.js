@@ -1,14 +1,10 @@
-export const countSquaresInLine = (line, player, board) => {
-  return line.filter(squareIndex => board[squareIndex] === player).length;
+export const countSquaresInLine = (line, squareValue, gameBoard) => {
+  return line.filter(squareIndex => gameBoard[squareIndex] === squareValue)
+    .length;
 };
 
-export const getCenterSquareIndex = gridSize => {
-  const n = (gridSize - 1) / 2;
-  return gridSize * n + n;
-};
-
-export const findAllEmptySquares = (arr, board) => {
-  return arr.filter(squareIndex => board[squareIndex] === null);
+export const findAllIndicesWithSquareValue = (line, squareValue, gameBoard) => {
+  return line.filter(squareIndex => gameBoard[squareIndex] === squareValue);
 };
 
 export const generateIndexArr = length => {
@@ -17,13 +13,15 @@ export const generateIndexArr = length => {
     .map((curr, index) => index);
 };
 
-export const chooseRandom = (arr, board) => {
-  let emptySpaces = findAllEmptySquares(arr, board);
+export const chooseRandom = (moveChoices, gameBoard) => {
+  let emptySpaces = findAllIndicesWithSquareValue(moveChoices, null, gameBoard);
   if (!emptySpaces.length) {
     throw new Error(
-      `chooseRandom couldn't find empty square, arr: ${[arr]}, board: ${[
-        board
-      ]}, emptySpaces : ${emptySpaces}`
+      `chooseRandom couldn't find empty square, moveChoices: ${
+        moveChoices.length ? `[${moveChoices}]` : "[]"
+      }, gameBoard: [${gameBoard.map(element =>
+        element === null ? "null" : element
+      )}]`
     );
   }
   let randomIndex = Math.floor(Math.random() * emptySpaces.length);

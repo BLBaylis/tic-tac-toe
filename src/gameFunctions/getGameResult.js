@@ -1,23 +1,17 @@
-import generateAllLines from "./generateAllLines";
+import generateAllIndexLines from "./generateAllIndexLines";
+import { countSquaresInLine } from "./helperFunctions";
 
-const getWinner = (lines, gameBoard) => {
-  const linesWithNoEmptySquares = lines.filter(line =>
-    line.every(squareNumber => gameBoard[squareNumber] !== null)
+export const getGameResult = (gameBoard, gridSize, turnNo) => {
+  const allLines = generateAllIndexLines(gridSize);
+  const noEmptySquareLines = allLines.filter(
+    line => countSquaresInLine(line, null, gameBoard) === 0
   );
-  const winningLines = linesWithNoEmptySquares.filter(line =>
-    line.every(squareNumber => gameBoard[squareNumber] === gameBoard[line[0]])
+  const winningLines = noEmptySquareLines.filter(
+    line =>
+      countSquaresInLine(line, gameBoard[line[0]], gameBoard) === line.length
   );
   if (winningLines.length) {
     return gameBoard[winningLines[0][0]];
-  }
-  return false;
-};
-
-export const getGameResult = (gameBoard, gridSize, turnNo) => {
-  const allLines = generateAllLines(gridSize);
-  const winner = getWinner(allLines, gameBoard);
-  if (winner) {
-    return winner;
   } else if (turnNo >= gridSize ** 2) {
     return "draw";
   }

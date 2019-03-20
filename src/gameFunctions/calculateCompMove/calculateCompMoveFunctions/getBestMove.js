@@ -1,4 +1,7 @@
-import { findAllEmptySquares, chooseRandom } from "../../helperFunctions";
+import {
+  findAllIndicesWithSquareValue,
+  chooseRandom
+} from "../../helperFunctions";
 
 //Finds the best move for the tempoPlayer and takes it.  If tempoPlayer is comp
 //then it is simply making a move that moves it closer to victory.  If
@@ -66,7 +69,7 @@ const getTallyOfBlockedOppositionMovesSortedByBoardIndex = (
 
 const returnAllUntakenSquaresDuplicatesIncluded = (arr, board) => {
   return arr.reduce((total, curr) => {
-    return total.concat(findAllEmptySquares(curr, board));
+    return total.concat(findAllIndicesWithSquareValue(curr, null, board));
   }, []);
 };
 

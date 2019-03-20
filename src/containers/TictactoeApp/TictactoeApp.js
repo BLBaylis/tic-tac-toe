@@ -1,25 +1,30 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import Game from "../Game/Game";
 import IconSelect from "../../components/IconSelect/IconSelect";
 import IconPreview from "../../components/IconPreview/IconPreview";
 import Flipper from "../../components/Flipper/Flipper";
-import { toggleIconSelectOpen, toggleIconSelectFlipped, updateIconInfo } from '../../actions';
+import {
+  toggleIconSelectOpen,
+  toggleIconSelectFlipped,
+  updateIconInfo
+} from "../../actions";
 
 import styles from "./TictactoeApp.module.scss";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { iconSelectOpen, iconSelectFlipped } = state.interfaceReducer;
   return { iconSelectOpen, iconSelectFlipped, iconInfo: state.iconInfoReducer };
-}
+};
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
   toggleIconSelectOpen: () => dispatch(toggleIconSelectOpen()),
   toggleIconSelectFlipped: () => dispatch(toggleIconSelectFlipped()),
-  updateIconInfo: (player, iconChangesObj) => dispatch(updateIconInfo(player, iconChangesObj))
-})
+  updateIconInfo: (player, iconChangesObj) =>
+    dispatch(updateIconInfo(player, iconChangesObj))
+});
 
 class TictactoeApp extends Component {
   /*state = {
@@ -120,4 +125,7 @@ class TictactoeApp extends Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TictactoeApp);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TictactoeApp);

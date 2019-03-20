@@ -12,8 +12,7 @@ import {
   flipGameGrid,
   restartGame,
   restartGameThenCompMove,
-  undoTurn,
-  redoTurn
+  changeToRecordedTurn
 } from "../../actions";
 
 import simulateGame from "../../gameFunctions/testing/simulateGame";
@@ -39,8 +38,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(restartGame(gridSize, firstMove)),
   restartGameThenCompMove: (gridSize, firstMove) =>
     dispatch(restartGameThenCompMove(gridSize, firstMove)),
-  undoTurn: turnNo => dispatch(undoTurn(turnNo)),
-  redoTurn: turnNo => dispatch(redoTurn(turnNo))
+  changeToRecordedTurn: turnsToMove =>
+    dispatch(changeToRecordedTurn(turnsToMove))
 });
 
 class Game extends React.Component {
@@ -53,6 +52,15 @@ class Game extends React.Component {
     } else {
       return this.props.makeUserMove(squareNumber);
     }
+  };
+
+  changeToRecordedTurn = direction => {
+    const turnNumber = this.props.gameState.turnNo;
+    const turnsToMove = moveBy =>
+      direction === "back" ? turnNumber - moveBy : turnNumber + moveBy;
+    return this.props.gameMode === "vsComp"
+      ? this.props.changeToRecordedTurn(turnsToMove(2))
+      : this.props.changeToRecordedTurn(turnsToMove(1));
   };
 
   restartGame = (gridSize, firstMove) => {
@@ -101,20 +109,18 @@ class Game extends React.Component {
   };
 
   render() {
-    const { props, test, generateSquares, restartGame } = this;
     const {
-      gameState,
-      gridFlipped,
-      iconInfo,
-      toggleFlip,
-      undoTurn,
-      redoTurn
-    } = props;
-    const { firstMove, gridSize, turnNo, outcome } = gameState;
+      props,
+      test,
+      generateSquares,
+      restartGame,
+      changeToRecordedTurn
+    } = this;
+    const { gameState, gridFlipped, iconInfo, toggleFlip } = props;
+    const { firstMove, gridSize, outcome } = gameState;
     const clickHandlersObj = {
       restartGame: () => restartGame(gridSize, firstMove),
-      undoTurn: () => undoTurn(turnNo),
-      redoTurn: () => redoTurn(turnNo),
+      changeToRecordedTurn,
       test,
       toggleFlip
     };
