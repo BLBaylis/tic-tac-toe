@@ -17,7 +17,7 @@ import {
 
 import simulateGame from "../../gameFunctions/testing/simulateGame";
 import recordGameResults from "../../gameFunctions/testing/recordGameResults";
-import { generateIndexArr } from "../../gameFunctions/helperFunctions";
+import { generateIndexArr } from "../../gameFunctions/helperFunctions/helperFunctions";
 
 const mapStateToProps = state => {
   const gameState = state.gameStateReducer;

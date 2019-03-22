@@ -1,4 +1,3 @@
-
 //countSquareIndex([0, 1, 2], "user", [null, null, "user"]) returns 1
 export const countSquaresInLine = (line, squareValue, gameBoard) => {
   return line.filter(squareIndex => gameBoard[squareIndex] === squareValue)

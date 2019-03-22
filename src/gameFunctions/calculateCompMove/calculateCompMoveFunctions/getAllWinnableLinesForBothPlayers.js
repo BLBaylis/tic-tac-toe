@@ -1,4 +1,4 @@
-import generateAllIndexLines from "../../generateAllIndexLines";
+import generateAllIndexLines from "../../generateAllIndexLines/generateAllIndexLines";
 
 const getAllWinnableLinesForBothPlayers = board => {
   const winnableCompLines = getWinnableLines(

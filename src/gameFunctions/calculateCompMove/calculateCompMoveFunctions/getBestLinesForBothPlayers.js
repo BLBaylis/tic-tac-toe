@@ -1,4 +1,4 @@
-import { countSquaresInLine } from "../../helperFunctions";
+import { countSquaresInLine } from "../../helperFunctions/helperFunctions";
 
 const getBestLinesForBothPlayers = (
   winnableCompLines,

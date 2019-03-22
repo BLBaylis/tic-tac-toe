@@ -1,4 +1,4 @@
-import { generateIndexArr } from "./helperFunctions";
+import { generateIndexArr } from "../helperFunctions/helperFunctions";
 
 //generateAllLines is used to generate all potential winning IndexLines in a
 //grid for the board to be cross-checked against.

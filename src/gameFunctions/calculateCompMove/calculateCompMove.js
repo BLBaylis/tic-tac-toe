@@ -1,8 +1,8 @@
 import getAllWinnableLinesForBothPlayers from "./calculateCompMoveFunctions/getAllWinnableLinesForBothPlayers";
 import getBestLinesForBothPlayers from "./calculateCompMoveFunctions/getBestLinesForBothPlayers";
 import determineWhichPlayerHasTempo from "./calculateCompMoveFunctions/determineWhichPlayerHasTempo";
-import getBestMove from "./calculateCompMoveFunctions/getBestMove";
-import { generateIndexArr, chooseRandom } from "../helperFunctions";
+import getBestMoves from "./calculateCompMoveFunctions/getBestMoves";
+import { generateIndexArr, chooseRandom } from "../helperFunctions/helperFunctions";
 
 //calculateCompMove() takes an object with board, gridSize and turnNo and
 //returns a number which is a squareIndex.  This is an optimal computer move.
@@ -44,7 +44,12 @@ const calculateCompMove = (board, gridSize, turnNo) => {
     //there are no winnable lines so pick a random space
     return chooseRandom(generateIndexArr(board.length), board);
   }
-  return getBestMove(tempoPlayerLines, nonTempoPlayerLines, board);
+  const bestMoves = getBestMoves(tempoPlayerLines, nonTempoPlayerLines, board);
+  if (bestMoves) {
+    return chooseRandom(bestMoves, board);
+  } else {
+    return false
+  }
 };
 
 export default calculateCompMove;

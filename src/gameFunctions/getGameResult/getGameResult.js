@@ -1,5 +1,5 @@
-import generateAllIndexLines from "./generateAllIndexLines";
-import { countSquaresInLine } from "./helperFunctions";
+import generateAllIndexLines from "../generateAllIndexLines/generateAllIndexLines";
+import { countSquaresInLine } from "../helperFunctions/helperFunctions";
 
 //getGameResult
 //arguments:

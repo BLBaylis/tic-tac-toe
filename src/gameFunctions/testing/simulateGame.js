@@ -1,6 +1,6 @@
 import calculateCompMove from "../calculateCompMove/calculateCompMove";
-import simulateMove from "../simulateMove";
-import { generateIndexArr, chooseRandom } from "../helperFunctions";
+import simulateMove from "../simulateMove/simulateMove";
+import { generateIndexArr, chooseRandom } from "../helperFunctions/helperFunctions";
 
 const simulateGame = (firstMove, gridSize) => {
   let state;

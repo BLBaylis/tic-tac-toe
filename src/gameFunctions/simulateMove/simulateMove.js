@@ -1,4 +1,4 @@
-import getGameResult from "./getGameResult";
+import getGameResult from "../getGameResult/getGameResult";
 
 //creates new state for the move just taken
 

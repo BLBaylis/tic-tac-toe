@@ -7,7 +7,7 @@ import {
   TOGGLE_ICON_SELECT_FLIPPED,
   UPDATE_ICON_INFO
 } from "./constants.js";
-import simulateMove from "./gameFunctions/simulateMove";
+import simulateMove from "./gameFunctions/simulateMove/simulateMove";
 
 const initialGameState = {
   board: Array(9).fill(null),
