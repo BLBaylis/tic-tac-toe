@@ -44,7 +44,7 @@ const mapDispatchToProps = dispatch => ({
 
 class Game extends React.Component {
   handleClick = squareNumber => {
-    if (this.props.gameState.board[squareNumber] !== null) {
+    if (this.props.gameState.gameBoard[squareNumber] !== null) {
       return;
     }
     if (this.props.gameMode === "vsComp") {
@@ -72,14 +72,14 @@ class Game extends React.Component {
   };
 
   generateSquares = iconInfo => {
-    const { gridSize, board } = this.props.gameState;
+    const { gridSize, gameBoard } = this.props.gameState;
     const indexArr = generateIndexArr(gridSize ** 2);
     return indexArr.map(index => (
       <GameSquare
         iconInfo={iconInfo}
         key={index}
         keyProp={index}
-        value={board[index]}
+        value={gameBoard[index]}
         onClick={() => this.handleClick(index)}
       />
     ));

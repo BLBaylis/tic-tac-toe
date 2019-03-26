@@ -1,5 +1,5 @@
 import generateAllIndexLines from "../generateAllIndexLines/generateAllIndexLines";
-import { countSquaresInLine } from "../helperFunctions/helperFunctions";
+import { countOccurancesOfSquareValueInArr } from "../helperFunctions/helperFunctions";
 
 //getGameResult
 //arguments:
@@ -21,11 +21,11 @@ import { countSquaresInLine } from "../helperFunctions/helperFunctions";
 export const getGameResult = (gameBoard, gridSize, turnNo) => {
   const allLines = generateAllIndexLines(gridSize);
   const noEmptySquareLines = allLines.filter(
-    line => countSquaresInLine(line, null, gameBoard) === 0
+    line => countOccurancesOfSquareValueInArr(line, null, gameBoard) === 0
   );
   const winningLines = noEmptySquareLines.filter(
     line =>
-      countSquaresInLine(line, gameBoard[line[0]], gameBoard) === line.length
+      countOccurancesOfSquareValueInArr(line, gameBoard[line[0]], gameBoard) === line.length
   );
   if (winningLines.length) {
     return gameBoard[winningLines[0][0]];

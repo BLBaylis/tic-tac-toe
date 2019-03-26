@@ -1,6 +1,9 @@
 import calculateCompMove from "../calculateCompMove/calculateCompMove";
 import simulateMove from "../simulateMove/simulateMove";
-import { generateIndexArr, chooseRandom } from "../helperFunctions/helperFunctions";
+import {
+  generateIndexArr,
+  chooseRandomElementFromArr
+} from "../helperFunctions/helperFunctions";
 
 const simulateGame = (firstMove, gridSize) => {
   let state;
@@ -42,7 +45,7 @@ const simulateGame = (firstMove, gridSize) => {
 
 const simulateRandomMove = prevState => {
   const board = prevState.board;
-  const chosenMove = chooseRandom(generateIndexArr(board.length), board);
+  const chosenMove = chooseRandomElementFromArr(generateIndexArr(board.length), board);
   return simulateMove(chosenMove, prevState);
 };
 

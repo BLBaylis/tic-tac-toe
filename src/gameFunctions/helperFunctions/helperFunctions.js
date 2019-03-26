@@ -1,34 +1,35 @@
-//countSquareIndex([0, 1, 2], "user", [null, null, "user"]) returns 1
-export const countSquaresInLine = (line, squareValue, gameBoard) => {
-  return line.filter(squareIndex => gameBoard[squareIndex] === squareValue)
-    .length;
-};
+export const findAllEmptySquareIndicesOnGameBoard = gameBoard => {
+  const gameBoardIndices = generateIndexArr(gameBoard.length);
+  return findAllIndicesWithSquareValue(gameBoardIndices, null, gameBoard);
+}
 
-//countSquareIndex([0, 1, 2], "user", [null, null, "user"]) returns [2]
+export const generateIndexArr = length =>
+  Array(length)
+    .fill()
+    .map((curr, index) => index);
+
+//findAllIndicesWithSquareValue([0, 1, 2], "user", [null, null, "user"]) returns [2]
 export const findAllIndicesWithSquareValue = (line, squareValue, gameBoard) => {
   return line.filter(squareIndex => gameBoard[squareIndex] === squareValue);
 };
 
-//generateIndexArr(9) returns [0, 1, 2, 3, 4, 5, 6, 7, 8]
-export const generateIndexArr = length => {
-  return Array(length)
-    .fill()
-    .map((curr, index) => index);
-};
+//countOccurancesOfSquareValueInArr([0, 1, 2], "user", [null, null, "user"]) returns 1
+export const countOccurancesOfSquareValueInArr = (line, squareValue, gameBoard) =>
+  findAllIndicesWithSquareValue(line, squareValue, gameBoard).length;
 
-//chooserRandom([0, 1, 2, 3, 4], [null, null, "user", "comp", null]) returns
-//either 0, 1 or 4 at random
-export const chooseRandom = (moveChoices, gameBoard) => {
-  let emptySpaces = findAllIndicesWithSquareValue(moveChoices, null, gameBoard);
-  if (!emptySpaces.length) {
-    throw new Error(
-      `chooseRandom couldn't find empty square, moveChoices: ${
-        moveChoices.length ? `[${moveChoices}]` : "[]"
-      }, gameBoard: [${gameBoard.map(element =>
-        element === null ? "null" : element
-      )}]`
-    );
+export const flattenArr = arr =>
+  arr.reduce((total, curr) => total.concat(curr), []);
+
+export const removeDupes = arr =>
+  arr.filter((element, index) => arr.indexOf(element) === index);
+
+export const countOccurancesOfElementInArr = (element, arr) =>
+  arr.filter(curr => curr === element).length;
+
+export const chooseRandomElementFromArr = (arr) => {
+  if (!arr.length) {
+    return false;
   }
-  let randomIndex = Math.floor(Math.random() * emptySpaces.length);
-  return emptySpaces[randomIndex];
+  let randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
 };

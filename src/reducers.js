@@ -5,15 +5,16 @@ import {
   CHANGE_TO_RECORDED_TURN,
   TOGGLE_ICON_SELECT_OPEN,
   TOGGLE_ICON_SELECT_FLIPPED,
-  UPDATE_ICON_INFO
+  UPDATE_ICON_INFO,
+  UPDATE_GAME_MODE
 } from "./constants.js";
 import simulateMove from "./gameFunctions/simulateMove/simulateMove";
 
 const initialGameState = {
-  board: Array(9).fill(null),
+  gameBoard: Array(9).fill(null),
   gameLog: [
     {
-      board: Array(9).fill(null),
+      gameBoard: Array(9).fill(null),
       turnNo: 0,
       userTurn: true,
       outcome: null
@@ -53,10 +54,10 @@ export const gameStateReducer = (state = initialGameState, action = {}) => {
         firstMove,
         gridSize,
         userTurn: firstMove === "user",
-        board: Array(gridSize ** 2).fill(null),
+        gameBoard: Array(gridSize ** 2).fill(null),
         gameLog: [
           {
-            board: Array(gridSize ** 2).fill(null),
+            gameBoard: Array(gridSize ** 2).fill(null),
             turnNo: 0,
             userTurn: firstMove === "user",
             outcome: null
@@ -71,8 +72,13 @@ export const gameStateReducer = (state = initialGameState, action = {}) => {
       return {
         ...state,
         ...recordedTurnState,
-        board: recordedTurnState.board.slice(),
+        gameBoard: recordedTurnState.gameBoard.slice(),
         gameLog: [...state.gameLog]
+      };
+    case UPDATE_GAME_MODE:
+      return {
+        ...state,
+        gameMode: action.payload
       };
     default:
       return state;

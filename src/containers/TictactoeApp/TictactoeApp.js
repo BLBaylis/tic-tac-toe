@@ -9,7 +9,8 @@ import Flipper from "../../components/Flipper/Flipper";
 import {
   toggleIconSelectOpen,
   toggleIconSelectFlipped,
-  updateIconInfo
+  updateIconInfo,
+  updateGameMode
 } from "../../actions";
 
 import styles from "./TictactoeApp.module.scss";
@@ -23,41 +24,11 @@ const mapDispatchToProps = dispatch => ({
   toggleIconSelectOpen: () => dispatch(toggleIconSelectOpen()),
   toggleIconSelectFlipped: () => dispatch(toggleIconSelectFlipped()),
   updateIconInfo: (player, iconChangesObj) =>
-    dispatch(updateIconInfo(player, iconChangesObj))
+    dispatch(updateIconInfo(player, iconChangesObj)),
+  updateGameMode: (gameMode) => dispatch(updateGameMode(gameMode))
 });
 
 class TictactoeApp extends Component {
-  /*state = {
-    iconInfo: {
-      user: {
-        icon: "circle",
-        iconType: "nought",
-        colour: "#22b14c"
-      },
-      comp: {
-        icon: undefined,
-        iconType: undefined,
-        colour: "#ed261a"
-      }
-    }
-  };*/
-
-  /*changeIconSetting = (player, settingChanges) => {
-    const iconInfo = this.state.iconInfo;
-    let iconInfoCopy = { ...iconInfo };
-    iconInfoCopy[player] = {
-      icon: settingChanges.icon || this.state.iconInfo[player].icon,
-      iconType: settingChanges.iconType || this.state.iconInfo[player].iconType,
-      colour: settingChanges.colour || this.state.iconInfo[player].colour
-    };
-    if (
-      player === "user" &&
-      settingChanges.iconType !== iconInfo.user.iconType
-    ) {
-      iconInfo.comp.icon = undefined;
-    }
-    this.setState({ iconInfo: iconInfoCopy });
-  };*/
 
   render() {
     const {
@@ -66,7 +37,8 @@ class TictactoeApp extends Component {
       toggleIconSelectOpen,
       toggleIconSelectFlipped,
       iconInfo,
-      updateIconInfo
+      updateIconInfo,
+      updateGameMode
     } = this.props;
     return (
       <div className={styles.app}>
@@ -88,8 +60,8 @@ class TictactoeApp extends Component {
                 flipped={iconSelectFlipped}
                 front={
                   <IconSelect
-                    key={"iconSelectUser"}
-                    player={"user"}
+                    key="iconSelectUser"
+                    player="user"
                     iconInfo={iconInfo}
                     updateIconInfo={updateIconInfo}
                     iconSelectFlipped={iconSelectFlipped}
