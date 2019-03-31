@@ -1,12 +1,12 @@
 import {
   MAKE_MOVE,
-  FLIP_GAME_GRID,
   RESTART_GAME,
   UNDO_TURN,
   REDO_TURN,
-  TOGGLE_ICON_SELECT_OPEN,
   TOGGLE_ICON_SELECT_FLIPPED,
-  UPDATE_ICON_INFO
+  UPDATE_ICON_INFO,
+  CHANGE_ROUTE,
+  CHANGE_GAME_MODE
 } from "./constants.js";
 import calculateCompMove from "./gameFunctions/calculateCompMove/calculateCompMove";
 
@@ -27,20 +27,17 @@ export const makeUserMoveThenCompMove = squareNumber => (
   }
 };
 
-export const flipGameGrid = () => ({
-  type: FLIP_GAME_GRID
-});
-
-export const restartGame = (gridSize, firstMove) => ({
-  type: RESTART_GAME,
-  payload: { gridSize: Number(gridSize), firstMove }
-});
+export const restartGame = (gridSize, firstMove, gameMode) => {
+  if (!gameMode) {throw new Error()};
+  return {type: RESTART_GAME,
+  payload: { gridSize: Number(gridSize), firstMove, gameMode }
+}};
 
 export const restartGameThenCompMove = (gridSize, firstMove) => (
   dispatch,
   getState
 ) => {
-  dispatch(restartGame(gridSize, firstMove));
+  dispatch(restartGame(gridSize, firstMove, "vsComp"));
   const { board, turnNo } = getState().gameStateReducer;
   const compMove = calculateCompMove(board, gridSize, turnNo);
   dispatch(makeMove(compMove));
@@ -56,15 +53,21 @@ export const redoTurn = turnNo => ({
   payload: turnNo
 });
 
-export const toggleIconSelectOpen = () => ({
-  type: TOGGLE_ICON_SELECT_OPEN
-})
+export const changeGameMode = (gameMode) => ({
+  type: CHANGE_GAME_MODE,
+  payload: gameMode
+});
 
 export const toggleIconSelectFlipped = () => ({
   type: TOGGLE_ICON_SELECT_FLIPPED
-})
+});
 
 export const updateIconInfo = (player, iconChanges) => ({
   type: UPDATE_ICON_INFO,
-  payload: {player, iconChanges}
+  payload: { player, iconChanges }
+});
+
+export const changeRoute = (newRoute) => ({
+  type: CHANGE_ROUTE,
+  payload: newRoute
 })

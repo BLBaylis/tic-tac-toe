@@ -1,60 +1,78 @@
 import React, { Component } from "react";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
-import Game from "../Game/Game";
-import IconSelect from "../../components/IconSelect/IconSelect";
-import IconPreview from "../../components/IconPreview/IconPreview";
-import Flipper from "../../components/Flipper/Flipper";
-import { toggleIconSelectOpen, toggleIconSelectFlipped, updateIconInfo } from '../../actions';
+import IconSelectScreen from "../../routes/IconSelectScreen/IconSelectScreen";
+import GameScreen from '../../routes/GameScreen/GameScreen';
+import {
+  toggleIconSelectOpen,
+  toggleIconSelectFlipped,
+  updateIconInfo,
+  changeRoute
+} from "../../actions";
 
 import styles from "./TictactoeApp.module.scss";
+import Settings from "../../routes/Settings/Settings";
+import GameModeSelect from "../../routes/GameModeSelect/GameModeSelect";
 
-const mapStateToProps = (state) => {
-  const { iconSelectOpen, iconSelectFlipped } = state.interfaceReducer;
-  return { iconSelectOpen, iconSelectFlipped, iconInfo: state.iconInfoReducer };
-}
+const mapStateToProps = state => {
+  return { ...state.interfaceReducer, iconInfo: state.iconInfoReducer };
+};
 
-const mapDispatchToProps = (dispatch) => ({
-  toggleIconSelectOpen: () => dispatch(toggleIconSelectOpen()),
+const mapDispatchToProps = dispatch => ({
+  changeRoute: (route) => dispatch(changeRoute(route)),
   toggleIconSelectFlipped: () => dispatch(toggleIconSelectFlipped()),
-  updateIconInfo: (player, iconChangesObj) => dispatch(updateIconInfo(player, iconChangesObj))
-})
+  updateIconInfo: (player, iconChangesObj) =>
+    dispatch(updateIconInfo(player, iconChangesObj))
+});
 
 class TictactoeApp extends Component {
-  /*state = {
-    iconInfo: {
-      user: {
-        icon: "circle",
-        iconType: "nought",
-        colour: "#22b14c"
-      },
-      comp: {
-        icon: undefined,
-        iconType: undefined,
-        colour: "#ed261a"
-      }
-    }
-  };*/
-
-  /*changeIconSetting = (player, settingChanges) => {
-    const iconInfo = this.state.iconInfo;
-    let iconInfoCopy = { ...iconInfo };
-    iconInfoCopy[player] = {
-      icon: settingChanges.icon || this.state.iconInfo[player].icon,
-      iconType: settingChanges.iconType || this.state.iconInfo[player].iconType,
-      colour: settingChanges.colour || this.state.iconInfo[player].colour
-    };
-    if (
-      player === "user" &&
-      settingChanges.iconType !== iconInfo.user.iconType
-    ) {
-      iconInfo.comp.icon = undefined;
-    }
-    this.setState({ iconInfo: iconInfoCopy });
-  };*/
 
   render() {
+    const {
+      iconInfo,
+      updateIconInfo,
+      iconSelectFlipped,
+      toggleIconSelectFlipped,
+      route,
+      changeRoute
+    } = this.props;
+    const iconSelectFuncs = {
+      updateIconInfo,
+      toggleIconSelectFlipped,
+      changeRoute: () => changeRoute("gameScreen")
+    };
+    return (
+      <div className={styles.app}>
+        <div className={styles.appBody}>
+          {route === "gameModeSelect" && (
+            <GameModeSelect
+              changeRoute={() => changeRoute("iconSelect")}
+            />
+          )}
+          {route === "iconSelect" && (
+            <IconSelectScreen
+              iconInfo={iconInfo}
+              iconSelectFlipped = {iconSelectFlipped}
+              iconSelectFuncs = {iconSelectFuncs}
+            />
+          )}
+          {route === "gameScreen" && (
+            <GameScreen
+              iconInfo = {iconInfo}
+              changeRoute = {() => changeRoute("settings")}
+              toggleIconSelectFlipped= {toggleIconSelectFlipped}
+            />
+          )}
+          {route === "settings" && (
+            <Settings changeRoute={() => changeRoute("gameScreen")}/>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  /*render() {
     const {
       iconSelectOpen,
       iconSelectFlipped,
@@ -117,7 +135,10 @@ class TictactoeApp extends Component {
         </div>
       </div>
     );
-  }
+  }*/
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TictactoeApp);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TictactoeApp);

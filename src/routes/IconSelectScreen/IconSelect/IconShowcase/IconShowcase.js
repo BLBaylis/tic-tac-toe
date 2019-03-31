@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./IconShowcase.module.scss";
-import Icon from "../Icon/Icon";
+import Icon from "../../../../components/Icon/Icon";
 
 const IconShowcase = ({
   oppositionIconType,

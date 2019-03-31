@@ -7,7 +7,7 @@ const Controls = ({ clickHandlersObj }) => {
     undoTurn,
     redoTurn,
     test,
-    toggleFlip
+    changeRoute
   } = clickHandlersObj;
   return (
     <div className={styles.controls}>
@@ -28,7 +28,7 @@ const Controls = ({ clickHandlersObj }) => {
       <button
         className={styles.settingsBtn}
         style={{ marginBottom: 0 }}
-        onClick={toggleFlip}
+        onClick={changeRoute}
       >
         Settings
       </button>

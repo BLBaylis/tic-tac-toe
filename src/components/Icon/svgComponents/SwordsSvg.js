@@ -1,9 +1,8 @@
 import React from "react";
-import styles from "./svgComponents.module.scss";
 
-const SwordSvg = ({ colour, bgColour }) => (
+const SwordsSvg = ({ colour, bgColour, classes }) => (
   <svg
-    className={styles.svg}
+    className={classes}
     viewBox="0 0 312 312"
     style={{ backgroundColor: bgColour }}
   >
@@ -40,4 +39,4 @@ const SwordSvg = ({ colour, bgColour }) => (
   </svg>
 );
 
-export default SwordSvg;
+export default SwordsSvg;

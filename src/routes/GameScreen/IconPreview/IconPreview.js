@@ -1,8 +1,12 @@
 import React from "react";
 import styles from "./IconPreview.module.scss";
-import Icon from "../Icon/Icon";
+import Icon from "../../../components/Icon/Icon";
 
-const IconPreview = ({ iconInfo, toggleIconSelectOpen, toggleIconSelectFlipped }) => {
+const IconPreview = ({
+  iconInfo,
+  toggleIconSelectOpen,
+  toggleIconSelectFlipped
+}) => {
   const { userIcon, userColour, compIcon, compIconColour } = iconInfo;
   return (
     <div className={styles.iconPreviewWrapper}>

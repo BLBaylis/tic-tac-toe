@@ -1,8 +1,7 @@
 import React from "react";
-import styles from "./svgComponents.module.scss";
 
-const CandyCaneSvg = ({ colour, bgColour }) => (
-  <svg className={styles.svg} viewBox="0 0 312 312">
+const CandyCaneSvg = ({ classes, colour, bgColour }) => (
+  <svg className={classes} viewBox="0 0 312 312">
     <path d="M0 156V0h312v312H0z" fill={bgColour} />
     <path
       style={{ fill: colour }}

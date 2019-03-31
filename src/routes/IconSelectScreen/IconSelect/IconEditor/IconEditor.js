@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./IconEditor.module.scss";
-import Icon from "../Icon/Icon";
+import Icon from "../../../../components/Icon/Icon";
 import Paintbrush from "../Paintbrush";
 import { hex } from "color-convert";
 

@@ -1,42 +1,32 @@
 import React from "react";
 import { connect } from "react-redux";
-
-import Flipper from "../../components/Flipper/Flipper";
-import Settings from "../../components/Settings/Settings";
-import Grid from "../../components/Grid/Grid";
-import Controls from "../../components/Controls/Controls";
-import GameSquare from "../../components/GameSquare/GameSquare";
 import {
   makeMove,
   makeUserMoveThenCompMove,
-  flipGameGrid,
   restartGame,
   restartGameThenCompMove,
   undoTurn,
   redoTurn
 } from "../../actions";
 
+import Grid from "./Grid/Grid";
+import Controls from "./Controls/Controls";
+import GameSquare from "../../components/GameSquare/GameSquare";
+
 import simulateGame from "../../gameFunctions/testing/simulateGame";
 import recordGameResults from "../../gameFunctions/testing/recordGameResults";
 import { generateIndexArr } from "../../gameFunctions/helperFunctions";
 
 const mapStateToProps = state => {
-  const gameState = state.gameStateReducer;
-  const { gridFlipped } = state.interfaceReducer;
-  return {
-    gameState,
-    gameMode: gameState.gameMode,
-    gridFlipped
-  };
+  return { gameState: state.gameStateReducer };
 };
 
 const mapDispatchToProps = dispatch => ({
   makeUserMove: squareNumber => dispatch(makeMove(squareNumber)),
   makeUserMoveThenCompMove: squareNumber =>
     dispatch(makeUserMoveThenCompMove(squareNumber)),
-  toggleFlip: () => dispatch(flipGameGrid()),
-  restartGame: (gridSize, firstMove) =>
-    dispatch(restartGame(gridSize, firstMove)),
+  restartGame: (gridSize, firstMove, gameMode) =>
+    dispatch(restartGame(gridSize, firstMove, gameMode)),
   restartGameThenCompMove: (gridSize, firstMove) =>
     dispatch(restartGameThenCompMove(gridSize, firstMove)),
   undoTurn: turnNo => dispatch(undoTurn(turnNo)),
@@ -45,19 +35,21 @@ const mapDispatchToProps = dispatch => ({
 
 class Game extends React.Component {
   handleClick = squareNumber => {
-    if (this.props.gameState.board[squareNumber] !== null) {
+    const { board, gameMode } = this.props.gameState;
+    if (board[squareNumber] !== null) {
       return;
     }
-    if (this.props.gameMode === "vsComp") {
+    if (gameMode === "vsComp") {
       return this.props.makeUserMoveThenCompMove(squareNumber);
     } else {
       return this.props.makeUserMove(squareNumber);
     }
   };
 
-  restartGame = (gridSize, firstMove) => {
-    if (firstMove === "user") {
-      return this.props.restartGame(gridSize, firstMove);
+  restartGame = (gridSize, firstMove, gameMode) => {
+    console.log(gameMode);
+    if (firstMove === "user" || gameMode === "pvp") {
+      return this.props.restartGame(gridSize, firstMove, gameMode);
     } else {
       return this.props.restartGameThenCompMove(gridSize, firstMove);
     }
@@ -104,38 +96,25 @@ class Game extends React.Component {
     const { props, test, generateSquares, restartGame } = this;
     const {
       gameState,
-      gridFlipped,
       iconInfo,
-      toggleFlip,
       undoTurn,
-      redoTurn
+      redoTurn,
+      changeRoute
     } = props;
-    const { firstMove, gridSize, turnNo, outcome } = gameState;
+    const { firstMove, gridSize, turnNo, outcome, gameMode } = gameState;
     const clickHandlersObj = {
-      restartGame: () => restartGame(gridSize, firstMove),
+      restartGame: () => restartGame(gridSize, firstMove, gameMode),
       undoTurn: () => undoTurn(turnNo),
       redoTurn: () => redoTurn(turnNo),
-      test,
-      toggleFlip
+      changeRoute,
+      test
     };
     return (
       <React.Fragment>
-        <Flipper
-          flipped={gridFlipped}
-          front={
-            <Grid
-              outcome={outcome}
-              gridSize={gridSize}
-              generateSquares={() => generateSquares(iconInfo)}
-            />
-          }
-          back={
-            <Settings
-              restartGame={restartGame}
-              toggleFlip={toggleFlip}
-              flipped={gridFlipped}
-            />
-          }
+        <Grid
+          outcome={outcome}
+          gridSize={gridSize}
+          generateSquares={() => generateSquares(iconInfo)}
         />
         <Controls clickHandlersObj={clickHandlersObj} />
       </React.Fragment>

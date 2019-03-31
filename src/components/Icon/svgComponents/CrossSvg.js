@@ -1,9 +1,8 @@
 import React from "react";
-import styles from "./svgComponents.module.scss";
 
-const CrossSvg = ({ colour, bgColour }) => (
+const CrossSvg = ({classes,  colour, bgColour }) => (
   <svg
-    className={styles.svg}
+    className={classes}
     viewBox="0 0 312 312"
     style={{ backgroundColor: bgColour }}
   >

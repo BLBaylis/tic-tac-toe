@@ -1,12 +1,12 @@
 import {
   MAKE_MOVE,
-  FLIP_GAME_GRID,
   RESTART_GAME,
   UNDO_TURN,
   REDO_TURN,
-  TOGGLE_ICON_SELECT_OPEN,
+  CHANGE_GAME_MODE,
   TOGGLE_ICON_SELECT_FLIPPED,
-  UPDATE_ICON_INFO
+  UPDATE_ICON_INFO,
+  CHANGE_ROUTE
 } from "./constants.js";
 import simulateMove from "./gameFunctions/simulateMove";
 
@@ -29,9 +29,8 @@ const initialGameState = {
 };
 
 const initialUIState = {
-  iconSelectOpen: true,
   iconSelectFlipped: false,
-  gridflipped: false
+  route: "settings"
 };
 
 const initialIconState = {
@@ -43,19 +42,17 @@ const initialIconState = {
   compIconColour: "#ed261a"
 };
 
-export const gameStateReducer = (
-  state = initialGameState,
-  action = {}
-) => {
+export const gameStateReducer = (state = initialGameState, action = {}) => {
   switch (action.type) {
     case MAKE_MOVE:
       return simulateMove(action.payload, state);
     case RESTART_GAME:
-      const { firstMove, gridSize } = action.payload;
+      const { firstMove, gridSize, gameMode } = action.payload;
       return {
         ...initialGameState,
         firstMove,
         gridSize,
+        gameMode,
         userTurn: firstMove === "user",
         board: Array(gridSize ** 2).fill(null),
         gameLog: [
@@ -67,6 +64,8 @@ export const gameStateReducer = (
           }
         ]
       };
+    case CHANGE_GAME_MODE:
+      return { ...state, gameMode: action.payload };
     case UNDO_TURN:
       return { ...state, ...state.gameLog[action.payload - 2] };
     case REDO_TURN:
@@ -78,12 +77,10 @@ export const gameStateReducer = (
 
 export const interfaceReducer = (state = initialUIState, action = {}) => {
   switch (action.type) {
-    case FLIP_GAME_GRID:
-      return { ...state, gridFlipped: !state.gridFlipped };
-    case TOGGLE_ICON_SELECT_OPEN:
-      return {...state, iconSelectOpen: !state.iconSelectOpen}
     case TOGGLE_ICON_SELECT_FLIPPED:
-      return {...state, iconSelectFlipped: !state.iconSelectFlipped}
+      return { ...state, iconSelectFlipped: !state.iconSelectFlipped };
+    case CHANGE_ROUTE:
+      return { ...state, route: action.payload};
     default:
       return state;
   }
@@ -96,22 +93,29 @@ export const iconInfoReducer = (state = initialIconState, action = {}) => {
     if (player === "user" && stateChanges.userIconType !== state.userIconType) {
       stateChanges.compIcon = undefined;
     }
-    return {...state, ...stateChanges};
+    return { ...state, ...stateChanges };
   } else {
-    return state
+    return state;
   }
-}
+};
 
 const processKeyPairs = (player, iconChanges) => {
   const keyPairsArr = Object.entries(iconChanges);
   const capitalisedKeysArr = capitaliseKeyNames(keyPairsArr);
   const textAddedToKeysArr = addTextToFrontOfKeys(capitalisedKeysArr, player);
-  const keyPairObjsArr = textAddedToKeysArr.map(keyPair => ({[keyPair[0]] : keyPair[1]}));
+  const keyPairObjsArr = textAddedToKeysArr.map(keyPair => ({
+    [keyPair[0]]: keyPair[1]
+  }));
   return keyPairObjsArr.reduce((newObj, keyObj) => {
-    return Object.assign(newObj, keyObj)
+    return Object.assign(newObj, keyObj);
   }, {});
-}
+};
 
-const capitaliseKeyNames = (keyPairs) => keyPairs.map(keyPair => [keyPair[0].charAt(0).toUpperCase() + keyPair[0].slice(1), keyPair[1]]);
+const capitaliseKeyNames = keyPairs =>
+  keyPairs.map(keyPair => [
+    keyPair[0].charAt(0).toUpperCase() + keyPair[0].slice(1),
+    keyPair[1]
+  ]);
 
-const addTextToFrontOfKeys = (keyPairs, text) => keyPairs.map(keyPair => [`${text}${keyPair[0]}`, keyPair[1]]);
+const addTextToFrontOfKeys = (keyPairs, text) =>
+  keyPairs.map(keyPair => [`${text}${keyPair[0]}`, keyPair[1]]);
