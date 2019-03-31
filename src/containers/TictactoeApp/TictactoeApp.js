@@ -4,6 +4,7 @@ import ReactCSSTransitionGroup from "react-addons-css-transition-group";
 
 import IconSelectScreen from "../../routes/IconSelectScreen/IconSelectScreen";
 import GameScreen from '../../routes/GameScreen/GameScreen';
+
 import {
   toggleIconSelectOpen,
   toggleIconSelectFlipped,
@@ -71,72 +72,7 @@ class TictactoeApp extends Component {
       </div>
     );
   }
-
-  /*render() {
-    const {
-      iconSelectOpen,
-      iconSelectFlipped,
-      toggleIconSelectOpen,
-      toggleIconSelectFlipped,
-      iconInfo,
-      updateIconInfo
-    } = this.props;
-    return (
-      <div className={styles.app}>
-        <div className={styles.appBody}>
-          <ReactCSSTransitionGroup
-            transitionName="slide"
-            className={styles.reactCSSTransitionGroup}
-            transitionEnterTimeout={300}
-            transitionLeaveTimeout={300}
-          >
-            {iconSelectOpen && (
-              <Flipper
-                key="iconSelectFlipper"
-                style={{
-                  backgroundColor: "#889B7C",
-                  height: "100%",
-                  top: "100%"
-                }}
-                flipped={iconSelectFlipped}
-                front={
-                  <IconSelect
-                    key={"iconSelectUser"}
-                    player={"user"}
-                    iconInfo={iconInfo}
-                    updateIconInfo={updateIconInfo}
-                    iconSelectFlipped={iconSelectFlipped}
-                    toggleIconSelectFlipped={toggleIconSelectFlipped}
-                  />
-                }
-                back={
-                  <IconSelect
-                    key={"iconSelectComp"}
-                    player={"comp"}
-                    iconInfo={iconInfo}
-                    updateIconInfo={updateIconInfo}
-                    toggleIconSelectFlipped={toggleIconSelectFlipped}
-                    toggleIconSelectOpen={toggleIconSelectOpen}
-                  />
-                }
-              />
-            )}
-          </ReactCSSTransitionGroup>
-          <div className={styles.gameScreenWrapper}>
-            <div className={styles.gameScreen}>
-              <IconPreview
-                iconInfo={iconInfo}
-                toggleIconSelectOpen={toggleIconSelectOpen}
-                toggleIconSelectFlipped={toggleIconSelectFlipped}
-              />
-              <Game iconInfo={iconInfo} />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }*/
-}
+};
 
 export default connect(
   mapStateToProps,

@@ -1,20 +1,21 @@
 import {
   MAKE_MOVE,
   RESTART_GAME,
-  UNDO_TURN,
-  REDO_TURN,
   CHANGE_GAME_MODE,
   TOGGLE_ICON_SELECT_FLIPPED,
   UPDATE_ICON_INFO,
   CHANGE_ROUTE
+  CHANGE_TO_RECORDED_TURN,
+  TOGGLE_ICON_SELECT_FLIPPED,
+  UPDATE_ICON_INFO
 } from "./constants.js";
-import simulateMove from "./gameFunctions/simulateMove";
+import simulateMove from "./gameFunctions/simulateMove/simulateMove";
 
 const initialGameState = {
-  board: Array(9).fill(null),
+  gameBoard: Array(9).fill(null),
   gameLog: [
     {
-      board: Array(9).fill(null),
+      gameBoard: Array(9).fill(null),
       turnNo: 0,
       userTurn: true,
       outcome: null
@@ -54,10 +55,10 @@ export const gameStateReducer = (state = initialGameState, action = {}) => {
         gridSize,
         gameMode,
         userTurn: firstMove === "user",
-        board: Array(gridSize ** 2).fill(null),
+        gameBoard: Array(gridSize ** 2).fill(null),
         gameLog: [
           {
-            board: Array(gridSize ** 2).fill(null),
+            gameBoard: Array(gridSize ** 2).fill(null),
             turnNo: 0,
             userTurn: firstMove === "user",
             outcome: null
@@ -66,10 +67,17 @@ export const gameStateReducer = (state = initialGameState, action = {}) => {
       };
     case CHANGE_GAME_MODE:
       return { ...state, gameMode: action.payload };
-    case UNDO_TURN:
-      return { ...state, ...state.gameLog[action.payload - 2] };
-    case REDO_TURN:
-      return { ...state, ...state.gameLog[action.payload + 2] };
+    case CHANGE_TO_RECORDED_TURN:
+      if (action.payload < 0 || !state.gameLog[action.payload]) {
+        return state;
+      }
+      const recordedTurnState = state.gameLog[action.payload];
+      return {
+        ...state,
+        ...recordedTurnState,
+        gameBoard: recordedTurnState.gameBoard.slice(),
+        gameLog: [...state.gameLog]
+      };
     default:
       return state;
   }

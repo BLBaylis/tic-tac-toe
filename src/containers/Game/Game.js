@@ -5,8 +5,7 @@ import {
   makeUserMoveThenCompMove,
   restartGame,
   restartGameThenCompMove,
-  undoTurn,
-  redoTurn
+  changeToRecordedTurn
 } from "../../actions";
 
 import Grid from "./Grid/Grid";
@@ -15,7 +14,7 @@ import GameSquare from "../../components/GameSquare/GameSquare";
 
 import simulateGame from "../../gameFunctions/testing/simulateGame";
 import recordGameResults from "../../gameFunctions/testing/recordGameResults";
-import { generateIndexArr } from "../../gameFunctions/helperFunctions";
+import { generateIndexArr } from "../../gameFunctions/helperFunctions/helperFunctions";
 
 const mapStateToProps = state => {
   return { gameState: state.gameStateReducer };
@@ -29,8 +28,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(restartGame(gridSize, firstMove, gameMode)),
   restartGameThenCompMove: (gridSize, firstMove) =>
     dispatch(restartGameThenCompMove(gridSize, firstMove)),
-  undoTurn: turnNo => dispatch(undoTurn(turnNo)),
-  redoTurn: turnNo => dispatch(redoTurn(turnNo))
+  changeToRecordedTurn: turnsToMove =>
+    dispatch(changeToRecordedTurn(turnsToMove))
 });
 
 class Game extends React.Component {
@@ -44,26 +43,36 @@ class Game extends React.Component {
     } else {
       return this.props.makeUserMove(squareNumber);
     }
-  };
+  }
 
   restartGame = (gridSize, firstMove, gameMode) => {
     console.log(gameMode);
     if (firstMove === "user" || gameMode === "pvp") {
       return this.props.restartGame(gridSize, firstMove, gameMode);
+
+  changeToRecordedTurn = direction => {
+    const turnNumber = this.props.gameState.turnNo;
+    const turnsToMove = moveBy =>
+      direction === "back" ? turnNumber - moveBy : turnNumber + moveBy;
+    return this.props.gameMode === "vsComp"
+      ? this.props.changeToRecordedTurn(turnsToMove(2))
+      : this.props.changeToRecordedTurn(turnsToMove(1));
+  };
+
     } else {
       return this.props.restartGameThenCompMove(gridSize, firstMove);
     }
   };
 
   generateSquares = iconInfo => {
-    const { gridSize, board } = this.props.gameState;
+    const { gridSize, gameBoard } = this.props.gameState;
     const indexArr = generateIndexArr(gridSize ** 2);
     return indexArr.map(index => (
       <GameSquare
         iconInfo={iconInfo}
         key={index}
         keyProp={index}
-        value={board[index]}
+        value={gameBoard[index]}
         onClick={() => this.handleClick(index)}
       />
     ));
@@ -93,12 +102,16 @@ class Game extends React.Component {
   };
 
   render() {
-    const { props, test, generateSquares, restartGame } = this;
+    const {
+      props,
+      test,
+      generateSquares,
+      restartGame,
+      changeToRecordedTurn
+    } = this;
     const {
       gameState,
       iconInfo,
-      undoTurn,
-      redoTurn,
       changeRoute
     } = props;
     const { firstMove, gridSize, turnNo, outcome, gameMode } = gameState;
