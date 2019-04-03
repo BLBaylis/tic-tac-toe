@@ -4,10 +4,8 @@ import {
   CHANGE_GAME_MODE,
   TOGGLE_ICON_SELECT_FLIPPED,
   UPDATE_ICON_INFO,
-  CHANGE_ROUTE
-  CHANGE_TO_RECORDED_TURN,
-  TOGGLE_ICON_SELECT_FLIPPED,
-  UPDATE_ICON_INFO
+  CHANGE_ROUTE,
+  CHANGE_TO_RECORDED_TURN
 } from "./constants.js";
 import simulateMove from "./gameFunctions/simulateMove/simulateMove";
 
@@ -31,7 +29,7 @@ const initialGameState = {
 
 const initialUIState = {
   iconSelectFlipped: false,
-  route: "settings"
+  route: "gameModeSelect"
 };
 
 const initialIconState = {
@@ -88,7 +86,7 @@ export const interfaceReducer = (state = initialUIState, action = {}) => {
     case TOGGLE_ICON_SELECT_FLIPPED:
       return { ...state, iconSelectFlipped: !state.iconSelectFlipped };
     case CHANGE_ROUTE:
-      return { ...state, route: action.payload};
+      return { ...state, route: action.payload };
     default:
       return state;
   }

@@ -25,7 +25,8 @@ export const getGameResult = (gameBoard, gridSize, turnNo) => {
   );
   const winningLines = noEmptySquareLines.filter(
     line =>
-      countOccurancesOfSquareValueInArr(line, gameBoard[line[0]], gameBoard) === line.length
+      countOccurancesOfSquareValueInArr(line, gameBoard[line[0]], gameBoard) ===
+      line.length
   );
   if (winningLines.length) {
     return gameBoard[winningLines[0][0]];

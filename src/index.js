@@ -12,7 +12,7 @@ import {
 } from "./reducers";
 import "./index.scss";
 import { createMuiTheme, MuiThemeProvider } from "@material-ui/core/styles";
-import TictactoeApp from "./containers/TictactoeApp/TictactoeApp";
+import TictactoeApp from "./TictactoeApp/TictactoeApp";
 
 const theme = createMuiTheme({
   palette: {

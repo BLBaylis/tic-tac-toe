@@ -51,15 +51,21 @@ test("simulateMove", () => {
 
 describe("checkMoveIsValid", () => {
   test("checkMoveIsValid returns false when square is already taken", () => {
-    expect(checkMoveIsValid(0, { gameBoard: ["user"], outcome: null })).toBe(false);
+    expect(checkMoveIsValid(0, { gameBoard: ["user"], outcome: null })).toBe(
+      false
+    );
   });
 
   test("checkMoveIsValid returns false when game has ended", () => {
-    expect(checkMoveIsValid(0, { gameBoard: [null], outcome: "user" })).toBe(false);
+    expect(checkMoveIsValid(0, { gameBoard: [null], outcome: "user" })).toBe(
+      false
+    );
   });
 
   test("checkMoveIsValid returns true when valid move", () => {
-    expect(checkMoveIsValid(0, { gameBoard: [null], outcome: null })).toBe(true);
+    expect(checkMoveIsValid(0, { gameBoard: [null], outcome: null })).toBe(
+      true
+    );
   });
 });
 
@@ -69,7 +75,9 @@ test("trimGameLog returns array with (turnNo + 1) objects", () => {
 });
 
 test("updategameBoard", () => {
-  expect(updateGameBoard(0, { gameBoard: [null], userTurn: true })).toEqual(["user"]);
+  expect(updateGameBoard(0, { gameBoard: [null], userTurn: true })).toEqual([
+    "user"
+  ]);
 });
 
 test("getNonGameLogState", () => {

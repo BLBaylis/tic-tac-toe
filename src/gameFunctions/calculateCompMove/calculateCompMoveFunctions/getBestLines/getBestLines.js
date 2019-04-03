@@ -9,17 +9,18 @@ const getBestLines = (player, gameBoard) => {
   );
   const bestLineLength = getBestLineLength(winnableLines, player, gameBoard);
   return winnableLines.filter(
-    line => countOccurancesOfSquareValueInArr(line, player, gameBoard) === bestLineLength
+    line =>
+      countOccurancesOfSquareValueInArr(line, player, gameBoard) ===
+      bestLineLength
   );
-}
+};
 
 export const getWinnableLines = (lines, player, gameBoard) => {
-  return lines.filter(
-    line =>
-      line.every(
-        squareIndex =>
-          gameBoard[squareIndex] === null || gameBoard[squareIndex] === player
-      )
+  return lines.filter(line =>
+    line.every(
+      squareIndex =>
+        gameBoard[squareIndex] === null || gameBoard[squareIndex] === player
+    )
   );
 };
 
@@ -30,4 +31,4 @@ export const getBestLineLength = (lines, player, gameBoard) => {
   return Math.max(...lineLengths);
 };
 
-export default getBestLines
+export default getBestLines;

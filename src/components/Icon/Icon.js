@@ -1,81 +1,28 @@
 import React from "react";
-import ButtonSvg from "./svgComponents/ButtonSvg";
-import CandyCaneSvg from "./svgComponents/CandyCaneSvg";
-import CircleSvg from "./svgComponents/CircleSvg";
-import CrossSvg from "./svgComponents/CrossSvg";
-import PencilsSvg from "./svgComponents/PencilsSvg";
-import SmileySvg from "./svgComponents/SmileySvg";
-import SwordsSvg from "./svgComponents/SwordsSvg";
-import WheelSvg from "./svgComponents/WheelSvg";
+import Button from "./SvgIcons/Button";
+import CandyCane from "./SvgIcons/CandyCane";
+import Circle from "./SvgIcons/Circle";
+import Cross from "./SvgIcons/Cross";
+import Pencils from "./SvgIcons/Pencils";
+import Smiley from "./SvgIcons/Smiley";
+import Swords from "./SvgIcons/Swords";
+import Wheel from "./SvgIcons/Wheel";
 import { hex } from "color-convert";
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from "@material-ui/core/styles";
 
-const styles = ({
-  svg: {
-    display: "block",
-    maxHeight: "100%",
-    width: "100%",
-    maxWidth: "100%",
-  }
-})
-
-const Icon = ({ icon, colour, bgColour, className, classes }) => {
-  const combinedClasses = `${classes.svg} ${className}`;
-  const bgColourChecked = bgColour || bgColourCalculator(colour);
+const Icon = ({ icon, colour, bgColour = bgColourCalculator(colour) }) => {
   return (
     <React.Fragment>
-      {icon === "button" && (
-        <ButtonSvg
-          classes={combinedClasses}
-          colour={colour}
-          bgColour={bgColourChecked}
-        />
-      )}
+      {icon === "button" && <Button colour={colour} bgColour={bgColour} />}
       {icon === "candyCane" && (
-        <CandyCaneSvg classes={combinedClasses} colour={colour} bgColour={"#fff"} />
+        <CandyCane colour={colour} bgColour={bgColour} />
       )}
-      {icon === "circle" && (
-        <CircleSvg
-          classes={combinedClasses}
-          colour={colour}
-          bgColour={bgColourChecked}
-        />
-      )}
-      {icon === "cross" && (
-        <CrossSvg
-          classes={combinedClasses}
-          colour={colour}
-          bgColour={bgColourChecked}
-        />
-      )}
-      {icon === "pencils" && (
-        <PencilsSvg
-          classes={combinedClasses}
-          colour={colour}
-          bgColour={bgColourChecked}
-        />
-      )}
-      {icon === "smiley" && (
-        <SmileySvg
-          classes={combinedClasses}
-          colour={colour}
-          bgColour={bgColourChecked}
-        />
-      )}
-      {icon === "swords" && (
-        <SwordsSvg
-          classes={combinedClasses}
-          colour={colour}
-          bgColour={bgColourChecked}
-        />
-      )}
-      {icon === "wheel" && (
-        <WheelSvg
-          classes={combinedClasses}
-          colour={colour}
-          bgColour={bgColourChecked}
-        />
-      )}
+      {icon === "circle" && <Circle colour={colour} bgColour={bgColour} />}
+      {icon === "cross" && <Cross colour={colour} bgColour={bgColour} />}
+      {icon === "pencils" && <Pencils colour={colour} bgColour={bgColour} />}
+      {icon === "smiley" && <Smiley colour={colour} bgColour={bgColour} />}
+      {icon === "swords" && <Swords colour={colour} bgColour={bgColour} />}
+      {icon === "wheel" && <Wheel colour={colour} bgColour={bgColour} />}
     </React.Fragment>
   );
 };
@@ -92,4 +39,4 @@ const bgColourCalculator = colour => {
   }
 };
 
-export default withStyles(styles)(Icon);
+export default Icon;

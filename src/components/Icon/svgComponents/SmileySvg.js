@@ -1,6 +1,6 @@
 import React from "react";
 
-const SmileySvg = ({ classes,  colour, bgColour }) => (
+const SmileySvg = ({ classes, colour, bgColour }) => (
   <svg
     className={classes}
     viewBox="0 0 312 312"

@@ -1,6 +1,6 @@
 import React from "react";
 
-const CrossSvg = ({classes,  colour, bgColour }) => (
+const CrossSvg = ({ classes, colour, bgColour }) => (
   <svg
     className={classes}
     viewBox="0 0 312 312"

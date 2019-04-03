@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import {
   makeMove,
@@ -6,15 +6,15 @@ import {
   restartGame,
   restartGameThenCompMove,
   changeToRecordedTurn
-} from "../../actions";
+} from "../../../actions";
 
 import Grid from "./Grid/Grid";
 import Controls from "./Controls/Controls";
-import GameSquare from "../../components/GameSquare/GameSquare";
+import GameSquare from "./GameSquare/GameSquare";
 
-import simulateGame from "../../gameFunctions/testing/simulateGame";
-import recordGameResults from "../../gameFunctions/testing/recordGameResults";
-import { generateIndexArr } from "../../gameFunctions/helperFunctions/helperFunctions";
+import simulateGame from "../../../gameFunctions/testing/simulateGame";
+import recordGameResults from "../../../gameFunctions/testing/recordGameResults";
+import { generateIndexArr } from "../../../gameFunctions/helperFunctions/helperFunctions";
 
 const mapStateToProps = state => {
   return { gameState: state.gameStateReducer };
@@ -32,10 +32,10 @@ const mapDispatchToProps = dispatch => ({
     dispatch(changeToRecordedTurn(turnsToMove))
 });
 
-class Game extends React.Component {
+class Game extends Component {
   handleClick = squareNumber => {
-    const { board, gameMode } = this.props.gameState;
-    if (board[squareNumber] !== null) {
+    const { gameBoard, gameMode } = this.props.gameState;
+    if (gameBoard[squareNumber] !== null) {
       return;
     }
     if (gameMode === "vsComp") {
@@ -43,25 +43,23 @@ class Game extends React.Component {
     } else {
       return this.props.makeUserMove(squareNumber);
     }
-  }
-
-  restartGame = (gridSize, firstMove, gameMode) => {
-    console.log(gameMode);
-    if (firstMove === "user" || gameMode === "pvp") {
-      return this.props.restartGame(gridSize, firstMove, gameMode);
-
-  changeToRecordedTurn = direction => {
-    const turnNumber = this.props.gameState.turnNo;
-    const turnsToMove = moveBy =>
-      direction === "back" ? turnNumber - moveBy : turnNumber + moveBy;
-    return this.props.gameMode === "vsComp"
-      ? this.props.changeToRecordedTurn(turnsToMove(2))
-      : this.props.changeToRecordedTurn(turnsToMove(1));
   };
 
+  restartGame = (gridSize, firstMove, gameMode) => {
+    if (firstMove === "user" || gameMode === "pvp") {
+      return this.props.restartGame(gridSize, firstMove, gameMode);
     } else {
       return this.props.restartGameThenCompMove(gridSize, firstMove);
     }
+  };
+
+  changeToRecordedTurn = direction => {
+    const { turnNo: turnNumber, gameMode } = this.props.gameState;
+    const turnsToMove = moveBy =>
+      direction === "back" ? turnNumber - moveBy : turnNumber + moveBy;
+    return gameMode === "vsComp"
+      ? this.props.changeToRecordedTurn(turnsToMove(2))
+      : this.props.changeToRecordedTurn(turnsToMove(1));
   };
 
   generateSquares = iconInfo => {
@@ -109,16 +107,12 @@ class Game extends React.Component {
       restartGame,
       changeToRecordedTurn
     } = this;
-    const {
-      gameState,
-      iconInfo,
-      changeRoute
-    } = props;
+    const { gameState, iconInfo, changeRoute } = props;
     const { firstMove, gridSize, turnNo, outcome, gameMode } = gameState;
     const clickHandlersObj = {
       restartGame: () => restartGame(gridSize, firstMove, gameMode),
-      undoTurn: () => undoTurn(turnNo),
-      redoTurn: () => redoTurn(turnNo),
+      undoTurn: () => changeToRecordedTurn("back"),
+      redoTurn: () => changeToRecordedTurn("forward"),
       changeRoute,
       test
     };

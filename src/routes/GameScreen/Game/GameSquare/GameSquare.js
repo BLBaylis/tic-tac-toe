@@ -1,19 +1,36 @@
 import React from "react";
 import styles from "./GameSquare.module.scss";
-import Icon from "../Icon/Icon";
+import Icon from "../../../../components/Icon/Icon";
 import ReactCSSTransitionGroup from "react-addons-css-transition-group";
+import { Button } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
-const GameSquare = ({ value, onClick, iconInfo, keyProp }) => {
+const JSstyles = {
+  root: {
+    backgroundColor : "#fff",
+    borderRadius: 0,
+    padding: 0,
+    minHeight: "40px",
+    maxHeight: "100%",
+    minWidth: "40px",
+    maxWidth: "100%",
+  }
+}
+
+const GameSquare = ({ classes, value, onClick, iconInfo, keyProp }) => {
   const { userIcon, userIconColour, compIcon, compIconColour } = iconInfo;
   return (
-    <button
+    <Button
+      disableRipple
+      focusRipple
+      variant = "contained"
       aria-label="grid square"
-      className={styles.gameSquare}
+      className={`${classes.root} ${styles.gameSquare}`}
       onClick={onClick}
     >
       <ReactCSSTransitionGroup
         transitionName="fade"
-        transitionEnterTimeout={500}
+        transitionEnterTimeout={1000}
         transitionLeaveTimeout={150}
       >
         {value === "user" && (
@@ -23,8 +40,8 @@ const GameSquare = ({ value, onClick, iconInfo, keyProp }) => {
           <Icon key={keyProp} icon={compIcon} colour={compIconColour} />
         )}
       </ReactCSSTransitionGroup>
-    </button>
+    </Button>
   );
 };
 
-export default GameSquare;
+export default withStyles(JSstyles)(GameSquare);

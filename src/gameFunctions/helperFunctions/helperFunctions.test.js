@@ -3,7 +3,11 @@ import * as helpers from "./helperFunctions";
 describe("helperFunctions", () => {
   test("countOccurancesOfSquareValueInArr", () => {
     expect(
-      helpers.countOccurancesOfSquareValueInArr([0, 1, 1], "user", ["user", "user", "user"])
+      helpers.countOccurancesOfSquareValueInArr([0, 1, 1], "user", [
+        "user",
+        "user",
+        "user"
+      ])
     ).toBe(3);
   });
 
@@ -25,7 +29,8 @@ describe("helperFunctions", () => {
 describe("chooseRandomElementFromArr", () => {
   test("chooseRandomElementFromArr returns a number", () => {
     expect(
-      typeof helpers.chooseRandomElementFromArr([0, 1, 2, 3, 4, 5, 6, 7, 8]) === "number"
+      typeof helpers.chooseRandomElementFromArr([0, 1, 2, 3, 4, 5, 6, 7, 8]) ===
+        "number"
     ).toBe(true);
   });
 
@@ -57,7 +62,8 @@ test("countOccurancesOfElementInArr", () => {
   expect(result).toBe(4);
 });
 
-test('findAllEmptySquareIndicesOnGameBoard', () => {
-  expect(helpers.findAllEmptySquareIndicesOnGameBoard(["user", null, "comp", null]))
-  .toEqual([1, 3]);
-})
+test("findAllEmptySquareIndicesOnGameBoard", () => {
+  expect(
+    helpers.findAllEmptySquareIndicesOnGameBoard(["user", null, "comp", null])
+  ).toEqual([1, 3]);
+});

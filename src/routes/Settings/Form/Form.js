@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { restartGame, restartGameThenCompMove, changeRoute } from '../../../actions';
+import {
+  restartGame,
+  restartGameThenCompMove,
+  changeRoute
+} from "../../../actions";
 
 import { withStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
@@ -24,19 +28,18 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
   const { gridSize, firstMove, gameMode } = state.gameStateReducer;
-  return { gridSize, firstMove, gameMode }
-}
+  return { gridSize, firstMove, gameMode };
+};
 
 const mapDispatchToProps = dispatch => ({
-  changeRoute: (route) => dispatch(changeRoute(route)),
+  changeRoute: route => dispatch(changeRoute(route)),
   restartGame: (gridSize, firstMove, gameMode) =>
     dispatch(restartGame(gridSize, firstMove, gameMode)),
   restartGameThenCompMove: (gridSize, firstMove) =>
     dispatch(restartGameThenCompMove(gridSize, firstMove))
-})
+});
 
 class Form extends Component {
-
   state = {
     gridSize: null,
     firstMove: null,
@@ -67,7 +70,7 @@ class Form extends Component {
 
   getData = dataType => {
     return this.state[dataType] || String(this.props[dataType]);
-  }
+  };
 
   render() {
     const { classes, className } = this.props;
@@ -113,4 +116,9 @@ class Form extends Component {
   }
 }
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(Form));
+export default withStyles(styles)(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Form)
+);

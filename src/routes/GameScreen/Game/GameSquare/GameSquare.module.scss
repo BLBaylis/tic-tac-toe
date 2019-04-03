@@ -1,17 +1,9 @@
 .gameSquare {
-  display: block;
   min-height: 40px;
   max-height: 100%;
   min-width: 40px;
   width: 100%;
   max-width: 100%;
-  border: none;
-  background-color: #fff;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(0, 0, 0, 0.08);
-  cursor: pointer;
-  overflow: hidden;
-  padding: 0;
-  position: relative;
 }
 
 .gameSquare .reactCSSTransitionGroup:not(:empty) {
@@ -27,7 +19,7 @@
   height: 100%;
 }
 
-.gameSquare:empty:hover::after,
+/*.gameSquare:empty:hover::after,
 .gameSquare:empty:focus::after {
   background-color: #bad4aa;
-}
+}*/

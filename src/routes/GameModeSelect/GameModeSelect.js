@@ -57,10 +57,9 @@ const styles = theme => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  changeRoute: (route) => dispatch(changeRoute(route)),
-  changeGameMode: (gameMode) => dispatch(changeGameMode(gameMode))
-})
-
+  changeRoute: route => dispatch(changeRoute(route)),
+  changeGameMode: gameMode => dispatch(changeGameMode(gameMode))
+});
 
 class GameModeSelect extends Component {
   state = {
@@ -73,10 +72,10 @@ class GameModeSelect extends Component {
     this.setState({ [hoverType]: status });
   };
 
-  handleClick = (gameMode) => {
+  handleClick = gameMode => {
     this.props.changeGameMode(gameMode);
-    this.props.changeRoute("iconSelect")
-  }
+    this.props.changeRoute("iconSelect");
+  };
 
   render() {
     const { vscompHovered, pvpHovered } = this.state;
@@ -140,4 +139,9 @@ class GameModeSelect extends Component {
   }
 }
 
-export default withStyles(styles)(connect(null, mapDispatchToProps)(GameModeSelect));
+export default withStyles(styles)(
+  connect(
+    null,
+    mapDispatchToProps
+  )(GameModeSelect)
+);

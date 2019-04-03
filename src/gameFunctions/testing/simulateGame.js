@@ -45,7 +45,10 @@ const simulateGame = (firstMove, gridSize) => {
 
 const simulateRandomMove = prevState => {
   const board = prevState.board;
-  const chosenMove = chooseRandomElementFromArr(generateIndexArr(board.length), board);
+  const chosenMove = chooseRandomElementFromArr(
+    generateIndexArr(board.length),
+    board
+  );
   return simulateMove(chosenMove, prevState);
 };
 

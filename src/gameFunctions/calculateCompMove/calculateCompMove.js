@@ -1,5 +1,5 @@
 import determineWhichPlayerHasTempo from "./calculateCompMoveFunctions/determineWhichPlayerHasTempo/determineWhichPlayerHasTempo";
-import getBestLines from "./calculateCompMoveFunctions/getBestLines/getBestLines"
+import getBestLines from "./calculateCompMoveFunctions/getBestLines/getBestLines";
 import getBestMoves from "./calculateCompMoveFunctions/getBestMoves/getBestMoves";
 import {
   findAllEmptySquareIndicesOnGameBoard,
@@ -21,28 +21,44 @@ const calculateCompMove = (gridSize, turnNo, gameBoard) => {
   const bestUserLines = getBestLines("user", gameBoard);
   //The player that has tempo is the one who is closest to completing a line
   //without intervention from the other player.
-  const tempoPlayer = determineWhichPlayerHasTempo(bestCompLines, bestUserLines, gameBoard);
-  const tempoPlayerLines = tempoPlayer === "comp" ? bestCompLines : bestUserLines;
+  const tempoPlayer = determineWhichPlayerHasTempo(
+    bestCompLines,
+    bestUserLines,
+    gameBoard
+  );
+  const tempoPlayerLines =
+    tempoPlayer === "comp" ? bestCompLines : bestUserLines;
   if (!tempoPlayerLines.length) {
     //there are no winnable lines so pick a random space
     return findAllEmptySquareIndicesOnGameBoard(gameBoard);
   }
-  const nonTempoPlayerLines = tempoPlayer === "comp" ? bestUserLines : bestCompLines;
-  const bestMoves = getBestMoves(tempoPlayerLines, nonTempoPlayerLines, gameBoard);
+  const nonTempoPlayerLines =
+    tempoPlayer === "comp" ? bestUserLines : bestCompLines;
+  const bestMoves = getBestMoves(
+    tempoPlayerLines,
+    nonTempoPlayerLines,
+    gameBoard
+  );
   if (bestMoves.length) {
     return bestMoves;
   }
   return false;
 };
 
-export const checkForOppositeCornersEdgeCase = (gridSize, turnNo, gameBoard) => {
+export const checkForOppositeCornersEdgeCase = (
+  gridSize,
+  turnNo,
+  gameBoard
+) => {
   if (gridSize === 3 && turnNo === 3) {
-    if (countOccurancesOfSquareValueInArr([0, 8], "user", gameBoard) === 2 ||
-        countOccurancesOfSquareValueInArr([2, 6], "user", gameBoard) === 2) {
+    if (
+      countOccurancesOfSquareValueInArr([0, 8], "user", gameBoard) === 2 ||
+      countOccurancesOfSquareValueInArr([2, 6], "user", gameBoard) === 2
+    ) {
       return true;
     }
   }
   return false;
-}
+};
 
 export default calculateCompMove;

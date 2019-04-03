@@ -10,7 +10,12 @@ const simulateMove = (squareNumber, prevState) => {
   const gameLog = trimGameLog(prevState);
   const gameBoard = updateGameBoard(squareNumber, prevState);
   const outcome = getGameResult(gameBoard, gridSize, turnNo + 1);
-  const nonGameLogState = getNonGameLogState(gameBoard, turnNo, userTurn, outcome);
+  const nonGameLogState = getNonGameLogState(
+    gameBoard,
+    turnNo,
+    userTurn,
+    outcome
+  );
   return {
     ...prevState,
     gameLog: gameLog.concat(nonGameLogState),
@@ -30,9 +35,11 @@ export const trimGameLog = prevState => {
 
 export const updateGameBoard = (squareNumber, prevState) => {
   const { gameBoard, userTurn } = prevState;
-  const updatedGameBoard = gameBoard.slice();
-  updatedGameBoard[squareNumber] = userTurn ? "user" : "comp";
-  return updatedGameBoard;
+  return [
+    ...gameBoard.slice(0, squareNumber),
+    userTurn ? "user" : "comp",
+    ...gameBoard.slice(squareNumber + 1)
+  ];
 };
 
 export const getNonGameLogState = (gameBoard, turnNo, userTurn, outcome) => {

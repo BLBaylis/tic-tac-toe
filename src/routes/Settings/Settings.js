@@ -43,7 +43,7 @@ const Settings = ({ classes, changeRoute }) => {
           </Card>
         </Grid>
       )}
-      {!query700px && <Form className={classes.formMobile}/>}
+      {!query700px && <Form className={classes.formMobile} />}
     </div>
   );
 };

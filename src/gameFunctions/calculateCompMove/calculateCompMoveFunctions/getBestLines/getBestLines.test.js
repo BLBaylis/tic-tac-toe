@@ -1,7 +1,7 @@
 import getBestLines, {
   getWinnableLines,
   getBestLineLength
-} from './getBestLines';
+} from "./getBestLines";
 
 test("getWinnableLines", () => {
   expect(
@@ -30,11 +30,6 @@ test("getBestLineLength", () => {
 });
 
 test("getBestLines", () => {
-  const result = getBestLines("user", [
-    "user",
-    "user",
-    "user",
-    null
-  ]);
+  const result = getBestLines("user", ["user", "user", "user", null]);
   expect(result).toEqual([[0, 2], [0, 1], [1, 2]]);
 });

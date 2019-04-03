@@ -2,9 +2,14 @@ import React from "react";
 import styles from "./IconSelect.module.scss";
 import IconEditor from "./IconEditor/IconEditor";
 import IconShowcase from "./IconShowcase/IconShowcase";
-import arrow from "./arrow.svg";
+import IconSelectNav from "./IconSelectNav/IconSelectNav";
 
-const IconSelect = ({ player, iconInfo, iconSelectFlipped, iconSelectFuncs }) => {
+const IconSelect = ({
+  player,
+  iconInfo,
+  iconSelectFlipped,
+  iconSelectFuncs
+}) => {
   const { updateIconInfo } = iconSelectFuncs;
   const otherPlayer = player === "user" ? "comp" : "user";
   return (
@@ -37,33 +42,9 @@ const IconSelect = ({ player, iconInfo, iconSelectFlipped, iconSelectFuncs }) =>
         <IconSelectNav
           player={player}
           iconInfo={iconInfo}
-          iconSelectFuncs = {iconSelectFuncs}
+          iconSelectFuncs={iconSelectFuncs}
         />
       </div>
-    </div>
-  );
-};
-
-const IconSelectNav = ({ player, iconInfo, iconSelectFuncs }) => {
-  const { changeRoute, toggleIconSelectFlipped } = iconSelectFuncs;
-  const compOnClick = () => {
-    changeRoute();
-    toggleIconSelectFlipped();
-  };
-  return (
-    <div className={styles.buttonRow}>
-      {player === "comp" && (
-        <button onClick={changeRoute} className={styles.backButton}>
-          <img className={styles.arrow} src={arrow} alt="back arrow" />
-        </button>
-      )}
-      <button
-        disabled={player === "comp" && !iconInfo.compIcon}
-        className={styles[`${player}ConfirmButton`]}
-        onClick={player === "user" ? toggleIconSelectFlipped : compOnClick}
-      >
-        {`CONFIRM ${player.toUpperCase()} ICON`}
-      </button>
     </div>
   );
 };

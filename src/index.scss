@@ -45,7 +45,7 @@ h2 {
 
 .fade-enter-active {
   opacity: 1;
-  transition: opacity 500ms linear;
+  transition: opacity 500ms linear !important;
 }
 
 .fade-leave {
@@ -54,7 +54,7 @@ h2 {
 
 .fade-leave-active {
   opacity: 0.01;
-  transition: opacity 200ms linear;
+  transition: opacity 200ms linear !important;
 }
 
 @media (orientation: landscape) {

@@ -1,0 +1,23 @@
+- redo css
+  - update buttons
+    - iconSelect
+    - defeat flash in gameSquare
+- do sideways gameModeselect and non touch mode
+
+- add unit tests to actions and reducers
+
+-fix viewport
+
+BUG FIX AND ADD TEST
+
+USER START
+[0, 4, 6, 3, 5, 7, 1, 8, 2]
+[0, 4, 6, 3, 5, 1, 7, 2, 8] sometimes it makes right move, sometimes it makes wrong one allowing win
+
+- large scale testing
+
+- add snapshot testing etc
+
+
+
+

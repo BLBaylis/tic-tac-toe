@@ -1,7 +1,7 @@
 export const findAllEmptySquareIndicesOnGameBoard = gameBoard => {
   const gameBoardIndices = generateIndexArr(gameBoard.length);
   return findAllIndicesWithSquareValue(gameBoardIndices, null, gameBoard);
-}
+};
 
 export const generateIndexArr = length =>
   Array(length)
@@ -14,8 +14,11 @@ export const findAllIndicesWithSquareValue = (line, squareValue, gameBoard) => {
 };
 
 //countOccurancesOfSquareValueInArr([0, 1, 2], "user", [null, null, "user"]) returns 1
-export const countOccurancesOfSquareValueInArr = (line, squareValue, gameBoard) =>
-  findAllIndicesWithSquareValue(line, squareValue, gameBoard).length;
+export const countOccurancesOfSquareValueInArr = (
+  line,
+  squareValue,
+  gameBoard
+) => findAllIndicesWithSquareValue(line, squareValue, gameBoard).length;
 
 export const flattenArr = arr =>
   arr.reduce((total, curr) => total.concat(curr), []);
@@ -26,7 +29,7 @@ export const removeDupes = arr =>
 export const countOccurancesOfElementInArr = (element, arr) =>
   arr.filter(curr => curr === element).length;
 
-export const chooseRandomElementFromArr = (arr) => {
+export const chooseRandomElementFromArr = arr => {
   if (!arr.length) {
     return false;
   }

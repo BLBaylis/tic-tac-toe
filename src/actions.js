@@ -9,7 +9,7 @@ import {
   CHANGE_GAME_MODE
 } from "./constants.js";
 import calculateCompMove from "./gameFunctions/calculateCompMove/calculateCompMove";
-import { chooseRandomElementFromArr } from './gameFunctions/helperFunctions/helperFunctions'
+import { chooseRandomElementFromArr } from "./gameFunctions/helperFunctions/helperFunctions";
 
 export const makeMove = squareNumber => ({
   type: MAKE_MOVE,
@@ -24,17 +24,23 @@ export const makeUserMoveThenCompMove = squareNumber => (
   const { gameBoard, gridSize, turnNo, outcome } = getState().gameStateReducer;
   if (!outcome) {
     const compMoveChoices = calculateCompMove(gridSize, turnNo, gameBoard);
-    const compMove = typeof compMoveChoices === "number" ? compMoveChoices :
-    chooseRandomElementFromArr(compMoveChoices);
+    const compMove =
+      typeof compMoveChoices === "number"
+        ? compMoveChoices
+        : chooseRandomElementFromArr(compMoveChoices);
     dispatch(makeMove(compMove));
   }
 };
 
 export const restartGame = (gridSize, firstMove, gameMode) => {
-  if (!gameMode) {throw new Error()};
-  return {type: RESTART_GAME,
-  payload: { gridSize: Number(gridSize), firstMove, gameMode }
-}};
+  if (!gameMode) {
+    throw new Error();
+  }
+  return {
+    type: RESTART_GAME,
+    payload: { gridSize: Number(gridSize), firstMove, gameMode }
+  };
+};
 
 export const restartGameThenCompMove = (gridSize, firstMove) => (
   dispatch,
@@ -51,7 +57,7 @@ export const changeToRecordedTurn = turnsToMove => ({
   payload: turnsToMove
 });
 
-export const changeGameMode = (gameMode) => ({
+export const changeGameMode = gameMode => ({
   type: CHANGE_GAME_MODE,
   payload: gameMode
 });
@@ -65,7 +71,7 @@ export const updateIconInfo = (player, iconChanges) => ({
   payload: { player, iconChanges }
 });
 
-export const changeRoute = (newRoute) => ({
+export const changeRoute = newRoute => ({
   type: CHANGE_ROUTE,
   payload: newRoute
-})
+});

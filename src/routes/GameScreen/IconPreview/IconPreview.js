@@ -1,28 +1,29 @@
 import React from "react";
-import styles from "./IconPreview.module.scss";
-import Icon from "../../../components/Icon/Icon";
+import { Button } from "@material-ui/core";
+import IconButton from "../../../components/IconButton/IconButton";
 
-const IconPreview = ({
-  iconInfo,
-  toggleIconSelectOpen,
-  toggleIconSelectFlipped
-}) => {
-  const { userIcon, userColour, compIcon, compIconColour } = iconInfo;
+import styles from "./IconPreview.module.scss";
+
+const IconPreview = ({ iconInfo, changeRoute, toggleIconSelectFlipped }) => {
+  const { userIcon, userIconColour, compIcon, compIconColour } = iconInfo;
   return (
     <div className={styles.iconPreviewWrapper}>
-      <button onClick={toggleIconSelectOpen} className={styles.icon}>
-        <Icon icon={userIcon} colour={userColour} />
-      </button>
+      <IconButton
+        onClick={changeRoute}
+        className={styles.icon}
+        icon={userIcon}
+        colour={userIconColour}
+      />
       <span className={styles.highlight}>VS</span>
-      <button
+      <IconButton
         onClick={() => {
-          toggleIconSelectOpen();
+          changeRoute();
           toggleIconSelectFlipped();
         }}
         className={styles.icon}
-      >
-        <Icon icon={compIcon} colour={compIconColour} />
-      </button>
+        icon={compIcon}
+        colour={compIconColour}
+      />
     </div>
   );
 };
