@@ -1,5 +1,35 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
+import { unstable_useMediaQuery as useMediaQuery } from "@material-ui/core/useMediaQuery";
+
+const CoverTransition = ({ classes, colour, hovered, vertDirection }) => {
+  const noHover = useMediaQuery("(hover: none)");
+  const isLandscape = useMediaQuery("(orientation:landscape)");
+  const horiDirection = vertDirection === "top" ? "left" : "right";
+  const direction = isLandscape ? horiDirection : vertDirection;
+  return (
+    <div className={classes.root}>
+      <div className={classes.wrapper}>
+        <div
+          className={`${classes.cover} ${classes[direction]} ${
+            classes[colour]
+          }`}
+          style={hovered || noHover ? { [direction]: 0 } : null}
+        />
+      </div>
+    </div>
+  );
+};
+
+const createDirectionStyles = direction => ({
+  [direction]: "100%",
+  transition: `${direction} linear 100ms`
+});
+
+const getAllDirectionStyles = ["top", "left", "right", "bottom"].map(
+  createDirectionStyles
+);
+const [top, left, right, bottom] = getAllDirectionStyles;
 
 const styles = theme => ({
   root: {
@@ -19,26 +49,18 @@ const styles = theme => ({
     pointerEvents: "none",
     position: "absolute",
     height: "100%",
-    width: "100%",
+    width: "100%"
+  },
+  primary: {
     backgroundColor: theme.palette.primary.main
-  }
+  },
+  secondary: {
+    backgroundColor: theme.palette.secondary.main
+  },
+  top,
+  left,
+  right,
+  bottom
 });
-
-const CoverTransition = ({ classes, hovered, direction }) => {
-  const directionValue = hovered ? 0 : "100%";
-  return (
-    <div className={classes.root}>
-      <div className={classes.wrapper}>
-        <div
-          className={classes.cover}
-          style={{
-            [direction]: directionValue,
-            transition: `${direction} linear 100ms`
-          }}
-        />
-      </div>
-    </div>
-  );
-};
 
 export default withStyles(styles)(CoverTransition);

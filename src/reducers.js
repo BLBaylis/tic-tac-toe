@@ -4,7 +4,6 @@ import {
   CHANGE_GAME_MODE,
   TOGGLE_ICON_SELECT_FLIPPED,
   UPDATE_ICON_INFO,
-  CHANGE_ROUTE,
   CHANGE_TO_RECORDED_TURN
 } from "./constants.js";
 import simulateMove from "./gameFunctions/simulateMove/simulateMove";
@@ -25,11 +24,6 @@ const initialGameState = {
   gridSize: 3,
   firstMove: "user",
   gameMode: "vsComp"
-};
-
-const initialUIState = {
-  iconSelectFlipped: false,
-  route: "gameModeSelect"
 };
 
 const initialIconState = {
@@ -66,29 +60,26 @@ export const gameStateReducer = (state = initialGameState, action = {}) => {
     case CHANGE_GAME_MODE:
       return { ...state, gameMode: action.payload };
     case CHANGE_TO_RECORDED_TURN:
-      if (action.payload < 0 || !state.gameLog[action.payload]) {
-        return state;
+      const { turnsToMove, direction } = action.payload;
+      let newState = changeTurn(turnsToMove, direction, state);
+      if (newState) {
+        return newState;
       }
-      const recordedTurnState = state.gameLog[action.payload];
-      return {
-        ...state,
-        ...recordedTurnState,
-        gameBoard: recordedTurnState.gameBoard.slice(),
-        gameLog: [...state.gameLog]
-      };
+      newState = changeTurn(1, direction, state);
+      return newState ? newState : state;
     default:
       return state;
   }
 };
 
-export const interfaceReducer = (state = initialUIState, action = {}) => {
-  switch (action.type) {
-    case TOGGLE_ICON_SELECT_FLIPPED:
-      return { ...state, iconSelectFlipped: !state.iconSelectFlipped };
-    case CHANGE_ROUTE:
-      return { ...state, route: action.payload };
-    default:
-      return state;
+export const iconSelectFlippedToggleReducer = (
+  state = { iconSelectFlipped: false },
+  action = {}
+) => {
+  if (action.type === TOGGLE_ICON_SELECT_FLIPPED) {
+    return { ...state, iconSelectFlipped: !state.iconSelectFlipped };
+  } else {
+    return state;
   }
 };
 
@@ -103,6 +94,24 @@ export const iconInfoReducer = (state = initialIconState, action = {}) => {
   } else {
     return state;
   }
+};
+
+const changeTurn = (turnsToMove, direction, prevState) => {
+  const { gameMode, gameLog, turnNo, firstMove } = prevState;
+  const newTurnNumber =
+    direction === "back" ? turnNo - turnsToMove : turnNo + turnsToMove;
+  const stateChanges = gameLog[newTurnNumber];
+  if (!stateChanges) return false;
+  if (!stateChanges.userTurn && turnsToMove === 2) return false;
+  if (!stateChanges.turnNo && firstMove === "comp" && gameMode !== "pvp") {
+    return false;
+  }
+  return {
+    ...prevState,
+    ...stateChanges,
+    gameBoard: stateChanges.gameBoard.slice(),
+    gameLog: [...prevState.gameLog]
+  };
 };
 
 const processKeyPairs = (player, iconChanges) => {

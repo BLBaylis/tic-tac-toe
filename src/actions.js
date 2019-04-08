@@ -3,7 +3,6 @@ import {
   RESTART_GAME,
   CHANGE_ROUTE,
   CHANGE_TO_RECORDED_TURN,
-  TOGGLE_ICON_SELECT_OPEN,
   TOGGLE_ICON_SELECT_FLIPPED,
   UPDATE_ICON_INFO,
   CHANGE_GAME_MODE
@@ -33,9 +32,6 @@ export const makeUserMoveThenCompMove = squareNumber => (
 };
 
 export const restartGame = (gridSize, firstMove, gameMode) => {
-  if (!gameMode) {
-    throw new Error();
-  }
   return {
     type: RESTART_GAME,
     payload: { gridSize: Number(gridSize), firstMove, gameMode }
@@ -47,14 +43,14 @@ export const restartGameThenCompMove = (gridSize, firstMove) => (
   getState
 ) => {
   dispatch(restartGame(gridSize, firstMove, "vsComp"));
-  const { board, turnNo } = getState().gameStateReducer;
-  const compMove = calculateCompMove(board, gridSize, turnNo);
+  const { gameBoard, turnNo } = getState().gameStateReducer;
+  const compMove = calculateCompMove(gridSize, turnNo, gameBoard);
   dispatch(makeMove(compMove));
 };
 
-export const changeToRecordedTurn = turnsToMove => ({
+export const changeToRecordedTurn = (direction, turnsToMove) => ({
   type: CHANGE_TO_RECORDED_TURN,
-  payload: turnsToMove
+  payload: { direction, turnsToMove }
 });
 
 export const changeGameMode = gameMode => ({

@@ -10,10 +10,15 @@ const styles = {
   }
 };
 
-const SvgIcon = ({ bgColour, children, classes }) => (
-  <MuiSvgIcon style={{ backgroundColor: bgColour }} className={classes.root}>
-    {children}
-  </MuiSvgIcon>
-);
+const SvgIcon = ({ colour, bgColour, children, classes, className }) => {
+  return (
+    <MuiSvgIcon
+      style={{ backgroundColor: bgColour }}
+      className={`${classes.root} ${className}`}
+    >
+      {children}
+    </MuiSvgIcon>
+  );
+};
 
 export default withStyles(styles)(SvgIcon);

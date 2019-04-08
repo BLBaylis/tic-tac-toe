@@ -6,18 +6,24 @@ import {
   restartGame,
   restartGameThenCompMove,
   changeToRecordedTurn
-} from "../../../actions";
+} from "../../actions";
 
+import IconPreview from "./IconPreview/IconPreview";
 import Grid from "./Grid/Grid";
 import Controls from "./Controls/Controls";
 import GameSquare from "./GameSquare/GameSquare";
 
-import simulateGame from "../../../gameFunctions/testing/simulateGame";
-import recordGameResults from "../../../gameFunctions/testing/recordGameResults";
-import { generateIndexArr } from "../../../gameFunctions/helperFunctions/helperFunctions";
+import simulateGame from "../../gameFunctions/testing/simulateGame";
+import recordGameResults from "../../gameFunctions/testing/recordGameResults";
+import { generateIndexArr } from "../../gameFunctions/helperFunctions/helperFunctions";
+
+import styles from "./Game.module.scss";
 
 const mapStateToProps = state => {
-  return { gameState: state.gameStateReducer };
+  return {
+    gameState: state.gameStateReducer,
+    iconInfo: state.iconInfoReducer
+  };
 };
 
 const mapDispatchToProps = dispatch => ({
@@ -28,8 +34,8 @@ const mapDispatchToProps = dispatch => ({
     dispatch(restartGame(gridSize, firstMove, gameMode)),
   restartGameThenCompMove: (gridSize, firstMove) =>
     dispatch(restartGameThenCompMove(gridSize, firstMove)),
-  changeToRecordedTurn: turnsToMove =>
-    dispatch(changeToRecordedTurn(turnsToMove))
+  changeToRecordedTurn: (direction, turnsToMove) =>
+    dispatch(changeToRecordedTurn(direction, turnsToMove))
 });
 
 class Game extends Component {
@@ -39,6 +45,7 @@ class Game extends Component {
       return;
     }
     if (gameMode === "vsComp") {
+      //debugger;
       return this.props.makeUserMoveThenCompMove(squareNumber);
     } else {
       return this.props.makeUserMove(squareNumber);
@@ -51,15 +58,6 @@ class Game extends Component {
     } else {
       return this.props.restartGameThenCompMove(gridSize, firstMove);
     }
-  };
-
-  changeToRecordedTurn = direction => {
-    const { turnNo: turnNumber, gameMode } = this.props.gameState;
-    const turnsToMove = moveBy =>
-      direction === "back" ? turnNumber - moveBy : turnNumber + moveBy;
-    return gameMode === "vsComp"
-      ? this.props.changeToRecordedTurn(turnsToMove(2))
-      : this.props.changeToRecordedTurn(turnsToMove(1));
   };
 
   generateSquares = iconInfo => {
@@ -101,30 +99,36 @@ class Game extends Component {
 
   render() {
     const {
-      props,
-      test,
-      generateSquares,
-      restartGame,
-      changeToRecordedTurn
-    } = this;
-    const { gameState, iconInfo, changeRoute } = props;
-    const { firstMove, gridSize, turnNo, outcome, gameMode } = gameState;
-    const clickHandlersObj = {
-      restartGame: () => restartGame(gridSize, firstMove, gameMode),
-      undoTurn: () => changeToRecordedTurn("back"),
-      redoTurn: () => changeToRecordedTurn("forward"),
+      iconInfo,
+      toggleIconSelectFlipped,
       changeRoute,
-      test
+      changeToRecordedTurn
+    } = this.props;
+    const { firstMove, gridSize, outcome, gameMode } = this.props.gameState;
+    const clickHandlersObj = {
+      restartGame: () => this.restartGame(gridSize, firstMove, gameMode),
+      undoTurn: () => changeToRecordedTurn("back", gameMode === "pvp" ? 1 : 2),
+      redoTurn: () =>
+        changeToRecordedTurn("forward", gameMode === "pvp" ? 1 : 2),
+      changeRoute
     };
     return (
-      <React.Fragment>
-        <Grid
-          outcome={outcome}
-          gridSize={gridSize}
-          generateSquares={() => generateSquares(iconInfo)}
-        />
-        <Controls clickHandlersObj={clickHandlersObj} />
-      </React.Fragment>
+      <div className={styles.gameScreenWrapper}>
+        <div className={styles.gameScreen}>
+          <IconPreview
+            iconInfo={iconInfo}
+            changeRoute={() => changeRoute("iconSelect")}
+            toggleIconSelectFlipped={toggleIconSelectFlipped}
+          />
+          <Grid
+            outcome={outcome}
+            gridSize={gridSize}
+            gameMode={gameMode}
+            generateSquares={() => this.generateSquares(iconInfo)}
+          />
+          <Controls clickHandlersObj={clickHandlersObj} />
+        </div>
+      </div>
     );
   }
 }

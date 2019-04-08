@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./IconShowcase.module.scss";
-import Icon from "../../../../components/Icon/Icon";
+import IconButton from "../../../../components/IconButton/IconButton";
 
 const IconShowcase = ({
   oppositionIconType,
@@ -8,67 +8,75 @@ const IconShowcase = ({
   player,
   flipped
 }) => {
-  const userBackface = flipped && player === "user";
-  const compBackface = !flipped && player === "comp";
+  const isPlayer1 = player === "user";
+  const isPlayer2 = player === "comp";
+  const isUserBackface = flipped && isPlayer1;
+  const isCompBackface = !flipped && isPlayer2;
   return (
     <div className={styles.iconShowcase}>
       <IconShowcaseBtn
         updateIconInfo={updateIconInfo}
         icon="circle"
         iconType="nought"
-        disabled={oppositionIconType === "nought" && player === "comp"}
-        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+        colour="green"
+        disabled={oppositionIconType === "nought" && isPlayer2}
+        tabIndex={!isUserBackface && !isCompBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
         updateIconInfo={updateIconInfo}
         icon="smiley"
+        colour="yellow"
         iconType="nought"
-        disabled={oppositionIconType === "nought" && player === "comp"}
-        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+        disabled={oppositionIconType === "nought" && isPlayer2}
+        tabIndex={!isUserBackface && !isCompBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
         updateIconInfo={updateIconInfo}
         icon="wheel"
         iconType="nought"
-        disabled={oppositionIconType === "nought" && player === "comp"}
-        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+        disabled={oppositionIconType === "nought" && isPlayer2}
+        tabIndex={!isUserBackface && !isCompBackface ? "0" : "-1"}
         colour="orange"
       />
       <IconShowcaseBtn
         updateIconInfo={updateIconInfo}
         icon="button"
         iconType="nought"
-        disabled={oppositionIconType === "nought" && player === "comp"}
-        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+        disabled={oppositionIconType === "nought" && isPlayer2}
+        tabIndex={!isUserBackface && !isCompBackface ? "0" : "-1"}
         colour="lightBlue"
       />
       <IconShowcaseBtn
         updateIconInfo={updateIconInfo}
         icon="cross"
+        colour="red"
         iconType="cross"
-        disabled={oppositionIconType === "cross" && player === "comp"}
-        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+        disabled={oppositionIconType === "cross" && isPlayer2}
+        tabIndex={!isUserBackface && !isCompBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
         updateIconInfo={updateIconInfo}
         icon="swords"
+        colour="brown"
         iconType="cross"
-        disabled={oppositionIconType === "cross" && player === "comp"}
-        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+        disabled={oppositionIconType === "cross" && isPlayer2}
+        tabIndex={!isUserBackface && !isCompBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
         updateIconInfo={updateIconInfo}
         icon="candyCane"
+        colour="red"
         iconType="cross"
-        disabled={oppositionIconType === "cross" && player === "comp"}
-        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+        disabled={oppositionIconType === "cross" && isPlayer2}
+        tabIndex={!isUserBackface && !isCompBackface ? "0" : "-1"}
       />
       <IconShowcaseBtn
         updateIconInfo={updateIconInfo}
         icon="pencils"
         iconType="cross"
-        disabled={oppositionIconType === "cross" && player === "comp"}
-        tabIndex={!userBackface && !compBackface ? "0" : "-1"}
+        colour="gold"
+        disabled={oppositionIconType === "cross" && isPlayer2}
+        tabIndex={!isUserBackface && !isCompBackface ? "0" : "-1"}
       />
     </div>
   );
@@ -86,15 +94,13 @@ const IconShowcaseBtn = ({
     ? styles.iconShowcaseBtn
     : styles.iconShowcaseBtnDisabled;
   return (
-    <button
-      aria-label={icon}
+    <IconButton
       className={className}
       onClick={() => updateIconInfo(icon, iconType)}
       disabled={disabled}
-      tabIndex={tabIndex}
-    >
-      <Icon icon={icon} colour={colour} bgColour={"#fff"} />
-    </button>
+      icon={icon}
+      colour={colour}
+    />
   );
 };
 

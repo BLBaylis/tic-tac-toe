@@ -7,7 +7,7 @@ import { createLogger } from "redux-logger";
 
 import {
   gameStateReducer,
-  interfaceReducer,
+  iconSelectFlippedToggleReducer,
   iconInfoReducer
 } from "./reducers";
 import "./index.scss";
@@ -17,15 +17,15 @@ import TictactoeApp from "./TictactoeApp/TictactoeApp";
 const theme = createMuiTheme({
   palette: {
     primary: {
-      light: "#aeffdf",
+      light: "#48ae7e",
       main: "#7be0ad",
-      dark: "#48ae7e",
+      dark: "#aeffdf",
       contrastText: "#000"
     },
     secondary: {
-      light: "#ffdd84",
+      light: "#c27c26",
       main: "#f9ab55",
-      dark: "#c27c26",
+      dark: "#ffdd84",
       contrastText: "#000"
     }
   },
@@ -34,12 +34,21 @@ const theme = createMuiTheme({
       ","
     ),
     fontSize: 13.99
+  },
+  overrides: {
+    MuiFormLabel: {
+      root: {
+        "&$focused": {
+          color: "#c27c26"
+        }
+      }
+    }
   }
 });
 
 const reducers = combineReducers({
   gameStateReducer,
-  interfaceReducer,
+  iconSelectFlippedToggleReducer,
   iconInfoReducer
 });
 

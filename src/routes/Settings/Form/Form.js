@@ -1,10 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  restartGame,
-  restartGameThenCompMove,
-  changeRoute
-} from "../../../actions";
+import { restartGame, restartGameThenCompMove } from "../../../actions";
 
 import { withStyles } from "@material-ui/core/styles";
 import { Button } from "@material-ui/core";
@@ -32,7 +28,6 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  changeRoute: route => dispatch(changeRoute(route)),
   restartGame: (gridSize, firstMove, gameMode) =>
     dispatch(restartGame(gridSize, firstMove, gameMode)),
   restartGameThenCompMove: (gridSize, firstMove) =>
@@ -55,9 +50,8 @@ class Form extends Component {
     const gridSize = this.getData("gridSize");
     const firstMove = this.getData("firstMove");
     const gameMode = this.getData("gameMode");
-    console.log(gridSize, firstMove, gameMode);
     this.restartGame(gridSize, firstMove, gameMode);
-    this.props.changeRoute("gameScreen");
+    this.props.changeRoute("game");
   };
 
   restartGame = (gridSize, firstMove, gameMode) => {
@@ -89,16 +83,6 @@ class Form extends Component {
           handleChange={this.handleChange}
         />
         <RadioButtonsGroupRow
-          fieldSetPublic={"First Move Player"}
-          fieldSetPrivate={"firstMove"}
-          currentFieldSetValue={this.getData("firstMove")}
-          formControlLabelInfo={[
-            { value: "user", label: "User" },
-            { value: "comp", label: "Comp" }
-          ]}
-          handleChange={this.handleChange}
-        />
-        <RadioButtonsGroupRow
           fieldSetPublic={"Game Type"}
           fieldSetPrivate={"gameMode"}
           currentFieldSetValue={this.getData("gameMode")}
@@ -106,6 +90,23 @@ class Form extends Component {
             { value: "vsComp", label: "VS Comp" },
             { value: "pvp", label: "Local 2 Player" }
           ]}
+          handleChange={this.handleChange}
+        />
+        <RadioButtonsGroupRow
+          fieldSetPublic={"First Move Player"}
+          fieldSetPrivate={"firstMove"}
+          currentFieldSetValue={this.getData("firstMove")}
+          formControlLabelInfo={
+            this.state.gameMode === "pvp"
+              ? [
+                  { value: "user", label: "Player 1" },
+                  { value: "comp", label: "Player 2" }
+                ]
+              : [
+                  { value: "user", label: "User" },
+                  { value: "comp", label: "Comp" }
+                ]
+          }
           handleChange={this.handleChange}
         />
         <Button className={classes.button} type="submit" variant="contained">

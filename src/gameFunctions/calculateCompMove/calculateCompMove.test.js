@@ -139,8 +139,8 @@ describe("calculateCompMove", () => {
       null,
       null
     ]);
-    expect(result1).toEqual([3]);
-    expect(result2).toEqual([8]);
+    expect(result1).toEqual(3);
+    expect(result2).toEqual(8);
     expect(result3).toEqual([8, 16]);
   });
 });

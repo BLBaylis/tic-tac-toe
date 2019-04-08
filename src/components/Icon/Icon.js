@@ -1,28 +1,33 @@
 import React from "react";
-import Button from "./SvgIcons/Button";
-import CandyCane from "./SvgIcons/CandyCane";
-import Circle from "./SvgIcons/Circle";
-import Cross from "./SvgIcons/Cross";
-import Pencils from "./SvgIcons/Pencils";
-import Smiley from "./SvgIcons/Smiley";
-import Swords from "./SvgIcons/Swords";
-import Wheel from "./SvgIcons/Wheel";
+import Button from "./SvgComponents/Button";
+import CandyCane from "./SvgComponents/CandyCane";
+import Circle from "./SvgComponents/Circle";
+import Cross from "./SvgComponents/Cross";
+import Pencils from "./SvgComponents/Pencils";
+import Smiley from "./SvgComponents/Smiley";
+import Swords from "./SvgComponents/Swords";
+import Wheel from "./SvgComponents/Wheel";
+import SvgIcon from "./SvgIcon/SvgIcon";
 import { hex } from "color-convert";
-import { withStyles } from "@material-ui/core/styles";
 
-const Icon = ({ icon, colour, bgColour = bgColourCalculator(colour) }) => {
+const Icon = ({
+  colour,
+  bgColour = bgColourCalculator(colour),
+  className,
+  icon
+}) => {
   return (
     <React.Fragment>
-      {icon === "button" && <Button colour={colour} bgColour={bgColour} />}
-      {icon === "candyCane" && (
-        <CandyCane colour={colour} bgColour={bgColour} />
-      )}
-      {icon === "circle" && <Circle colour={colour} bgColour={bgColour} />}
-      {icon === "cross" && <Cross colour={colour} bgColour={bgColour} />}
-      {icon === "pencils" && <Pencils colour={colour} bgColour={bgColour} />}
-      {icon === "smiley" && <Smiley colour={colour} bgColour={bgColour} />}
-      {icon === "swords" && <Swords colour={colour} bgColour={bgColour} />}
-      {icon === "wheel" && <Wheel colour={colour} bgColour={bgColour} />}
+      <SvgIcon className={className} bgColour={bgColour}>
+        {icon === "button" && <Button colour={colour} />}
+        {icon === "candyCane" && <CandyCane colour={colour} />}
+        {icon === "circle" && <Circle colour={colour} />}
+        {icon === "cross" && <Cross colour={colour} />}
+        {icon === "pencils" && <Pencils colour={colour} />}
+        {icon === "smiley" && <Smiley colour={colour} />}
+        {icon === "swords" && <Swords colour={colour} />}
+        {icon === "wheel" && <Wheel colour={colour} />}
+      </SvgIcon>
     </React.Fragment>
   );
 };

@@ -3,26 +3,48 @@ import styles from "./IconSelect.module.scss";
 import IconEditor from "./IconEditor/IconEditor";
 import IconShowcase from "./IconShowcase/IconShowcase";
 import IconSelectNav from "./IconSelectNav/IconSelectNav";
+import { Typography } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+
+const jsStyles = {
+  typography: {
+    display: "flex",
+    fontSize: "calc(19px + 5 * ((100vw - 320px) / 280))",
+    "@media (orientation: landscape) and (min-width: 600px)": {
+      fontSize: "35px"
+    }
+  }
+};
 
 const IconSelect = ({
+  classes,
   player,
   iconInfo,
-  iconSelectFlipped,
-  iconSelectFuncs
+  flipped,
+  iconSelectFuncs,
+  gameMode
 }) => {
-  const { updateIconInfo } = iconSelectFuncs;
   const otherPlayer = player === "user" ? "comp" : "user";
+  const { updateIconInfo } = iconSelectFuncs;
+  const eitherCompOrPlayer2 = gameMode === "pvp" ? "PLAYER 2" : "COMP";
+  const eitherPlayerOrPlayer1 = gameMode === "pvp" ? "PLAYER 1" : "PLAYER";
+  const selectedPlayer =
+    player === "user" ? eitherPlayerOrPlayer1 : eitherCompOrPlayer2;
   return (
     <div className={styles.iconSelectWrapper}>
       <div className={styles.iconSelect}>
-        <h2 className={styles.heading}>
+        <Typography
+          variant="h2"
+          classes={{ root: classes.typography }}
+          className={styles.heading}
+        >
           SELECT&nbsp;
-          <span className={styles.highlight}>{player.toUpperCase()}</span>
+          <span className={styles.highlight}>{selectedPlayer}</span>
           &nbsp;ICON
-        </h2>
+        </Typography>
         <IconEditor
           player={player}
-          flipped={iconSelectFlipped}
+          flipped={flipped}
           updateIconInfo={newColour =>
             updateIconInfo(player, { iconColour: newColour })
           }
@@ -30,7 +52,7 @@ const IconSelect = ({
         />
         <IconShowcase
           player={player}
-          flipped={iconSelectFlipped}
+          flipped={flipped}
           oppositionIconType={iconInfo[`${otherPlayer}IconType`]}
           updateIconInfo={(newIcon, newIconType) =>
             updateIconInfo(player, {
@@ -49,4 +71,4 @@ const IconSelect = ({
   );
 };
 
-export default IconSelect;
+export default withStyles(jsStyles)(IconSelect);

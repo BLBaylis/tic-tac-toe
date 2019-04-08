@@ -1,5 +1,4 @@
 import React from "react";
-import { Button } from "@material-ui/core";
 import IconButton from "../../../components/IconButton/IconButton";
 
 import styles from "./IconPreview.module.scss";
@@ -17,7 +16,7 @@ const IconPreview = ({ iconInfo, changeRoute, toggleIconSelectFlipped }) => {
       <span className={styles.highlight}>VS</span>
       <IconButton
         onClick={() => {
-          changeRoute();
+          changeRoute("iconSelect");
           toggleIconSelectFlipped();
         }}
         className={styles.icon}

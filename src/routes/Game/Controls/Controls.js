@@ -1,17 +1,9 @@
 import React from "react";
-import { Button } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
 import ControlsButton from "./ControlsButton/ControlsButton";
 import styles from "./Controls.module.scss";
 
 const Controls = ({ clickHandlersObj }) => {
-  const {
-    restartGame,
-    undoTurn,
-    redoTurn,
-    test,
-    changeRoute
-  } = clickHandlersObj;
+  const { restartGame, undoTurn, redoTurn, changeRoute } = clickHandlersObj;
   return (
     <div className={styles.controls}>
       <ControlsButton
@@ -37,7 +29,7 @@ const Controls = ({ clickHandlersObj }) => {
         variant="contained"
         className={styles.settingsBtn}
         style={{ marginBottom: 0 }}
-        onClick={changeRoute}
+        onClick={() => changeRoute("settings")}
       >
         Settings
       </ControlsButton>

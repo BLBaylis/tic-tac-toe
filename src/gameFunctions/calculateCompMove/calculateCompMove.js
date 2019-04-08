@@ -40,7 +40,7 @@ const calculateCompMove = (gridSize, turnNo, gameBoard) => {
     gameBoard
   );
   if (bestMoves.length) {
-    return bestMoves;
+    return bestMoves.length === 1 ? bestMoves[0] : bestMoves;
   }
   return false;
 };

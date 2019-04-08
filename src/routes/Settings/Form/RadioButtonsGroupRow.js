@@ -31,7 +31,12 @@ const RadioButtonsGroupRow = ({
 }) => {
   return (
     <FormControl component="fieldset" className={classes.formControl}>
-      <FormLabel component="legend">{fieldSetPublic}</FormLabel>
+      <FormLabel
+        classes={{ root: classes.root, focused: classes.focused }}
+        component="legend"
+      >
+        {fieldSetPublic}
+      </FormLabel>
       <RadioGroup
         row
         aria-label={fieldSetPublic}
