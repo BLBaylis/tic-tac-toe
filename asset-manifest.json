@@ -1,14 +1,14 @@
 {
-  "main.css": "/tic-tac-toe-v2/static/css/main.3eaa5625.chunk.css",
-  "main.js": "/tic-tac-toe-v2/static/js/main.ed0ec20c.chunk.js",
-  "main.js.map": "/tic-tac-toe-v2/static/js/main.ed0ec20c.chunk.js.map",
-  "static/js/1.7643fffd.chunk.js": "/tic-tac-toe-v2/static/js/1.7643fffd.chunk.js",
-  "static/js/1.7643fffd.chunk.js.map": "/tic-tac-toe-v2/static/js/1.7643fffd.chunk.js.map",
-  "runtime~main.js": "/tic-tac-toe-v2/static/js/runtime~main.c0657ea4.js",
-  "runtime~main.js.map": "/tic-tac-toe-v2/static/js/runtime~main.c0657ea4.js.map",
-  "static/media/arrow.svg": "/tic-tac-toe-v2/static/media/arrow.c07e052d.svg",
-  "static/css/main.3eaa5625.chunk.css.map": "/tic-tac-toe-v2/static/css/main.3eaa5625.chunk.css.map",
+  "main.css": "/tic-tac-toe-v2/static/css/main.eb50a419.chunk.css",
+  "main.js": "/tic-tac-toe-v2/static/js/main.0d077b26.chunk.js",
+  "main.js.map": "/tic-tac-toe-v2/static/js/main.0d077b26.chunk.js.map",
+  "runtime~main.js": "/tic-tac-toe-v2/static/js/runtime~main.2a39cfc5.js",
+  "runtime~main.js.map": "/tic-tac-toe-v2/static/js/runtime~main.2a39cfc5.js.map",
+  "static/js/2.4070101f.chunk.js": "/tic-tac-toe-v2/static/js/2.4070101f.chunk.js",
+  "static/js/2.4070101f.chunk.js.map": "/tic-tac-toe-v2/static/js/2.4070101f.chunk.js.map",
   "index.html": "/tic-tac-toe-v2/index.html",
-  "precache-manifest.531c4cb64bc47482edb63b4564c76799.js": "/tic-tac-toe-v2/precache-manifest.531c4cb64bc47482edb63b4564c76799.js",
-  "service-worker.js": "/tic-tac-toe-v2/service-worker.js"
+  "precache-manifest.5ae7aa78f861607de74a025db2a87784.js": "/tic-tac-toe-v2/precache-manifest.5ae7aa78f861607de74a025db2a87784.js",
+  "service-worker.js": "/tic-tac-toe-v2/service-worker.js",
+  "static/css/main.eb50a419.chunk.css.map": "/tic-tac-toe-v2/static/css/main.eb50a419.chunk.css.map",
+  "static/media/index.scss": "/tic-tac-toe-v2/static/media/BioRhyme-Regular.9903717e.ttf"
 }
