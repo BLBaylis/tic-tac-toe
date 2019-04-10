@@ -1,5 +1,5 @@
 {
-  "main.css": "/tic-tac-toe-v2/static/css/main.40828ff6.chunk.css",
+  "main.css": "/tic-tac-toe-v2/static/css/main.ffe9f9f3.chunk.css",
   "main.js": "/tic-tac-toe-v2/static/js/main.0d077b26.chunk.js",
   "main.js.map": "/tic-tac-toe-v2/static/js/main.0d077b26.chunk.js.map",
   "runtime~main.js": "/tic-tac-toe-v2/static/js/runtime~main.2a39cfc5.js",
@@ -7,8 +7,8 @@
   "static/js/2.4070101f.chunk.js": "/tic-tac-toe-v2/static/js/2.4070101f.chunk.js",
   "static/js/2.4070101f.chunk.js.map": "/tic-tac-toe-v2/static/js/2.4070101f.chunk.js.map",
   "index.html": "/tic-tac-toe-v2/index.html",
-  "precache-manifest.6ab9abd0fd45cf27d239200f1c9ddf47.js": "/tic-tac-toe-v2/precache-manifest.6ab9abd0fd45cf27d239200f1c9ddf47.js",
+  "precache-manifest.5670144e3faa0a9813732ecae8307f7f.js": "/tic-tac-toe-v2/precache-manifest.5670144e3faa0a9813732ecae8307f7f.js",
   "service-worker.js": "/tic-tac-toe-v2/service-worker.js",
-  "static/css/main.40828ff6.chunk.css.map": "/tic-tac-toe-v2/static/css/main.40828ff6.chunk.css.map",
+  "static/css/main.ffe9f9f3.chunk.css.map": "/tic-tac-toe-v2/static/css/main.ffe9f9f3.chunk.css.map",
   "static/media/index.scss": "/tic-tac-toe-v2/static/media/BioRhyme-Regular.9903717e.ttf"
 }
