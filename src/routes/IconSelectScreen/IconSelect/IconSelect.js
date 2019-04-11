@@ -3,6 +3,7 @@ import styles from "./IconSelect.module.scss";
 import IconEditor from "./IconEditor/IconEditor";
 import IconShowcase from "./IconShowcase/IconShowcase";
 import IconSelectNav from "./IconSelectNav/IconSelectNav";
+import FourByThreeAspectRatioDiv from "../../../components/FourByThreeAspectRatioDiv/FourByThreeAspectRatioDiv";
 import { Typography } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 
@@ -24,14 +25,14 @@ const IconSelect = ({
   iconSelectFuncs,
   gameMode
 }) => {
-  const otherPlayer = player === "user" ? "comp" : "user";
   const { updateIconInfo } = iconSelectFuncs;
+  const otherPlayer = player === "user" ? "comp" : "user";
   const eitherCompOrPlayer2 = gameMode === "pvp" ? "PLAYER 2" : "COMP";
   const eitherPlayerOrPlayer1 = gameMode === "pvp" ? "PLAYER 1" : "PLAYER";
   const selectedPlayer =
     player === "user" ? eitherPlayerOrPlayer1 : eitherCompOrPlayer2;
   return (
-    <div className={styles.iconSelectWrapper}>
+    <FourByThreeAspectRatioDiv>
       <div className={styles.iconSelect}>
         <Typography
           variant="h2"
@@ -67,7 +68,7 @@ const IconSelect = ({
           iconSelectFuncs={iconSelectFuncs}
         />
       </div>
-    </div>
+    </FourByThreeAspectRatioDiv>
   );
 };
 

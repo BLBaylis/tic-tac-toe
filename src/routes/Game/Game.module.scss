@@ -1,5 +1,5 @@
 .gameScreen {
-  padding: 2.083vh;
+  padding: 2.083%;
   position: relative;
   top: 50%;
   transform: translateY(-50%);
@@ -11,17 +11,10 @@
 
 @media (orientation: landscape) {
   .gameScreenWrapper {
-    position: relative;
     top: 50%;
+    left: 0;
     transform: translateY(-50%);
-    margin: 0 auto;
     padding: 2.08%;
-    min-height: 300px;
-    height: 63.47vw;
-    max-height: 99vh;
-    min-width: 460px;
-    width: 146.47vh;
-    max-width: 94.07vw;
   }
 
   .gameScreen {

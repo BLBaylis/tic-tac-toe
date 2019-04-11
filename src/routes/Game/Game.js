@@ -12,9 +12,8 @@ import IconPreview from "./IconPreview/IconPreview";
 import Grid from "./Grid/Grid";
 import Controls from "./Controls/Controls";
 import GameSquare from "./GameSquare/GameSquare";
+import FourByThreeAspectRatioDiv from "../../components/FourByThreeAspectRatioDiv/FourByThreeAspectRatioDiv";
 
-import simulateGame from "../../gameFunctions/testing/simulateGame";
-import recordGameResults from "../../gameFunctions/testing/recordGameResults";
 import { generateIndexArr } from "../../gameFunctions/helperFunctions/helperFunctions";
 
 import styles from "./Game.module.scss";
@@ -45,7 +44,6 @@ class Game extends Component {
       return;
     }
     if (gameMode === "vsComp") {
-      //debugger;
       return this.props.makeUserMoveThenCompMove(squareNumber);
     } else {
       return this.props.makeUserMove(squareNumber);
@@ -74,29 +72,6 @@ class Game extends Component {
     ));
   };
 
-  test = amountOfGames => {
-    let result;
-    let counters = {
-      userCounter: 0,
-      compCounter: 0,
-      drawCounter: 0,
-      noOutcome: 0,
-      userWinsLog: [],
-      noOutcomeLog: [],
-      randomGamesLog: []
-    };
-    const { gridSize, firstMove } = this.props.gameState;
-    for (let gamesPlayed = 0; gamesPlayed < amountOfGames; gamesPlayed++) {
-      result = simulateGame(firstMove, gridSize);
-      if (gamesPlayed % (amountOfGames / 20) === 0) {
-        console.log(`${(gamesPlayed / amountOfGames) * 100}% done!`);
-      }
-      counters = recordGameResults(result, counters);
-      this.restartGame();
-    }
-    console.log(counters);
-  };
-
   render() {
     const {
       iconInfo,
@@ -113,7 +88,8 @@ class Game extends Component {
       changeRoute
     };
     return (
-      <div className={styles.gameScreenWrapper}>
+
+      <FourByThreeAspectRatioDiv className={styles.gameScreenWrapper}>
         <div className={styles.gameScreen}>
           <IconPreview
             iconInfo={iconInfo}
@@ -128,7 +104,7 @@ class Game extends Component {
           />
           <Controls clickHandlersObj={clickHandlersObj} />
         </div>
-      </div>
+      </FourByThreeAspectRatioDiv>
     );
   }
 }

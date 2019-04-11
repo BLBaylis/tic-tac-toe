@@ -12,6 +12,11 @@ body {
   height: 100%;
 }
 
+body {
+  position:fixed;
+  width: 100%;
+}
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -26,6 +31,10 @@ code {
   position: relative;
   height: 100%;
   width: 100%;
+}
+
+.wrapper {
+  height: 320px
 }
 
 .reactCSSTransitionGroup {

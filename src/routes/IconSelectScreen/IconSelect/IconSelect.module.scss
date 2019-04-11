@@ -1,24 +1,11 @@
-.iconSelectWrapper {
-  position: relative;
-  background-color: #f8f9fa;
-  border: solid 1px #f8f9fa;
-  height: calc(150vw - 20px);
-  max-height: calc(100vh - 20px);
-  min-width: 300px;
-  width: calc(66vh - 20px);
-  max-width: calc(100vw - 20px);
-  margin: 0 auto;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
 .iconSelect {
   height: 100%;
-  width: 100%;
+  width: 97%;
   display: grid;
   grid-template-rows: 7.5% 45% 30% 10%;
   row-gap: 2.5%;
   padding: 3.87%;
+  margin: 0 auto;
 }
 
 .heading {
@@ -42,12 +29,6 @@
 }
 
 @media (orientation: landscape) {
-  .iconSelectWrapper {
-    height: 70vw;
-    max-height: 100%;
-    width: 100vw;
-    max-width: 143vh;
-  }
 
   .iconSelect {
     grid-template-rows: 7.5% 70% 14.78%;
@@ -59,6 +40,7 @@
     row-gap: 3.86%;
     column-gap: 2.5%;
     padding: 2.5%;
+    width: 98.25%
   }
 
   .heading {
