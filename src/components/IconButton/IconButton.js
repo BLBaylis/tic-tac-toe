@@ -8,7 +8,7 @@ const styles = {
     display: "block",
     boxShadow:
       "0px 1px 5px 0px rgba(0,0,0,0.2), 0px 2px 2px 0px rgba(0,0,0,0.14), 0px 3px 1px -2px rgba(0,0,0,0.12)",
-    "&:hover": {
+    "&:hover, &:focus": {
       backgroundColor: "rgba(0, 0, 0, 0.08)"
     }
   },
@@ -22,19 +22,17 @@ const styles = {
 };
 
 const IconButton = ({
-  onClick,
   className,
   classes,
-  disabled,
   icon,
-  colour
+  colour,
+  ...otherProps
 }) => {
   return (
     <ButtonBase
-      disabled={disabled}
       variant="contained"
-      onClick={onClick}
       classes={{ root: `${classes.buttonBase} ${className}` }}
+      {...otherProps}
     >
       <Icon className={classes.icon} icon={icon} colour={colour} />
     </ButtonBase>

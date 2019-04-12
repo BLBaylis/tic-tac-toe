@@ -35,6 +35,8 @@ const GameModeCard = ({
         variant="contained"
         onMouseOver={() => changeHoverState(true)}
         onMouseLeave={() => changeHoverState(false)}
+        onFocus={() => changeHoverState(true)}
+        onBlur={() => changeHoverState(false)}
         onClick={onClick}
       >
         {label}

@@ -8,6 +8,7 @@ const IconPreview = ({ iconInfo, changeRoute, toggleIconSelectFlipped }) => {
   return (
     <div className={styles.iconPreviewWrapper}>
       <IconButton
+        tabIndex="2"
         onClick={changeRoute}
         className={styles.icon}
         icon={userIcon}
@@ -15,6 +16,7 @@ const IconPreview = ({ iconInfo, changeRoute, toggleIconSelectFlipped }) => {
       />
       <span className={styles.highlight}>VS</span>
       <IconButton
+        tabIndex="2"
         onClick={() => {
           changeRoute("iconSelect");
           toggleIconSelectFlipped();

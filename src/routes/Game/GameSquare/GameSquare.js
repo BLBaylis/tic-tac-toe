@@ -10,6 +10,7 @@ const GameSquare = ({ value, onClick, iconInfo, keyProp }) => {
       aria-label="grid square"
       className={styles.gameSquare}
       onClick={onClick}
+      tabIndex="1"
     >
       <ReactCSSTransitionGroup
         transitionName="fade"
