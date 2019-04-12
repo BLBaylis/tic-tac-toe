@@ -31,7 +31,6 @@ const GameModeCard = ({
     <Card raised className={classes.card}>
       {children}
       <Button
-        size="large"
         color={colour}
         variant="contained"
         onMouseOver={() => changeHoverState(true)}

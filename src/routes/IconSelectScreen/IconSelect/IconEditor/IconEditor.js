@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./IconEditor.module.scss";
 import Icon from "../../../../components/Icon/Icon";
 import { Card } from "@material-ui/core";
-import Paintbrush from "../Paintbrush";
+import Paintbrush from "./Paintbrush";
 import { hex } from "color-convert";
 
 const IconEditor = ({ iconInfo, updateIconInfo, player, flipped }) => {

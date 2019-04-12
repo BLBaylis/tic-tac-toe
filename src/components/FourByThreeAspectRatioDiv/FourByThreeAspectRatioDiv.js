@@ -7,7 +7,7 @@ const styles = {
   fourByThreeAspectRatioDiv : {
     position: "absolute",
     backgroundColor: "#f8f9fa",
-    border: "solid 1px #f8f9fa",
+    overflow: "hidden",
     height: "150vw",
     maxHeight: "100%",
     margin: "0 auto",
@@ -15,7 +15,7 @@ const styles = {
     left: "50%",
     transform: "translate(-50%, -50%)",
     '@media (orientation : landscape)' : {
-      height: "66vw",
+      height: "66.66vw",
       maxHeight: "100%",
       width: "auto",
       maxWidth: "100%",

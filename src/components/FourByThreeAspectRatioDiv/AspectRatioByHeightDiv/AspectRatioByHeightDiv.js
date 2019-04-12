@@ -15,7 +15,7 @@ const styles = {
     width: "100%",
     position: "absolute",
     top: 0,
-    left : 0
+    left : 0,
   }
 }
 

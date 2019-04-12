@@ -26,11 +26,11 @@ const styles = {
 };
 
 const Settings = ({ classes, changeRoute }) => {
-  const query700px = useMediaQuery("(min-width:700px)");
+  const query700x600 = useMediaQuery("(min-width:700px) and (min-height: 600px");
   return (
     <div className={classes.root}>
       <AppBar />
-      {query700px && (
+      {query700x600 && (
         <Grid
           className={classes.grid}
           container
@@ -43,7 +43,7 @@ const Settings = ({ classes, changeRoute }) => {
           </Card>
         </Grid>
       )}
-      {!query700px && (
+      {!query700x600 && (
         <Form changeRoute={changeRoute} className={classes.formMobile} />
       )}
     </div>

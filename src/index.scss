@@ -16,41 +16,4 @@ h2 {
 
 #root {
   height: 100%;
-  overflow: hidden;
-}
-
-.slide-enter {
-  transform: translateX(-100%);
-}
-
-.slide-enter-active {
-  transform: translateX(0);
-  transition: transform 300ms linear;
-}
-
-.slide-leave {
-  transform: translateX(0);
-  transition: transform 300ms linear;
-}
-
-.slide-leave-active {
-  transform: translateX(-100%);
-}
-
-.fade-enter {
-  opacity: 0.01;
-}
-
-.fade-enter-active {
-  opacity: 1;
-  transition: opacity 500ms linear !important;
-}
-
-.fade-leave {
-  opacity: 1;
-}
-
-.fade-leave-active {
-  opacity: 0.01;
-  transition: opacity 200ms linear !important;
 }

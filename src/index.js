@@ -30,10 +30,19 @@ const theme = createMuiTheme({
     }
   },
   typography: {
+    useNextVariants: true,
     fontFamily: ["BioRhyme", "Roboto", "Helvetica", "Arial", "sans-serif"].join(
       ","
     ),
-    fontSize: 13.99
+    fontSize: 13.99,
+    button: {
+      '@media (min-height: 764px) and (min-width: 764px)' : {
+        fontSize: "20px"
+      },
+      '@media (min-height: 1024px) and (min-width: 1024px)' : {
+        fontSize: "25px"
+      }
+    }
   },
   overrides: {
     MuiFormLabel: {
@@ -42,7 +51,7 @@ const theme = createMuiTheme({
           color: "#c27c26"
         }
       }
-    }
+    },
   }
 });
 

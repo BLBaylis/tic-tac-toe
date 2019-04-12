@@ -97,7 +97,7 @@ class Form extends Component {
           fieldSetPrivate={"firstMove"}
           currentFieldSetValue={this.getData("firstMove")}
           formControlLabelInfo={
-            this.state.gameMode === "pvp"
+            this.getData("gameMode") === "pvp"
               ? [
                   { value: "user", label: "Player 1" },
                   { value: "comp", label: "Player 2" }

@@ -10,8 +10,8 @@ const ControlsButton = props => {
 
 const landscapeStyles = {
   root: {
-    margin: "3.5% 0",
-    height: "23%"
+    display: "inline-block",
+    height: '100%'
   }
 };
 

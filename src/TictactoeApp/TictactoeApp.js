@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import GameModeSelect from "../routes/GameModeSelect/GameModeSelect";
+import GameModeSelect from "../routes/GameModeSelect";
 import Game from "../routes/Game/Game";
 import IconSelectScreen from "../routes/IconSelectScreen/IconSelectScreen";
 import Settings from "../routes/Settings/Settings";
